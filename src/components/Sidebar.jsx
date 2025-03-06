@@ -1,18 +1,18 @@
 import { BarChart2, Menu } from "lucide-react"
 import { useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { Link } from "react-router-dom";
+import { href, Link } from "react-router-dom";
 
 const SIDEBAR_ITEMS = [
     {
-        name:"Overview", icon:BarChart2, color:"#6366f1", path:"/"
+        name:"Overview", icon:BarChart2, color:"#6366f1", href:"/"
     },
-    {name: "NPS", icon:BarChart2, color:"#f43f5e", path:"/Nps"},
-    {name: "Odds", icon:BarChart2, color:"#10b981", path:"/Odds"},
-    {name: "Complaint", icon:BarChart2, color:"#3b82f6", path:"/Complaint"},
-    {name: "Feedback", icon:BarChart2, color:"#f59e0b", path:"/Feedback"},
-    {name: "Clients", icon:BarChart2, color:"#ef4444", path:"/Clients"},
-    {name: "Search", icon:BarChart2, color:"#6366f1", path:"/Search"},
+    {name: "NPS", icon:BarChart2, color:"#f43f5e", href:"/Nps"},
+    {name: "Odds", icon:BarChart2, color:"#10b981", href:"/Odds"},
+    {name: "Complaint", icon:BarChart2, color:"#3b82f6", href:"/Complaint"},
+    {name: "Feedback", icon:BarChart2, color:"#f59e0b", href:"/Feedback"},
+    {name: "Clients", icon:BarChart2, color:"#ef4444", href:"/Clients"},
+    {name: "Search", icon:BarChart2, color:"#6366f1", href:"/Search"},
 ];
 
 const Sidebar = () => {
