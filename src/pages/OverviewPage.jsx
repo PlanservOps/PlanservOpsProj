@@ -3,6 +3,7 @@ import Header from '../components/common/Header'
 import { motion } from 'framer-motion'
 import StatsCards from '../components/common/StatsCards'
 import { BarChart2, ShoppingBag, Users, Zap } from 'lucide-react'
+import ProgressOverviewChart from '../components/overview/ProgressOverviewChart'
 
 const OverviewPage = () => {
   return (
@@ -25,6 +26,11 @@ const OverviewPage = () => {
 
         </motion.div>
 
+        {/* CHARTS */}
+
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+          <ProgressOverviewChart />
+        </div>
       </main>
     </div>
   )
