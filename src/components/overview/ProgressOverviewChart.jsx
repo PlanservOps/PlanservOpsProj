@@ -42,7 +42,7 @@ const ProgressOverviewChart = () => {
                             borderColor: "#4B5563",
                         }}
                         itemStyle={{ color: "#E5E7EB" }}
-                    >
+                    />
                         <Line
 							type='monotone'
 							dataKey='progress'
@@ -51,7 +51,6 @@ const ProgressOverviewChart = () => {
 							dot={{ fill: "#6366F1", strokeWidth: 2, r: 6 }}
 							activeDot={{ r: 8, strokeWidth: 2 }}
                         />    
-                    </Tooltip>
                 </LineChart>
             </ResponsiveContainer>
         </div>
