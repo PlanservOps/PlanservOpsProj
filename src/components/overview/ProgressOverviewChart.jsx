@@ -34,7 +34,7 @@ const ProgressOverviewChart = () => {
             <ResponsiveContainer width={"100%"} height={"100%"}>
                 <LineChart data={progressData}>
                     <CartesianGrid strokeDasharray='3 3' stroke='#4b5563'/>
-                    <XAxis dataKey={"name"}/>
+                    <XAxis dataKey={"name"} stroke="#9ca3af"/>
                     <YAxis stroke="#9ca3af"/>
                     <Tooltip
                         contentStyle={{
