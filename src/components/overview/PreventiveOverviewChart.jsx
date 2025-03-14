@@ -2,23 +2,23 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { motion } from "framer-motion";
 
 const progressData = [
-	{ name: "Jul", progress: 4200 },
-	{ name: "Aug", progress: 3800 },
-	{ name: "Sep", progress: 5100 },
-	{ name: "Oct", progress: 4600 },
-	{ name: "Nov", progress: 5400 },
-	{ name: "Dec", progress: 7200 },
-	{ name: "Jan", progress: 6100 },
-	{ name: "Feb", progress: 5900 },
-	{ name: "Mar", progress: 6800 },
-	{ name: "Apr", progress: 6300 },
-	{ name: "May", progress: 7100 },
-	{ name: "Jun", progress: 7500 },
+	{ name: "Jul", progress: 20 },
+	{ name: "Aug", progress: 25 },
+	{ name: "Sep", progress: 30 },
+	{ name: "Oct", progress: 28 },
+	{ name: "Nov", progress: 40 },
+	{ name: "Dec", progress: 35 },
+	{ name: "Jan", progress: 30 },
+	{ name: "Feb", progress: 28 },
+	{ name: "Mar", progress: 30 },
+	{ name: "Apr", progress: 22 },
+	{ name: "May", progress: 25 },
+	{ name: "Jun", progress: 16 },
 ];
 
 import React from 'react'
 
-const ProgressOverviewChart = () => {
+const PreventiveOverviewChart = () => {
   return (
     <motion.div
     className='bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-700'
@@ -28,7 +28,7 @@ const ProgressOverviewChart = () => {
     >
         <h2
             className='text-lg font-medium mb-4 text-gray-100'
-        >Progress Overview</h2>
+        >Visitas Prenventivas</h2>
 
         <div className="h-80">
             <ResponsiveContainer width={"100%"} height={"100%"}>
@@ -46,9 +46,9 @@ const ProgressOverviewChart = () => {
                         <Line
 							type='monotone'
 							dataKey='progress'
-							stroke='#6366F1'
+							stroke='#10B981'
 							strokeWidth={3}
-							dot={{ fill: "#6366F1", strokeWidth: 2, r: 6 }}
+							dot={{ fill: "#10B981", strokeWidth: 2, r: 6 }}
 							activeDot={{ r: 8, strokeWidth: 2 }}
                         />    
                 </LineChart>
@@ -58,4 +58,4 @@ const ProgressOverviewChart = () => {
   )
 }
 
-export default ProgressOverviewChart
+export default PreventiveOverviewChart

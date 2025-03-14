@@ -1,18 +1,18 @@
-import { BarChart2, Menu } from "lucide-react"
+import { Menu, TableOfContents, Users, ShieldAlert, Columns2, MessageSquareMore, MessageCircleWarning, Search } from "lucide-react"
 import { useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { href, Link } from "react-router-dom";
 
 const SIDEBAR_ITEMS = [
     {
-        name:"Overview", icon:BarChart2, color:"#6366f1", href:"/"
+        name:"Overview", icon:TableOfContents, color:"#10B981", href:"/"
     },
-    {name: "NPS", icon:BarChart2, color:"#f43f5e", href:"/Nps"},
-    {name: "Odds", icon:BarChart2, color:"#10b981", href:"/Odds"},
-    {name: "Complaint", icon:BarChart2, color:"#3b82f6", href:"/Complaint"},
-    {name: "Feedback", icon:BarChart2, color:"#f59e0b", href:"/Feedback"},
-    {name: "Clients", icon:BarChart2, color:"#ef4444", href:"/Clients"},
-    {name: "Search", icon:BarChart2, color:"#6366f1", href:"/Search"},
+    {name: "Clientes", icon:Users, color:"#10B981", href:"/Clientes"},
+    {name: "Ocorrências", icon:ShieldAlert, color:"#10B981", href:"/Ocorrencias"},
+    {name: "Avaliações", icon:Columns2, color:"#10B981", href:"/Avaliacoes"},
+    {name: "Feedback", icon:MessageSquareMore, color:"#10B981", href:"/Feedback"},
+    {name: "Reclamações", icon:MessageCircleWarning, color:"#10B981", href:"/Reclamacoes"},
+    {name: "Pesquisar", icon:Search, color:"#10B981", href:"/Pesquisa"},
 ];
 
 const Sidebar = () => {
