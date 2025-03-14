@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import StatsCards from '../components/common/StatsCards'
 import { BarChart2, ShoppingBag, Users, Zap } from 'lucide-react'
 import ProgressOverviewChart from '../components/overview/ProgressOverviewChart'
+import IndexNpsChart from '../components/overview/IndexNpsChart'
 
 const OverviewPage = () => {
   return (
@@ -30,6 +31,7 @@ const OverviewPage = () => {
 
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
           <ProgressOverviewChart />
+          <IndexNpsChart />
         </div>
       </main>
     </div>
