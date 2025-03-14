@@ -4,10 +4,10 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 const COLORS = ["#6366F1", "#8B5CF6", "#EC4899", "#10B981", "#F59E0B"];
 
 const INDEX_NPS_DATA = [
-	{ name: "Website", value: 45600 },
-	{ name: "Nps", value: 38200 },
-	{ name: "Operacional", value: 29800 },
-	{ name: "Dados", value: 18700 },
+	{ name: "Preventivas", value: 25 },
+	{ name: "Corretivas", value: 20 },
+	{ name: "Não Atendidas", value: 15 },
+	{ name: "Totais", value: 30 },
 ];
 
 const IndexNpsChart = () => {

@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom"
 
 import OverviewPage from "./pages/OverviewPage"
-import NpsPage from "./pages/NpsPage"
+import UsersPage from "./pages/UsersPage"
 
 import Sidebar from "./components/Sidebar"
 
@@ -19,7 +19,7 @@ function App() {
       <Sidebar/>  
       <Routes>
         <Route path='/' element={<OverviewPage/>}/>
-        <Route path='/Nps' element={<NpsPage/>}/>
+        <Route path='/Users' element={<UsersPage/>}/>
       </Routes>
     </div>
   )

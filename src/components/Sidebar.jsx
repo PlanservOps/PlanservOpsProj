@@ -7,7 +7,7 @@ const SIDEBAR_ITEMS = [
     {
         name:"Overview", icon:TableOfContents, color:"#10B981", href:"/"
     },
-    {name: "Clientes", icon:Users, color:"#10B981", href:"/Clientes"},
+    {name: "Clientes", icon:Users, color:"#10B981", href:"/Users"},
     {name: "Ocorrências", icon:ShieldAlert, color:"#10B981", href:"/Ocorrencias"},
     {name: "Avaliações", icon:Columns2, color:"#10B981", href:"/Avaliacoes"},
     {name: "Feedback", icon:MessageSquareMore, color:"#10B981", href:"/Feedback"},
