@@ -113,6 +113,14 @@ const userData = [
                                 <td className='px-6 py-4 whitespace-nowrap'>
 									<div className='text-sm text-gray-300'>{user.hood}</div>
 								</td>
+                                <td className='px-6 py-4 whitespace-nowrap'>
+									<div className='text-sm text-gray-300'>{user.outsourced}</div>
+								</td>
+
+                                <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
+									<button className='text-indigo-400 hover:text-indigo-300 mr-2'>Edit</button>
+									<button className='text-red-400 hover:text-red-300'>Delete</button>
+								</td>
 
                             </motion.tr>
                     ))}
