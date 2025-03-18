@@ -20,6 +20,7 @@ function App() {
       <Routes>
         <Route path='/' element={<OverviewPage/>}/>
         <Route path='/Users' element={<UsersPage/>}/>
+        <Route path='/Settings' element={<SettingsPage/>}/>
       </Routes>
     </div>
   )
