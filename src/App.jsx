@@ -4,6 +4,7 @@ import OverviewPage from "./pages/OverviewPage"
 import UsersPage from "./pages/UsersPage"
 
 import Sidebar from "./components/Sidebar"
+import SettingsPage from "./pages/SettingsPage"
 
 function App() {
   return (
