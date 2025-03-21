@@ -4,6 +4,8 @@
 
 O objetivo desse projeto é desenvolver um frontend com interface personalizada, atendendo as necessidades da empresa Planserv e melhorando a visualização das suas atividades operacionais, assim como estrategicamente analisar os dados que serão coletados com a utilização da aplicação. 
 
+O projeto conta com: Telas de cadastro e login, sistema principal exibindo as principais páginas com suas devidas funções
+
 ### Sobre o projeto
 
 Painel Admin com sessões de Overview, pessoas, perfil, configurações...
