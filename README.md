@@ -47,7 +47,7 @@ O projeto conta com: Telas de cadastro e login, sistema principal exibindo as pr
 > Obs: o seguinte tutorial apenas serve para usuários WINDOWS.
 
 1. **INSTALE O VS CODE**
-   Você pode seguir o seguinte tutorial: https://www.youtube.com/watch?v=QT-YWT1-YI4
+   Você pode seguir o seguinte tutorial: [Tutorial de instalação VS Code]( https://www.youtube.com/watch?v=QT-YWT1-YI4) 
 
 2. Clone o Repositório.
 
