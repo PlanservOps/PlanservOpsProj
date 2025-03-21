@@ -10,7 +10,7 @@ O uso dessa versão tem como objetivo a avaliação dos elementos visuais contid
 
 O projeto conta com: Telas de cadastro e login, sistema principal exibindo as principais páginas com suas devidas funções, sendo elas:
 
-- Tela de Cadastro e Login (Em desenvolvimento)
+- Tela de Cadastro e Login (Em desenvolvimento -> adicionando logo e integrando funcionalidade de resgate de acesso através de email caso senha seja perdida)
 
 - **Overview**:
   > Contando com **quatro** principais cards de status, que exibem: Número de Ocorrências por mês, Novas Ocorrências, Ocorrências Não Atendidas e Índice de Atendimento das ocorrências.
