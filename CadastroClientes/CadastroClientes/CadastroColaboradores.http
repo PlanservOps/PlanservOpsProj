@@ -1,0 +1,6 @@
+@CadastroColaboradores_HostAddress = http://localhost:5102
+
+GET {{CadastroColaboradores_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
