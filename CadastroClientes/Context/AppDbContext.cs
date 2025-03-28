@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CadastroClientes.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CadastroCliente.Context
 {
@@ -9,5 +10,7 @@ namespace CadastroCliente.Context
         }
 
         public DbSet<Cliente> Cliente { get; set; }
+
+        public DbSet<LeadsOperacionais> LeadsOperacionais { get; set; }
     }
 }
