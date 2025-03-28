@@ -1,4 +1,4 @@
-﻿using CadastroClientes.Models;
+﻿using CadastroCliente.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CadastroCliente.Context

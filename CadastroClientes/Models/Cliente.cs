@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CadastroCliente.Models
 {
     [Table("Cliente")]
-    public class Colaborador
+    public class Cliente
     {
         [Key]
         public int ColaboradorId { get; set; }

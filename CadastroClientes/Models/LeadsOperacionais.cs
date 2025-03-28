@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CadastroClientes.Models
+namespace CadastroCliente.Models
 {
     [Table("LeadsOperacionais")]
     public class LeadsOperacionais
