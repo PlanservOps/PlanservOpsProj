@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace CadastroColaboradores.Context
+namespace CadastroCliente.Context
 {
     public class AppDbContext : DbContext
     {
@@ -8,6 +8,6 @@ namespace CadastroColaboradores.Context
         {
         }
 
-        public DbSet<Colaborador> Colaboradores { get; set; }
+        public DbSet<Cliente> Cliente { get; set; }
     }
 }
