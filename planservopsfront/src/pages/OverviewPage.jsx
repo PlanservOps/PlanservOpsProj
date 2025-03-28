@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../components/common/Header'
 import { motion } from 'framer-motion'
 import StatsCards from '../components/common/StatsCards'
-import { BarChart2, BellPlus, Zap, TriangleAlert } from 'lucide-react'
+import { BarChart2, BellPlus, Zap, TriangleAlert, ShieldAlert } from 'lucide-react'
 import PreventiveOverviewChart from '../components/overview/PreventiveOverviewChart'
 import IndexNpsChart from '../components/overview/IndexNpsChart'
 import CorrectiveOverviewChart from '../components/overview/CorrectiveOverviewChart'
@@ -21,10 +21,10 @@ const OverviewPage = () => {
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 1 }}
         >
-          <StatsCards name='Ocorrências Por Mês' icon={Zap} value='50' color='#6366F1' />
 					<StatsCards name='Novas Ocorrências' icon={BellPlus} value='10' color='#8B5CF6' />
 					<StatsCards name='Não Atendidas' icon={TriangleAlert} value='8' color='#EC4899' />
 					<StatsCards name='Índice de Atendimento' icon={BarChart2} value='60.5%' color='#10B981' />
+          <StatsCards name= 'Reclamações' icon={ShieldAlert} value='5' color='#FF0000' />
 
         </motion.div>
 

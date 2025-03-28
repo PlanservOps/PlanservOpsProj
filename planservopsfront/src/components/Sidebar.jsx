@@ -9,9 +9,10 @@ const SIDEBAR_ITEMS = [
     },
     {name: "Clientes", icon:Users, color:"#10B981", href:"/Users"},
     {name: "Ocorrências", icon:ShieldAlert, color:"#10B981", href:"/Ocorrencias"},
-    {name: "Avaliações", icon:Columns2, color:"#10B981", href:"/Avaliacoes"},
-    {name: "Feedback", icon:MessageSquareMore, color:"#10B981", href:"/Feedback"},
     {name: "Reclamações", icon:MessageCircleWarning, color:"#10B981", href:"/Reclamacoes"},
+    {name: "Checklist", icon:Columns2, color:"#10B981", href:"/Checklist"},
+    {name: "Avaliações", icon:Columns2, color:"#10B981", href:"/Avaliacoes"},
+    {name: "Eficiência", icon:MessageSquareMore, color:"#10B981", href:"/Eficiência"},
     {name: "Pesquisar", icon:Search, color:"#10B981", href:"/Pesquisa"},
 ];
 
