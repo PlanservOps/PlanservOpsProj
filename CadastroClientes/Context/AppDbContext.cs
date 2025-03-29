@@ -11,6 +11,5 @@ namespace CadastroCliente.Context
 
         public DbSet<Cliente> Cliente { get; set; }
 
-        public DbSet<LeadsOperacionais> LeadsOperacionais { get; set; }
     }
 }
