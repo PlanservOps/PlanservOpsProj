@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CadastroClientes.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250329181054_Inicial")]
+    [Migration("20250331023150_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -24,7 +24,7 @@ namespace CadastroClientes.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CadastroCliente.Models.Cliente", b =>
+            modelBuilder.Entity("CadastroCliente.Models.ClienteTest", b =>
                 {
                     b.Property<int>("ColaboradorId")
                         .ValueGeneratedOnAdd()
@@ -36,16 +36,18 @@ namespace CadastroClientes.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Contato")
+                    b.Property<string>("ContatoResponsavel")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(400)
-                        .HasColumnType("nvarchar(400)");
-
                     b.Property<string>("Endereco")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Funcao")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FuncoesTerceirizadas")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -60,7 +62,7 @@ namespace CadastroClientes.Migrations
 
                     b.HasKey("ColaboradorId");
 
-                    b.ToTable("Cliente");
+                    b.ToTable("ClienteTest");
                 });
 #pragma warning restore 612, 618
         }

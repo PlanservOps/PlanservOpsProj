@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CadastroCliente.Models
 {
-    [Table("Cliente")]
-    public class Cliente
+    [Table("ClienteTest")]
+    public class ClienteTest
     {
         [Key]
         public int ColaboradorId { get; set; }
@@ -13,15 +13,19 @@ namespace CadastroCliente.Models
         [StringLength(400)]
         public string NomeResponsavel { get; set; }
         [Required]
-        public string Contato { get; set; }
-        //public string Contato { get; set; }
+        public string ContatoResponsavel { get; set; }
+        public FuncaoEnum Funcao { get; set; }
         [Required]
         public string Endereco { get; set; }
         [Required]
-        [EmailAddress]
-        [StringLength(400)]
-        public string Email { get; set; }
-        [Required]
         public string Bairro { get; set; }
+        public string FuncoesTerceirizadas { get; set; }
+
+        public enum FuncaoEnum
+        {
+            Sindica,
+            Sindico,
+            Gerente
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace CadastroCliente.Context
         {
         }
 
-        public DbSet<Cliente> Cliente { get; set; }
+        public DbSet<ClienteTest> ClienteTest { get; set; }
 
     }
 }
