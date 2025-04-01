@@ -7,19 +7,20 @@ namespace CadastroCliente.Models
     public class ClienteTest
     {
         [Key]
-        public int ColaboradorId { get; set; }
-        public string Posto { get; set; }
+        public int ClienteId { get; set; }
+        [Required]
+        public string ClientePosto { get; set; }
         [Required]
         [StringLength(400)]
-        public string NomeResponsavel { get; set; }
+        public string ClienteResponsavel { get; set; }
         [Required]
-        public string ContatoResponsavel { get; set; }
-        public FuncaoEnum Funcao { get; set; }
+        public string ClienteContato { get; set; }
+        public FuncaoEnum ClienteFuncaoResponsavel { get; set; }
         [Required]
-        public string Endereco { get; set; }
+        public string ClienteEndereco { get; set; }
         [Required]
-        public string Bairro { get; set; }
-        public string FuncoesTerceirizadas { get; set; }
+        public string ClienteBairro { get; set; }
+        public string ClienteFuncoesTerceirizadas { get; set; }
 
         public enum FuncaoEnum
         {

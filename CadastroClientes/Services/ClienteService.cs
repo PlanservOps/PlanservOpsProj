@@ -1,37 +1,56 @@
-﻿using CadastroCliente.Models;
+﻿using CadastroCliente.Context;
+using CadastroCliente.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CadastroClientes.Services
 {
     public class ClienteService : IClienteService
     {
-        public Task CreateCliente(ClienteTest cliente)
+        private readonly AppDbContext _context;
+
+        public ClienteService(AppDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task DeleteCliente(ClienteTest cliente)
+        public async Task<IEnumerable<ClienteTest>> GetClientes()
         {
-            throw new NotImplementedException();
+            //incluir filtro ou paginação de dados
+            return await _context.ClienteTest.ToListAsync();
         }
-
-        public Task<ClienteTest> GetCliente(int id)
+        public async Task<IEnumerable<ClienteTest>> GetClientesByClientePosto(string posto)
         {
-            throw new NotImplementedException();
+            IEnumerable<ClienteTest> cliente;
+            if (string.IsNullOrWhiteSpace(posto)) 
+            {
+                cliente = await _context.ClienteTest.Where(n=> n.ClientePosto.Contains(posto)).ToListAsync();
+            }
+            else
+            {
+                cliente = await GetClientes();
+            }
+            return cliente;
         }
-
-        public Task<IEnumerable<ClienteTest>> GetClienteS()
+        public async Task<ClienteTest> GetCliente(int id)
         {
-            throw new NotImplementedException();
+            //implementação simples - necessário tratamento de erros global 
+            var cliente = await _context.ClienteTest.FindAsync(id);
+            return cliente;
         }
-
-        public Task<IEnumerable<ClienteTest>> GetClientesByName(string nome)
+        public async Task CreateCliente(ClienteTest cliente)
         {
-            throw new NotImplementedException();
+            _context.ClienteTest.Add(cliente);
+            await _context.SaveChangesAsync();
         }
-
-        public Task UpdateCliente(ClienteTest cliente)
+        public async Task UpdateCliente(ClienteTest cliente)
         {
-            throw new NotImplementedException();
+            _context.Entry(cliente).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+        public async Task DeleteCliente(ClienteTest cliente)
+        {
+            _context.Update(cliente);
+            await _context.SaveChangesAsync();
         }
     }
 }

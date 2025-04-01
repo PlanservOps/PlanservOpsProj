@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CadastroClientes.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250331023150_Inicial")]
-    partial class Inicial
+    [Migration("20250401132502_inicial")]
+    partial class inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,41 +26,41 @@ namespace CadastroClientes.Migrations
 
             modelBuilder.Entity("CadastroCliente.Models.ClienteTest", b =>
                 {
-                    b.Property<int>("ColaboradorId")
+                    b.Property<int>("ClienteId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ColaboradorId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClienteId"));
 
-                    b.Property<string>("Bairro")
+                    b.Property<string>("ClienteBairro")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ContatoResponsavel")
+                    b.Property<string>("ClienteContato")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Endereco")
+                    b.Property<string>("ClienteEndereco")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Funcao")
+                    b.Property<int>("ClienteFuncaoResponsavel")
                         .HasColumnType("int");
 
-                    b.Property<string>("FuncoesTerceirizadas")
+                    b.Property<string>("ClienteFuncoesTerceirizadas")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NomeResponsavel")
+                    b.Property<string>("ClientePosto")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClienteResponsavel")
                         .IsRequired()
                         .HasMaxLength(400)
                         .HasColumnType("nvarchar(400)");
 
-                    b.Property<string>("Posto")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ColaboradorId");
+                    b.HasKey("ClienteId");
 
                     b.ToTable("ClienteTest");
                 });
