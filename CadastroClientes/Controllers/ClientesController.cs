@@ -29,5 +29,22 @@ namespace CadastroClientes.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao obter Clientes");
             }
         }
+
+        [HttpGet("ClientePorPosto")]
+        public async Task<ActionResult<IAsyncEnumerable<ClienteTest>>> GetClientesByClientePosto([FromQuery]string posto)
+        {
+            try
+            {
+                var clientes = await _clienteService.GetClientesByClientePosto(posto);
+                if (clientes.Count()==0)
+                    return NotFound($"Não existem clientes com o critério {posto}");
+                
+                return Ok(clientes);
+            }
+            catch
+            {
+                return BadRequest("Erro ao obter Clientes");
+            }
+        }
     }
 }
