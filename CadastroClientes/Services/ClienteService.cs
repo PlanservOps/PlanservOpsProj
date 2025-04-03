@@ -21,7 +21,7 @@ namespace CadastroClientes.Services
         public async Task<IEnumerable<ClienteTest>> GetClientesByClientePosto(string posto)
         {
             IEnumerable<ClienteTest> cliente;
-            if (string.IsNullOrWhiteSpace(posto)) 
+            if (!string.IsNullOrWhiteSpace(posto)) 
             {
                 cliente = await _context.ClienteTest.Where(n=> n.ClientePosto.Contains(posto)).ToListAsync();
             }
@@ -49,7 +49,7 @@ namespace CadastroClientes.Services
         }
         public async Task DeleteCliente(ClienteTest cliente)
         {
-            _context.Update(cliente);
+            _context.ClienteTest.Remove(cliente);
             await _context.SaveChangesAsync();
         }
     }

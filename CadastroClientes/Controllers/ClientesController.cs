@@ -1,6 +1,5 @@
 ﻿using CadastroCliente.Models;
 using CadastroClientes.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadastroClientes.Controllers
@@ -36,6 +35,7 @@ namespace CadastroClientes.Controllers
             try
             {
                 var clientes = await _clienteService.GetClientesByClientePosto(posto);
+
                 if (clientes.Count()==0)
                     return NotFound($"Não existem clientes com o critério {posto}");
                 
@@ -75,6 +75,50 @@ namespace CadastroClientes.Controllers
             catch
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao criar cliente");
+            }
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> UpdateCliente(int id, [FromBody] ClienteTest cliente)
+        {
+            try
+            {                
+                if (cliente.ClienteId == id)
+                {
+                    await _clienteService.UpdateCliente(cliente);
+                    return Ok($"Cliente com id={id} foi atualizado com sucesso");
+                }
+                else
+                {
+                    return BadRequest($"O id do cliente não confere com o id da URL");
+                }
+            }
+            catch
+            {
+                return BadRequest("Request inválido");
+            }
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> DeleteCliente(int id)
+        {
+            try
+            {
+                var cliente = await _clienteService.GetCliente(id);
+                if (cliente != null)
+                {
+                    await _clienteService.DeleteCliente(cliente);
+                    return Ok($"Cliente com id={id} foi excluído com sucesso");
+
+                }
+                else
+                {
+                    return NotFound($"Não existe cliente com id={id}");
+                }
+            }
+            catch
+            {
+                return BadRequest("Request inválido");
             }
         }
     }
