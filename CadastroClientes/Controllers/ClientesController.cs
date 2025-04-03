@@ -43,7 +43,38 @@ namespace CadastroClientes.Controllers
             }
             catch
             {
-                return BadRequest("Erro ao obter Clientes");
+                return BadRequest("Request inválido");
+            }
+        }
+
+        [HttpGet("{id:int}", Name="GetCliente")]
+        public async Task<ActionResult<ClienteTest>> GetCliente(int id)
+        {
+            try
+            {
+                var cliente = await _clienteService.GetCliente(id);
+                if (cliente == null)
+                    return NotFound($"Não existe cliente com id={id}");
+                
+                return Ok(cliente);
+            }
+            catch
+            {
+                return BadRequest("Request inválido");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<ClienteTest>> CreateCliente(ClienteTest cliente)
+        {
+            try
+            {               
+                await _clienteService.CreateCliente(cliente);
+                return CreatedAtRoute(nameof(GetCliente), new { id = cliente.ClienteId }, cliente);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao criar cliente");
             }
         }
     }
