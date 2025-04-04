@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react"
 import { Route, Routes } from "react-router-dom"
 
 import OverviewPage from "./pages/OverviewPage"
@@ -8,7 +9,19 @@ import SettingsPage from "./pages/SettingsPage"
 
 function App() {
 
-  const baseUrl="https://localhost:44355/api/cadastroClientes/";
+   //const baseUrl= "https://localhost:44355/api/cadastroClientes" ;
+
+  /*const [data, setData] = useState([]);
+
+  const requestData = async () => {
+    const response = await fetch(baseUrl);
+    const jsonData = await response.json();
+    setData(jsonData);
+  }
+
+  useEffect(() => {
+    requestData();
+  }) */
 
   return (
     <div className='flex h-screen bg-gray-900 text-gray-100 overflow-hidden'>
