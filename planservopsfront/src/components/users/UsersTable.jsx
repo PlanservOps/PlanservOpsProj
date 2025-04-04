@@ -32,6 +32,7 @@ const userData = [
 		>
             <div className='flex justify-between items-center mb-6'>
 				<h2 className='text-xl font-semibold text-gray-100'>Clientes</h2>
+				<button className=' bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors'>Adicionar Cliente</button>
 				<div className='relative'>
 					<input
 						type='text'
