@@ -2,13 +2,6 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
 
-/*const userData = [
-	{ id: 1, post: "Arvoredo", name: "John Doe", phone: "(46) 3357-0215", role: "Síndica", address: "Rua Salvador Turati", hood: "Conjunto Habitacional Monsenhor João Batista Toffoli", outsourced:"" },
-	{ id: 2, post: "Imperial Bessa", name: "Jane Smith", phone: "(83) 3255-4234m", role: "Gerente", address: "Rua Carlos Roberto Goldoni", hood: "Jardim Unesp", outsourced:"" },
-	{ id: 3, post: "Luxor Oceano", name: "Bob Johnson", phone: "(61) 2340-4836", role: "Síndico", address: "Rua Florindo Cibin", hood: "São Jerônimo", outsourced:"" },
-	{ id: 4, post: "Vert House", name: "Alice Brown", phone: "(66) 2759-6562", role: "Síndica", address: "Rua Wilson Vicente Guidugli", hood: "Jardim Gimenez", outsourced:"" },
-	{ id: 5, post: "ASSIF", name: "Charlie Wilson", phone: "(95) 3788-8555", role: "Gerente", address: "Rua Aparecido Gomes", hood: "Jardim Adélia II", outsourced:"" },
-];*/
 
 function UsersTable() {
 
