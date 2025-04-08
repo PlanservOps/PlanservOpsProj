@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { Search } from "lucide-react";
 
 
@@ -10,6 +9,31 @@ function UsersTable() {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [users, setUsers] = useState([]); // Lista original de usuários
 	const [filteredUsers, setFilteredUsers] = useState([]); // Lista filtrada
+
+	const [showForm, setShowForm] = useState(false);
+
+	const [newUser, setNewUser] = useState({
+		clientePosto: "",
+		clienteResponsavel: "",
+		clienteContato: "",
+		clienteFuncaoResponsavel: "",
+		clienteEndereco: "",
+		clienteBairro: "",
+		clienteFuncoesTerceirizadas: ""
+	})
+	
+
+	const openCloseForm = () => {
+		setShowForm(!showForm);
+	};
+
+	const handleChange = e=> {
+		const { name, value } = e.target;
+		setNewUser({
+			...newUser, [name]: value
+		 });
+		 console.log(newUser)
+	}
 
 	useEffect(() => {
 		const fetchUsers = async () => {
@@ -142,6 +166,31 @@ function UsersTable() {
 						))}
 					</tbody>
 				</table>
+				<motion.div
+					className='flex justify-between items-center mt-4'
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ duration: 0.3 }}
+					isOpen={showForm}>
+						<div classname="form-register">
+							<labe>Posto</labe>
+							<input type="text" name="clientePosto" value={newUser.clientePosto} onChange={handleChange} />
+							<label>Responsável</label>
+							<input type="text" name="clienteResponsavel" value={newUser.clienteResponsavel} onChange={handleChange} />
+							<label>Contato</label>
+							<input type="text" name="clienteContato" value={newUser.clienteContato} onChange={handleChange} />
+							<label>Função</label>
+							<input type="text" name="clienteFuncao" value={newUser.clienteFuncaoResponsavel} onChange={handleChange} />
+							<label>Endereço</label>
+							<input type="text" name="clienteEndereco" value={newUser.clienteEndereco} onChange={handleChange} />
+							<label>Bairro</label>
+							<input type="text" name="clienteBairro" value={newUser.clienteBairro} onChange={handleChange} />
+							<label>Funções Terceirizadas</label>
+							<input type="text" name="clienteFuncoesTerceirizadas" value={newUser.clienteFuncoesTerceirizadas} onChange={handleChange} />
+							<button className='bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors'>Adicionar</button>
+							<button className='bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors'>Cancelar</button>
+						</div>
+					</motion.div>
 			</div>
 		</motion.div>
 	);
