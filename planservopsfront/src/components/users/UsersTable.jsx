@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Search } from "lucide-react";
 
 
@@ -51,7 +52,7 @@ function UsersTable() {
 		};
 
 		fetchUsers();
-	}, [newUser, users]);
+	}, []);
 	
 	const addUser = async () => {
 		try {
@@ -93,7 +94,7 @@ function UsersTable() {
 		>
 			<div className='flex justify-between items-center mb-6'>
 				<h2 className='text-xl font-semibold text-gray-100'>Clientes</h2>
-				<button className=' bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors'>Adicionar Cliente</button>
+				<button className=' bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors' onClick={openCloseForm}>Adicionar Cliente</button>
 				<div className='relative'>
 					<input
 						type='text'
@@ -187,31 +188,106 @@ function UsersTable() {
 						))}
 					</tbody>
 				</table>
+				{showForm && (
 				<motion.div
-					className='overflow-x-auto mt-4'
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ duration: 0.3 }}
-					isOpen={showForm}>
-						<div classname="form-register">
-							<labe>Posto</labe>
-							<input type="text" name="clientePosto" value={newUser.clientePosto} onChange={handleChange} />
-							<label>Responsável</label>
-							<input type="text" name="clienteResponsavel" value={newUser.clienteResponsavel} onChange={handleChange} />
-							<label>Contato</label>
-							<input type="text" name="clienteContato" value={newUser.clienteContato} onChange={handleChange} />
-							<label>Função</label>
-							<input type="text" name="clienteFuncao" value={newUser.clienteFuncaoResponsavel} onChange={handleChange} />
-							<label>Endereço</label>
-							<input type="text" name="clienteEndereco" value={newUser.clienteEndereco} onChange={handleChange} />
-							<label>Bairro</label>
-							<input type="text" name="clienteBairro" value={newUser.clienteBairro} onChange={handleChange} />
-							<label>Funções Terceirizadas</label>
-							<input type="text" name="clienteFuncoesTerceirizadas" value={newUser.clienteFuncoesTerceirizadas} onChange={handleChange} />
-							<button className='bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors' onClick={addUser}>Adicionar</button>
-							<button className='bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors'onClick={openCloseForm}>Cancelar</button>
+				className='absolute top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 backdrop-blur-md flex items-center justify-center'
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				transition={{ duration: 0.3 }}
+			>
+				<div className="form-register bg-gray-700 p-6 rounded-lg shadow-lg w-full max-w-md">
+					<h2 className="text-xl font-semibold text-white mb-4">Adicionar Cliente</h2>
+					
+					<div className="space-y-4">
+						<div>
+							<label className="block text-sm font-medium text-gray-300">Posto</label>
+							<input
+								type="text"
+								name="clientePosto"
+								value={newUser.clientePosto}
+								onChange={handleChange}
+								className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+							/>
 						</div>
-					</motion.div>
+						<div>
+							<label className="block text-sm font-medium text-gray-300">Responsável</label>
+							<input
+								type="text"
+								name="clienteResponsavel"
+								value={newUser.clienteResponsavel}
+								onChange={handleChange}
+								className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+							/>
+						</div>
+						<div>
+							<label className="block text-sm font-medium text-gray-300">Contato</label>
+							<input
+								type="text"
+								name="clienteContato"
+								value={newUser.clienteContato}
+								onChange={handleChange}
+								className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+							/>
+						</div>
+						<div>
+							<label className="block text-sm font-medium text-gray-300">Função</label>
+							<input
+								type="text"
+								name="clienteFuncao"
+								value={newUser.clienteFuncaoResponsavel}
+								onChange={handleChange}
+								className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+							/>
+						</div>
+						<div>
+							<label className="block text-sm font-medium text-gray-300">Endereço</label>
+							<input
+								type="text"
+								name="clienteEndereco"
+								value={newUser.clienteEndereco}
+								onChange={handleChange}
+								className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+							/>
+						</div>
+						<div>
+							<label className="block text-sm font-medium text-gray-300">Bairro</label>
+							<input
+								type="text"
+								name="clienteBairro"
+								value={newUser.clienteBairro}
+								onChange={handleChange}
+								className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+							/>
+						</div>
+						<div>
+							<label className="block text-sm font-medium text-gray-300">Funções Terceirizadas</label>
+							<input
+								type="text"
+								name="clienteFuncoesTerceirizadas"
+								value={newUser.clienteFuncoesTerceirizadas}
+								onChange={handleChange}
+								className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+							/>
+						</div>
+					</div>
+			
+					<div className="mt-6 flex justify-end space-x-4">
+						<button
+							className='bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors'
+							onClick={addUser}
+						>
+							Adicionar
+						</button>
+						<button
+							className='bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors'
+							onClick={openCloseForm}
+						>
+							Cancelar
+						</button>
+					</div>
+				</div>
+			</motion.div>
+				)}
 			</div>
 		</motion.div>
 	);
