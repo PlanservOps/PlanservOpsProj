@@ -49,8 +49,29 @@ function UsersTable() {
 				console.error("Erro ao buscar usuários:", error);
 			}
 		};
+
 		fetchUsers();
-	}, []);
+	}, [newUser, users]);
+	
+	const addUser = async () => {
+		try {
+			const response = await fetch(baseUrl, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(newUser),
+			});
+			if (!response.ok) {
+				throw new Error(`Erro: ${response.status} - ${response.statusText}`);
+			}
+			const data = await response.json();
+			setUsers([...users, data]);
+			setFilteredUsers([...users, data]);
+		} catch (error) {
+			console.error("Erro ao adicionar usuário:", error);
+		}
+	}
 
 	const handleSearch = (e) => {
 		const term = e.target.value.toLowerCase();
@@ -167,7 +188,7 @@ function UsersTable() {
 					</tbody>
 				</table>
 				<motion.div
-					className='flex justify-between items-center mt-4'
+					className='overflow-x-auto mt-4'
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					transition={{ duration: 0.3 }}
@@ -187,8 +208,8 @@ function UsersTable() {
 							<input type="text" name="clienteBairro" value={newUser.clienteBairro} onChange={handleChange} />
 							<label>Funções Terceirizadas</label>
 							<input type="text" name="clienteFuncoesTerceirizadas" value={newUser.clienteFuncoesTerceirizadas} onChange={handleChange} />
-							<button className='bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors'>Adicionar</button>
-							<button className='bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors'>Cancelar</button>
+							<button className='bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors' onClick={addUser}>Adicionar</button>
+							<button className='bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors'onClick={openCloseForm}>Cancelar</button>
 						</div>
 					</motion.div>
 			</div>
