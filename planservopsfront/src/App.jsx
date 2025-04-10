@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, Children, use } from "react"
 import { Route, Routes } from "react-router-dom"
 
+import LoginPage from "./pages/LoginPage"
 import OverviewPage from "./pages/OverviewPage"
 import UsersPage from "./pages/UsersPage"
 
 import Sidebar from "./components/Sidebar"
 import SettingsPage from "./pages/SettingsPage"
+
 
 function App() {
 
@@ -21,6 +23,7 @@ function App() {
 
       <Sidebar/>  
       <Routes>
+        <Route path='/Login' element={<LoginPage/>}/>
         <Route path='/' element={<OverviewPage/>}/>
         <Route path='/Users' element={<UsersPage/>}/>
         <Route path='/Settings' element={<SettingsPage/>}/>
