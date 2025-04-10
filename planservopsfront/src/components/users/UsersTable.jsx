@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-//import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Search } from "lucide-react";
 
 
@@ -231,13 +231,17 @@ function UsersTable() {
 						</div>
 						<div>
 							<label className="block text-sm font-medium text-gray-300">Função</label>
-							<input
-								type="text"
-								name="clienteFuncao"
-								value={newUser.clienteFuncaoResponsavel}
-								onChange={handleChange}
-								className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-							/>
+							<select
+    							name="clienteFuncaoResponsavel"
+    							value={newUser.clienteFuncaoResponsavel}
+    							onChange={handleChange}
+    							className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+							>
+    							<option value="" disabled>Selecione uma função</option>
+    							<option value="Gerente">Gerente</option>
+    							<option value="Síndico">Síndico</option>
+    							<option value="Síndica">Síndica</option>
+							</select>
 						</div>
 						<div>
 							<label className="block text-sm font-medium text-gray-300">Endereço</label>
