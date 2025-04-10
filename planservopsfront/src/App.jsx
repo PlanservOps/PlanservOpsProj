@@ -6,10 +6,11 @@ import OverviewPage from "./pages/Home/OverviewPage"
 import UsersPage from "./pages/Home/UsersPage"
 
 import Sidebar from "./components/Sidebar"
-import SettingsPage from "./pages/SettingsPage"
+import SettingsPage from "./pages/Home/SettingsPage"
 
 
 function App() {
+  const isLoginPage = location.pathname === '/';
 
   return (
     <div className='flex h-screen bg-gray-900 text-gray-100 overflow-hidden'>
@@ -21,10 +22,11 @@ function App() {
 
       </div>
 
-      <Sidebar/>  
+      {!isLoginPage && <Sidebar/>}
+      
       <Routes>
-        <Route path='/Login' element={<LoginPage/>}/>
-        <Route path='/' element={<OverviewPage/>}/>
+        <Route path='/*' element={<LoginPage/>}/>
+        <Route path='/Home' element={<OverviewPage/>}/>
         <Route path='/Users' element={<UsersPage/>}/>
         <Route path='/Settings' element={<SettingsPage/>}/>
       </Routes>
