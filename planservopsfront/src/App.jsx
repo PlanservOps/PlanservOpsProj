@@ -2,8 +2,8 @@ import { useState, useEffect, Children, use } from "react"
 import { Route, Routes } from "react-router-dom"
 
 import LoginPage from "./pages/LoginPage"
-import OverviewPage from "./pages/OverviewPage"
-import UsersPage from "./pages/UsersPage"
+import OverviewPage from "./pages/Home/OverviewPage"
+import UsersPage from "./pages/Home/UsersPage"
 
 import Sidebar from "./components/Sidebar"
 import SettingsPage from "./pages/SettingsPage"

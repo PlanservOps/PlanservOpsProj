@@ -1,11 +1,11 @@
 import React from 'react'
-import Header from '../components/common/Header'
+import Header from '../../components/common/Header'
 import { motion } from 'framer-motion'
-import StatsCards from '../components/common/StatsCards'
+import StatsCards from '../../components/common/StatsCards'
 import { BarChart2, BellPlus, Zap, TriangleAlert, ShieldAlert } from 'lucide-react'
-import PreventiveOverviewChart from '../components/overview/PreventiveOverviewChart'
-import IndexNpsChart from '../components/overview/IndexNpsChart'
-import CorrectiveOverviewChart from '../components/overview/CorrectiveOverviewChart'
+import PreventiveOverviewChart from '../../components/overview/PreventiveOverviewChart'
+import IndexNpsChart from '../../components/overview/IndexNpsChart'
+import CorrectiveOverviewChart from '../../components/overview/CorrectiveOverviewChart'
 
 const OverviewPage = () => {
   return (

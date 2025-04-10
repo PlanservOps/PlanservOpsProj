@@ -1,8 +1,8 @@
-import Header from "../components/common/Header"
+import Header from "../../components/common/Header"
 import { motion } from "framer-motion"
-import StatsCards from "../components/common/StatsCards"
+import StatsCards from "../../components/common/StatsCards"
 import { UserCheck, UserPlus, UsersIcon, UserX } from "lucide-react"
-import UsersTable from "../components/users/UsersTable";
+import UsersTable from "../../components/users/UsersTable";
 
 const userStats = {
 	totalUsers: 37,

@@ -50,18 +50,18 @@ const Login = () => {
 			
 					{/* <div className="mt-6 flex justify-end space-x-4">
 						<button
-							className='bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors'
+							className='bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors'
 							onClick={addUser}
 						>
-							Adicionar
+							Entrar
 						</button>
 						<button
-							className='bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors'
+							className='bg-green-800 text-white px-4 py-2 rounded-lg hover:bg-green-900 transition-colors'
 							onClick={openCloseForm}
 						>
-							Cancelar
+							Registrar
 						</button>
-					</div> */}
+					</div>  */}
 				</div>
     </motion.div>    
 )
