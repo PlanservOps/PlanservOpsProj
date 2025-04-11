@@ -5,7 +5,7 @@ import { Search } from "lucide-react";
 
 function UsersTable() {
 
-	const baseUrl = "https://localhost:44355/api/Clientes";
+	const baseUrl = import.meta.env.VITE_API_URL;
 
 	const [searchTerm, setSearchTerm] = useState("");
 	const [users, setUsers] = useState([]); // Lista original de usuários
@@ -52,7 +52,7 @@ function UsersTable() {
 		};
 
 		fetchUsers();
-	}, []);
+	}, );
 	
 	const addUser = async () => {
 		try {
