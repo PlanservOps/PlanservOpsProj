@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+var port = Environment.GetEnvironmentVariable("DATABASE_URL") ?? "8080";
 builder.WebHost.UseUrls($"http://*:{port}");
 
 var connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
@@ -12,7 +12,7 @@ var connectionString = builder.Configuration["ConnectionStrings:DefaultConnectio
 // Add services to the container.
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseNpgsql(connectionString));
 
 builder.Services.AddScoped<IClienteService, ClienteService>();
 
