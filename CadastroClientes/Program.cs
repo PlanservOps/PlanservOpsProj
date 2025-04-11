@@ -3,6 +3,10 @@ using CadastroClientes.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseUrls($"http://*:{port}");
+
 var connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
 
 // Add services to the container.
@@ -29,8 +33,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-builder.WebHost.UseUrls($"http://*:{port}");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
