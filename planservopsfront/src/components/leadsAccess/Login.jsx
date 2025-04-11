@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion'
 import React from 'react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+	const navigate = useNavigate();
 
     const [newLeadAccess, setNewLeadAccess] = useState(
         {
@@ -20,14 +22,23 @@ const Login = () => {
 			alert("Preencha todos os campos")
 			return
 		}
-	}
-
-	// const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-	// if (!emailRegex.test(newLeadAccess.leadEmail)) {
-	// 	alert("E-mail inválido")
-	// 	return
-	// }
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!emailRegex.test(newLeadAccess.leadEmail)) {
+			alert("E-mail inválido")
+			return
+		}
+		
+			if (
+				newLeadAccess.leadEmail === "planservacesso@planserv.com" &&
+				newLeadAccess.leadPassword === "planserv1234"
 	
+			) {
+				navigate("/Home");
+			} else {
+				alert("E-mail ou senha inválidos");
+				}
+	}
+		
 	console.log("Enviando dados de login:", newLeadAccess)
 
   return (
