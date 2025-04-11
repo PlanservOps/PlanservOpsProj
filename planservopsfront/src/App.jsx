@@ -13,7 +13,7 @@ function App() {
   const isLoginPage = location.pathname === '/';
 
   return (
-    <div className='flex h-screen bg-gray-900 text-gray-100'>
+    <div className='flex h-screen bg-gray-900 text-gray-100 '>
 
       {/* BG */}
       <div className='fixed inset-0 z-[-1]'>
