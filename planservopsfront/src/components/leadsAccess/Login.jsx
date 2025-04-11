@@ -21,6 +21,12 @@ const Login = () => {
 			return
 		}
 	}
+
+	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	if (!emailRegex.test(newLeadAccess.leadEmail)) {
+		alert("E-mail inválido")
+		return
+	}
 	
 	console.log("Enviando dados de login:", newLeadAccess)
 
@@ -48,7 +54,7 @@ const Login = () => {
 						<div>
 							<label className="block text-sm font-medium text-gray-300">Senha</label>
 							<input
-								type="text"
+								type="password"
 								name="leadPassword"
 								value={newLeadAccess.leadPassword}
 								onChange={handleInput}
