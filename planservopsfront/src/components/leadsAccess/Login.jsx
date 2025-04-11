@@ -22,22 +22,20 @@ const Login = () => {
 		}
 	}
 
-	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-	if (!emailRegex.test(newLeadAccess.leadEmail)) {
-		alert("E-mail inválido")
-		return
-	}
+	// const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	// if (!emailRegex.test(newLeadAccess.leadEmail)) {
+	// 	alert("E-mail inválido")
+	// 	return
+	// }
 	
 	console.log("Enviando dados de login:", newLeadAccess)
 
   return (
     <motion.div
-        className='flex-1 overflow-auto relative z-10'
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-    >
-        <div className="form-register bg-gray-700 p-6 rounded-lg shadow-lg w-full max-w-md">
+	style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}
+    className='bg-gray-900 z-10'
+>
+        <div className="form-register bg-gray-700 p-6 rounded-lg shadow-lg w-full max-w-md mx-auto">
 					<h2 className="text-xl font-semibold text-white mb-4">Login</h2>
 					
 					<div className="space-y-4">
