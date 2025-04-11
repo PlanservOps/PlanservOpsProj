@@ -13,7 +13,16 @@ const Login = () => {
     const handleInput = (e) => {
         const { name, value } = e.target
         setNewLeadAccess({ ...newLeadAccess, [name]: value })
-    }
+    };
+
+	const handleLogin = () => {
+		if (!newLeadAccess.leadEmail || !newLeadAccess.leadPassword) {
+			alert("Preencha todos os campos")
+			return
+		}
+	}
+	
+	console.log("Enviando dados de login:", newLeadAccess)
 
   return (
     <motion.div
@@ -48,20 +57,14 @@ const Login = () => {
 						</div>			
 					</div>
 			
-					{/* <div className="mt-6 flex justify-end space-x-4">
+					<div className="mt-6 flex justify-end space-x-4">
 						<button
 							className='bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors'
-							onClick={addUser}
+							onClick={handleLogin}
 						>
 							Entrar
-						</button>
-						<button
-							className='bg-green-800 text-white px-4 py-2 rounded-lg hover:bg-green-900 transition-colors'
-							onClick={openCloseForm}
-						>
-							Registrar
-						</button>
-					</div>  */}
+						</button>						
+					</div> 
 				</div>
     </motion.div>    
 )

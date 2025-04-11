@@ -23,7 +23,7 @@ function App() {
       </div>
 
       {!isLoginPage && <Sidebar/>}
-      
+
       <Routes>
         <Route path='/*' element={<LoginPage/>}/>
         <Route path='/Home' element={<OverviewPage/>}/>
