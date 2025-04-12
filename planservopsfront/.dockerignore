@@ -1,0 +1,24 @@
+# Ignora dependências locais
+node_modules
+dist
+
+# Ignora controle de versão
+.git
+.gitignore
+
+# Ignora IDEs e editores
+.vscode
+.idea
+
+# Ignora arquivos de logs e configs locais
+*.log
+*.env
+.env.*
+
+# Ignora cache do pacote
+.yarn/cache
+.pnpm-store
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
