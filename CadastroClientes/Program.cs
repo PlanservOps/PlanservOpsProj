@@ -4,9 +4,6 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var port = Environment.GetEnvironmentVariable("DATABASE_URL") ?? "8080";
-builder.WebHost.UseUrls($"http://*:{port}");
-
 var connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
 
 // Add services to the container.
@@ -34,13 +31,10 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
     app.UseSwagger();
     app.UseSwaggerUI();
     app.UseDeveloperExceptionPage();
-}
+
 
 app.UseHttpsRedirection();
 
