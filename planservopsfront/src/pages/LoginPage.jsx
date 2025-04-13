@@ -1,4 +1,4 @@
-import Login from '../components/leadsAccess/login'
+import Login from '../components/leadsAccess/Login'
 
 const LoginPage = () => {    
     
