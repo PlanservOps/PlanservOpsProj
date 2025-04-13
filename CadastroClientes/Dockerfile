@@ -7,13 +7,12 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copia apenas o .csproj primeiro para restaurar dependências
-COPY CadastroClientes/*.csproj ./CadastroClientes/
-WORKDIR /src/CadastroClientes
+# Copia apenas o .csproj (já está na pasta atual)
+COPY *.csproj ./
 RUN dotnet restore
 
-# Copia o restante dos arquivos
-COPY . .
+# Copia todos os arquivos da pasta atual
+COPY . ./
 
 # Publica a aplicação
 RUN dotnet publish -c Release -o /app/publish
