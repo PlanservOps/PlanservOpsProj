@@ -3,23 +3,31 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CadastroCliente.Models
 {
-    [Table("ClienteTest")]
+    [Table("clientetest")]
     public class ClienteTest
     {
         [Key]
+        [Column("clienteid")]
         public int ClienteId { get; set; }
         [Required]
+        [Column("clienteposto")]
         public string ClientePosto { get; set; }
         [Required]
         [StringLength(400)]
+        [Column("clienteresponsavel")]
         public string ClienteResponsavel { get; set; }
         [Required]
+        [Column("clientecontato")]
         public string ClienteContato { get; set; }
+        [Column("clientefuncaoresponsavel")]
         public FuncaoEnum ClienteFuncaoResponsavel { get; set; }
         [Required]
+        [Column("clienteendereco")]
         public string ClienteEndereco { get; set; }
         [Required]
+        [Column("clientebairro")]
         public string ClienteBairro { get; set; }
+        [Column("clientefuncoesterceirizadas")]
         public string ClienteFuncoesTerceirizadas { get; set; }
 
         public enum FuncaoEnum
