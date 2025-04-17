@@ -52,7 +52,7 @@ function UsersTable() {
 		};
 
 		fetchUsers();
-	}, );
+	}, []);
 	
 	const addUser = async () => {
 		try {
