@@ -39,7 +39,7 @@ function UsersTable() {
 	useEffect(() => {
 		const fetchUsers = async () => {
 			try {
-				const response = await fetch(baseUrl);
+				const response = await fetch(`${baseUrl}/Clientes`);
 				if (!response.ok) {
 					throw new Error(`Erro: ${response.status} - ${response.statusText}`);
 				}
@@ -56,7 +56,7 @@ function UsersTable() {
 	
 	const addUser = async () => {
 		try {
-			const response = await fetch(baseUrl, {
+			const response = await fetch(`${baseUrl}/Clientes`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
