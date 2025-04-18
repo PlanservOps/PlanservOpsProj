@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "dotenv -e .env.production -- vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "dotenv-cli": "^8.0.0",
     "framer-motion": "^12.4.7",
     "lucide-react": "^0.476.0",
     "postcss": "^8.5.3",
