@@ -52,8 +52,10 @@ function UsersTable() {
 		};
 
 		fetchUsers();
-	}, []);
+	}, [baseUrl]);
 	
+	console.log("🔍 API_URL (produção):", baseUrl);
+
 	const addUser = async () => {
 		try {
 			const response = await fetch(`${baseUrl}/Clientes`, {
