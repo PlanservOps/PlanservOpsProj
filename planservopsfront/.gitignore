@@ -4,9 +4,6 @@ node_modules/
 # build output
 dist/
 
-# local env files
-.env
-.env.*   # ignora .env.production, .env.development, etc
 
 # Yarn cache
 .yarn/cache
