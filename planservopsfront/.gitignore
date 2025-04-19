@@ -1,0 +1,30 @@
+# node modules
+node_modules/
+
+# build output
+dist/
+
+# local env files
+.env
+.env.*   # ignora .env.production, .env.development, etc
+
+# Yarn cache
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.pnp.*
+.yarn/install-state.gz
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Editor configs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# System files
+.DS_Store
+Thumbs.db
