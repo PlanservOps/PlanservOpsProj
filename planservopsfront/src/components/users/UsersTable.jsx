@@ -55,6 +55,8 @@ function UsersTable() {
 	}, [baseUrl]);
 	
 	console.log("🔍 API_URL (produção):", baseUrl);
+	console.log("🔍 import.meta.env:", import.meta.env);
+
 
 	const addUser = async () => {
 		try {
