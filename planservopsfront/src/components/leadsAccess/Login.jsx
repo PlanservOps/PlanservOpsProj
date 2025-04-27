@@ -43,11 +43,9 @@ const Login = () => {
 
   return (
     <motion.div
-	style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}
-    className='bg-gray-900 z-10'
->
+	style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
         <div className="form-register bg-gray-700 p-6 rounded-lg shadow-lg w-full max-w-md mx-auto">
-					<h2 className="text-xl font-semibold text-white mb-4">Login</h2>
+					<img src="/src/assets/images/Logo nobg.png" alt="Logo" />
 					
 					<div className="space-y-4">
 						<div>
