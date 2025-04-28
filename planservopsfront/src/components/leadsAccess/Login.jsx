@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Logo from '../../assets/images/Logo nobg.png'
 
 const Login = () => {
 	const navigate = useNavigate();
@@ -45,7 +46,7 @@ const Login = () => {
     <motion.div
 	style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
         <div className="form-register bg-gray-700 p-6 rounded-lg shadow-lg w-full max-w-md mx-auto">
-					<img src="/src/assets/images/Logo nobg.png" alt="Logo" />
+					<img src={Logo} alt='logo'/>
 					
 					<div className="space-y-4">
 						<div>
