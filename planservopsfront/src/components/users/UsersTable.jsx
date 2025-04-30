@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
+import {useFetchUsers} from "../../hooks/useFetchUser";
 
 
 function UsersTable() {
@@ -40,9 +41,9 @@ function UsersTable() {
 		const fetchUsers = async () => {
 			try {
 				const response = await fetch(baseUrl);
-				// if (!response.ok) {
-				// 	throw new Error(`Erro: ${response.status} - ${response.statusText}`);
-				// }
+				if (!response.ok) {
+					throw new Error(`Erro: ${response.status} - ${response.statusText}`);
+				}
 				const data = await response.json();
 				setUsers(data);
 				setFilteredUsers(data);
