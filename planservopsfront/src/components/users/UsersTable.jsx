@@ -58,7 +58,7 @@ function UsersTable() {
 
 	const addUser = async () => {		
 			try {
-				const { data } = await axiosInstance.post("/clientes", newUser);
+				const { data } = await axiosInstance.post(`${baseUrl}/clientes`, newUser);
 				setUsers([...users, data]);
 				setFilteredUsers([...users, data]);
 			} catch (error) {
