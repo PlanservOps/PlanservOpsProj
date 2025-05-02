@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axiosInstance from '../lib/axiosInstance';
+import axiosInstance from '../lib/axiosInstance.js'; 
 
 export const useFetchUsers = () => {
   const [users, setUsers] = useState([]);
