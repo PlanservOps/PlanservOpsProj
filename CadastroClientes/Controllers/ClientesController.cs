@@ -65,7 +65,7 @@ namespace CadastroClientes.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ClienteTest>> CreateCliente(ClienteTest cliente)
+        public async Task<ActionResult<ClienteTest>> CreateCliente([FromBody]ClienteTest cliente)
         {
             try
             {               
