@@ -40,6 +40,8 @@ function UsersTable() {
 	useEffect(() => {
 		const fetchUsers = async () => {
 			try {				
+				console.log("URL da requisição:", axiosInstance.defaults.baseURL + "/clientes");
+
 				const { data } = await axiosInstance.get("/clientes");
 				console.log("📦 Dados recebidos:", data);
 				setUsers(data);
