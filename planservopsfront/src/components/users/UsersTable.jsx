@@ -60,7 +60,7 @@ function UsersTable() {
 
 	const addUser = async () => {
 		try {
-			const response = await fetch(`${baseUrl}/api/Clientes`, {
+			const response = await fetch(`${baseUrl}/api`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
