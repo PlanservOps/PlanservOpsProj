@@ -10,7 +10,7 @@ export const useFetchUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const { data } = await axiosInstance.get('/api'); 
+        const { data } = await axiosInstance.get('/Clientes'); 
         setUsers(data);
         setFilteredUsers(data);
       } catch (err) {
