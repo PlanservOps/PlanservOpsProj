@@ -12,5 +12,14 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom'],
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://planservopsprojapi-production.up.railway.app',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   }
 })
