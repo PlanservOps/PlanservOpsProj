@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
-import {useFetchUsers} from "../../hooks/useFetchUser";
+import axiosInstance from "../../lib/axiosInstance";
 
 
 function UsersTable() {
@@ -39,12 +39,8 @@ function UsersTable() {
 
 	useEffect(() => {
 		const fetchUsers = async () => {
-			try {
-				const response = await fetch(baseUrl);
-				if (!response.ok) {
-					throw new Error(`Erro: ${response.status} - ${response.statusText}`);
-				}
-				const data = await response.json();
+			try {				
+				const { data } = await axiosInstance.get("/clientes");
 				setUsers(data);
 				setFilteredUsers(data);
 			} catch (error) {
@@ -53,30 +49,20 @@ function UsersTable() {
 		};
 
 		fetchUsers();
-	}, [baseUrl]);
+	}, []);
 	
 	console.log("🔍 API_URL (produção):", baseUrl);
 	console.log("🔍 users:", users);
 
-	const addUser = async () => {
-		try {
-			const response = await fetch(`${baseUrl}/api`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(newUser),
-			});
-			if (!response.ok) {
-				throw new Error(`Erro: ${response.status} - ${response.statusText}`);
+	const addUser = async () => {		
+			try {
+				const { data } = await axiosInstance.post("/clientes", newUser);
+				setUsers([...users, data]);
+				setFilteredUsers([...users, data]);
+			} catch (error) {
+				console.error("Erro ao adicionar usuário:", error);
 			}
-			const data = await response.json();
-			setUsers([...users, data]);
-			setFilteredUsers([...users, data]);
-		} catch (error) {
-			console.error("Erro ao adicionar usuário:", error);
-		}
-	}
+	};
 
 	const handleSearch = (e) => {
 		const term = e.target.value.toLowerCase();
