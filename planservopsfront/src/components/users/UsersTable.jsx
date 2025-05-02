@@ -41,6 +41,7 @@ function UsersTable() {
 		const fetchUsers = async () => {
 			try {				
 				const { data } = await axiosInstance.get("/clientes");
+				console.log("📦 Dados recebidos:", data);
 				setUsers(data);
 				setFilteredUsers(data);
 			} catch (error) {
