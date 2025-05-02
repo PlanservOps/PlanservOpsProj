@@ -70,7 +70,8 @@ namespace CadastroClientes.Controllers
             try
             {               
                 await _clienteService.CreateCliente(cliente);
-                return CreatedAtRoute(nameof(GetCliente), new { id = cliente.ClienteId }, cliente);
+                return Ok(cliente);
+
             }
             catch
             {
