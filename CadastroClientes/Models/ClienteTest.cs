@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace CadastroCliente.Models
 {
@@ -19,6 +20,7 @@ namespace CadastroCliente.Models
         [Required]
         [Column("clientecontato")]
         public string ClienteContato { get; set; }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         [Column("clientefuncaoresponsavel")]
         public FuncaoEnum ClienteFuncaoResponsavel { get; set; }
         [Required]

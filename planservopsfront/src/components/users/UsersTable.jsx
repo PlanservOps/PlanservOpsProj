@@ -56,10 +56,21 @@ function UsersTable() {
 	console.log("🔍 API_URL (produção):", baseUrl);
 	console.log("🔍 users:", users);
 
+	const funcaoEnumMap = {
+  		Gerente: 2,
+  		Síndico: 1,
+  		Síndica: 0
+	};
+
+	const payload = {
+  		...newUser,
+  		clienteFuncaoResponsavel: funcaoEnumMap[newUser.clienteFuncaoResponsavel]
+	};
+
 	const addUser = async () => {		
 			try {
 				console.log("Enviando usuário:", newUser);
-				const { data } = await axiosInstance.post("/api/Clientes", newUser);
+				const { data } = await axiosInstance.post("/api/Clientes", payload);
 				setUsers([...users, data]);
 				setFilteredUsers([...users, data]);
 			} catch (error) {
