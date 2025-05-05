@@ -39,6 +39,12 @@ const Login = () => {
 				alert("E-mail ou senha inválidos");
 				}
 	}
+
+	const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            handleLogin();
+        }
+    };
 		
 	console.log("Enviando dados de login:", newLeadAccess)
 
@@ -56,6 +62,7 @@ const Login = () => {
 								name="leadEmail"
 								value={newLeadAccess.leadEmail}
 								onChange={handleInput}
+								onKeyDown={handleKeyDown}
 								className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
 							/>
 						</div>
@@ -66,6 +73,7 @@ const Login = () => {
 								name="leadPassword"
 								value={newLeadAccess.leadPassword}
 								onChange={handleInput}
+								onKeyDown={handleKeyDown}
 								className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
 							/>
 						</div>			
