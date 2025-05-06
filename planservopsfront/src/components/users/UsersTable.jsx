@@ -24,10 +24,33 @@ function UsersTable() {
 		clienteFuncoesTerceirizadas: ""
 	})
 	
+	const  [editUserId, setEditUserId] = useState(null);
 
 	const openCloseForm = () => {
 		setShowForm(!showForm);
 	};
+
+	const openEditForm = (user) => {
+        setEditUserId(user.clienteId); 
+        setNewUser(user); 
+        setShowForm(true); 
+    };
+
+	const updateUser = async () => {
+        try {
+            console.log("Atualizando usuário:", newUser);
+            const { data } = await axiosInstance.put(`/api/Clientes/${editUserId}`, payload); 
+            const updatedUsers = users.map((user) =>
+                user.clienteId === editUserId ? data : user
+            );
+            setUsers(updatedUsers); 
+            setFilteredUsers(updatedUsers); 
+            setShowForm(false); 
+            setEditUserId(null); 
+        } catch (error) {
+            console.error("Erro ao atualizar usuário:", error);
+        }
+    };
 
 	const handleChange = e=> {
 		const { name, value } = e.target;
@@ -184,8 +207,9 @@ function UsersTable() {
 								</td>
 
 								<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
-									<button className='text-indigo-400 hover:text-indigo-300 mr-2'>Edit</button>
-									<button className='text-red-400 hover:text-red-300'>Delete</button>
+									<button className='text-indigo-400 hover:text-indigo-300 mr-2' onClick={() => openEditForm(user)}>Editar
+									</button>
+									<button className='text-red-400 hover:text-red-300'>Excluir</button>
 								</td>
 
 							</motion.tr>
@@ -280,12 +304,21 @@ function UsersTable() {
 					</div>
 			
 					<div className="mt-6 flex justify-end space-x-4">
-						<button
-							className='bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors'
-							onClick={addUser}
-						>
-							Adicionar
-						</button>
+						{editUserId ? (
+							<button
+								className='bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors'
+								onClick={updateUser}
+							>
+								Atualizar
+							</button>
+						) : (
+							<button
+								className='bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors'
+								onClick={addUser}
+							>
+								Adicionar
+							</button>
+						)}						
 						<button
 							className='bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors'
 							onClick={openCloseForm}
