@@ -165,7 +165,8 @@ function UsersTable() {
 					</thead>
 
 					<tbody className='divide-y divide-gray-700'>
-						{filteredUsers.map((user) => (
+						{Array.isArray(filteredUsers) &&
+						filteredUsers.map((user) => (
 							<motion.tr
 								key={user.clienteId}
 								initial={{ opacity: 0 }}
