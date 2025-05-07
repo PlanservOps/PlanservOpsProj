@@ -25,6 +25,7 @@ function UsersTable() {
 	})
 	
 	const  [editUserId, setEditUserId] = useState(null);
+	const [successMessage, setSuccessMessage] = useState("");
 
 	const openCloseForm = () => {
 		setShowForm(!showForm);
@@ -46,7 +47,9 @@ function UsersTable() {
             setUsers(updatedUsers); 
             setFilteredUsers(updatedUsers); 
             setShowForm(false); 
-            setEditUserId(null); 
+            setEditUserId(null);
+			setSuccessMessage("Cliente atualizado com sucesso!");
+			setTimeout(() => setSuccessMessage(""), 3000); 
         } catch (error) {
             console.error("Erro ao atualizar usuário:", error);
         }
@@ -96,6 +99,9 @@ function UsersTable() {
 				const { data } = await axiosInstance.post("/api/Clientes", payload);
 				setUsers([...users, data]);
 				setFilteredUsers([...users, data]);
+				setShowForm(false);
+				setSuccessMessage("Cliente adicionado com sucesso!");
+				setTimeout(() => setSuccessMessage(""), 3000);
 			} catch (error) {
 				console.error("Erro ao adicionar usuário:", error);
 			}
@@ -132,6 +138,12 @@ function UsersTable() {
 					<Search className='absolute left-3 top-2.5 text-gray-400' size={18} />
 				</div>
 			</div>
+
+			{successMessage && (
+				<motion.div className="mb-4 p-4 bg-green-600 text-white rounded-lg">
+					{successMessage}
+				</motion.div>
+			)}
 
 			<div className='overflow-x-auto'>
 				<table className='min-w-full divide-y divide-gray-700'>
