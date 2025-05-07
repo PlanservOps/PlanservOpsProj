@@ -7,6 +7,7 @@ import axiosInstance from "../../lib/axiosInstance";
 function UsersTable() {
 
 	const baseUrl = import.meta.env.VITE_API_URL;
+	console.log("Topo:", baseUrl);
 
 	const [searchTerm, setSearchTerm] = useState("");
 	const [users, setUsers] = useState([]); 
@@ -64,6 +65,7 @@ function UsersTable() {
 	}
 
 	useEffect(() => {
+		console.log("Dentro do useEffect:", import.meta.env.VITE_API_URL);
 		const fetchUsers = async () => {
 			try {				
 				console.log("URL da requisição:", axiosInstance.defaults.baseURL + "/clientes");
