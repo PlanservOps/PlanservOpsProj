@@ -65,6 +65,7 @@ function UsersTable() {
 	}
 
 	useEffect(() => {
+		const baseUrl = import.meta.env.VITE_API_URL;
 		console.log("Dentro do useEffect:", import.meta.env.VITE_API_URL);
 		const fetchUsers = async () => {
 			try {				
