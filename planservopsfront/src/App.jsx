@@ -7,6 +7,11 @@ import UsersPage from "./pages/Home/UsersPage"
 
 import Sidebar from "./components/Sidebar"
 import SettingsPage from "./pages/Home/SettingsPage"
+import OcorrenciasPage from "./pages/Home/OcorrenciasPage"
+import ReclamacoesPage from "./pages/Home/ReclamacoesPage"
+import ChecklistPage from "./pages/Home/ChecklistPage"
+import AvaliacoesPage from "./pages/Home/AvaliacoesPage"
+import EficienciaPage from "./pages/Home/EficienciaPage"
 
 
 function App() {
@@ -28,6 +33,11 @@ function App() {
         <Route path='/*' element={<LoginPage/>}/>
         <Route path='/Home' element={<OverviewPage/>}/>
         <Route path='/Users' element={<UsersPage/>}/>
+        <Route path='/Ocorrencias' element={<OcorrenciasPage/>}/> 
+        <Route path='/Reclamacoes' element={<ReclamacoesPage/>}/> 
+        <Route path='/Checklist' element={<ChecklistPage/>}/>
+        <Route path='/Avaliacoes' element={<AvaliacoesPage/>}/>
+        <Route path='/Eficiência' element={<EficienciaPage/>}/>
         <Route path='/Settings' element={<SettingsPage/>}/>
       </Routes>
     </div>

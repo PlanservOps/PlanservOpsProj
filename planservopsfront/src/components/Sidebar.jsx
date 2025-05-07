@@ -11,7 +11,7 @@ const SIDEBAR_ITEMS = [
     {name: "Checklist", icon:Columns2, color:"#10B981", href:"/Checklist"},
     {name: "Avaliações", icon:Columns2, color:"#10B981", href:"/Avaliacoes"},
     {name: "Eficiência", icon:MessageSquareMore, color:"#10B981", href:"/Eficiência"},
-    {name: "Pesquisar", icon:Search, color:"#10B981", href:"/Pesquisa"},
+    {name: "Configurações", icon:Search, color:"#10B981", href:"/Settings"},
 ];
 
 const Sidebar = () => {
