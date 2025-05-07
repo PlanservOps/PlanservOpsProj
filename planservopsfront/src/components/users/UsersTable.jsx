@@ -9,8 +9,8 @@ function UsersTable() {
 	const baseUrl = import.meta.env.VITE_API_URL;
 
 	const [searchTerm, setSearchTerm] = useState("");
-	const [users, setUsers] = useState([]); // Lista original de usuários
-	const [filteredUsers, setFilteredUsers] = useState([]); // Lista filtrada
+	const [users, setUsers] = useState([]); 
+	const [filteredUsers, setFilteredUsers] = useState([]); 
 
 	const [showForm, setShowForm] = useState(false);
 
@@ -24,7 +24,7 @@ function UsersTable() {
 		clienteFuncoesTerceirizadas: ""
 	})
 	
-	const  [editUserId, setEditUserId] = useState(null);
+	const [editUserId, setEditUserId] = useState(null);
 	const [successMessage, setSuccessMessage] = useState("");
 
 	const openCloseForm = () => {
@@ -116,6 +116,19 @@ function UsersTable() {
 				user.phone.toLowerCase().includes(term)
 		);
 		setFilteredUsers(filtered);
+	};
+
+	const deleteUser = async (userId) => {
+		try {
+			await axiosInstance.delete(`/api/Clientes/${userId}`);
+			const updatedUsers = users.filter((user) => user.clienteId !== userId);
+			setUsers(updatedUsers);
+			setFilteredUsers(updatedUsers);
+			setSuccessMessage("Cliente excluído com sucesso!");
+			setTimeout(() => setSuccessMessage(""), 3000);
+		} catch (error) {
+			console.error("Erro ao excluir usuário:", error);
+		}
 	};
 
 	return (
@@ -222,7 +235,12 @@ function UsersTable() {
 								<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
 									<button className='text-indigo-400 hover:text-indigo-300 mr-2' onClick={() => openEditForm(user)}>Editar
 									</button>
-									<button className='text-red-400 hover:text-red-300'>Excluir</button>
+									<button
+										className='text-red-400 hover:text-red-300'
+										onClick={() => deleteUser(user.clienteId)}
+									>
+										Excluir
+									</button>
 								</td>
 
 							</motion.tr>
