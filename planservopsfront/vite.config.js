@@ -6,6 +6,9 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
   return {
+    define: {
+      'import.meta.env.VITE_API_URL': JSON.stringify(env.VITE_API_URL),
+    },
     base: './',
     plugins: [react()],
     build: {
@@ -20,14 +23,12 @@ export default defineConfig(({ mode }) => {
     server: {
       proxy: {
         '/api': {
-          target: 'https://planservopsprojapi-production.up.railway.app',
+          //target: 'https://planservopsprojapi-production.up.railway.app',
+          target: env.VITE_API_URL,
           changeOrigin: true,
           secure: false,
         },
       },
-    },
-    define: {
-      'import.meta.env.VITE_API_URL': JSON.stringify(env.VITE_API_URL),
     },
   };
 });
