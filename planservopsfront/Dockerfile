@@ -5,6 +5,9 @@ WORKDIR /app
 # Copia os arquivos do projeto
 COPY . .
 
+# Recebe a variável como argumento de build
+ARG VITE_API_URL
+
 # Instala as dependências
 RUN yarn install
 
