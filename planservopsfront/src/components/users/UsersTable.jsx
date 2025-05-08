@@ -65,12 +65,11 @@ function UsersTable() {
 	}
 
 	useEffect(() => {
-		const baseUrl = import.meta.env.VITE_API_URL;
 		console.log("Dentro do useEffect:", import.meta.env.VITE_API_URL);
 		const fetchUsers = async () => {
 			try {				
 				console.log("URL da requisição:", axiosInstance.defaults.baseURL + "/clientes");
-				const { data } = await axiosInstance.get(baseUrl);
+				const { data } = await axiosInstance.get("/Clientes");
 				console.log("📦 Dados recebidos:", data);
 				setUsers(data);
 				setFilteredUsers(data);
@@ -80,7 +79,7 @@ function UsersTable() {
 		};
 
 		fetchUsers();
-	}, []);
+	}, [baseUrl]);
 	
 	console.log("🔍 API_URL (produção):", baseUrl);
 	console.log("🔍 users:", users);

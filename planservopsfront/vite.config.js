@@ -20,15 +20,15 @@ export default defineConfig(({ mode }) => {
     optimizeDeps: {
       include: ['react', 'react-dom', 'react-router-dom'],
     },
-    server: {
-      proxy: {
-        '/api': {
-          //target: 'https://planservopsprojapi-production.up.railway.app',
-          target: env.VITE_API_URL,
-          changeOrigin: true,
-          secure: false,
-        },
-      },
-    },
+    // server: {
+    //   proxy: {
+    //     '/api': {
+    //       //target: 'https://planservopsprojapi-production.up.railway.app',
+    //       target: env.VITE_API_URL,
+    //       changeOrigin: true,
+    //       secure: false,
+    //     },
+    //   },
+    // },
   };
 });
