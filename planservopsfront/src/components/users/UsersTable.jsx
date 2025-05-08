@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
 import axiosInstance from "../../lib/axiosInstance";
+import api from "../../api";
 
 
 function UsersTable() {
@@ -69,10 +70,10 @@ function UsersTable() {
 		const fetchUsers = async () => {
 			try {				
 				console.log("URL da requisição:", axiosInstance.defaults.baseURL + "/clientes");
-				const { data } = await axiosInstance.get("/Clientes");
-				console.log("📦 Dados recebidos:", data);
-				setUsers(data);
-				setFilteredUsers(data);
+				const response = await api.get("/Clientes");
+				console.log("📦 Dados recebidos:", response);
+				setUsers(response.data);
+				setFilteredUsers(response.data);
 			} catch (error) {
 				console.error("Erro ao buscar usuários:", error);
 			}
