@@ -8,7 +8,6 @@ import api from "../../api";
 function UsersTable() {
 
 	const baseUrl = import.meta.env.VITE_API_URL;
-	console.log("Topo:", baseUrl);
 
 	const [searchTerm, setSearchTerm] = useState("");
 	const [users, setUsers] = useState([]); 
@@ -66,12 +65,9 @@ function UsersTable() {
 	}
 
 	useEffect(() => {
-		console.log("Dentro do useEffect:", import.meta.env.VITE_API_URL);
 		const fetchUsers = async () => {
 			try {				
-				console.log("URL da requisição:", axiosInstance.defaults.baseURL + "/clientes");
 				const response = await api.get("/Clientes");
-				console.log("📦 Dados recebidos:", response);
 				setUsers(response.data);
 				setFilteredUsers(response.data);
 			} catch (error) {
@@ -82,8 +78,6 @@ function UsersTable() {
 		fetchUsers();
 	}, [baseUrl]);
 	
-	console.log("🔍 API_URL (produção):", baseUrl);
-	console.log("🔍 users:", users);
 
 	const funcaoEnumMap = {
   		Gerente: 2,
