@@ -1,5 +1,5 @@
 import { useState, useEffect, Children, use } from "react"
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes, useLocation } from "react-router-dom"
 
 import LoginPage from "./pages/LoginPage"
 import OverviewPage from "./pages/Home/OverviewPage"
@@ -15,6 +15,7 @@ import EficienciaPage from "./pages/Home/EficienciaPage"
 
 
 function App() {
+  const location = useLocation();
   const isLoginPage = location.pathname === '/';
 
   return (
