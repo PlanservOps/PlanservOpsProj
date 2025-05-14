@@ -115,27 +115,32 @@ const AvaliacoesPage = () => {
                         />
                     </div>
 
-                    {/* Sessão com checkbox para clientes */}
                     <div>
                         <label className="block text-sm font-medium text-gray-300">
                             Cliente/ Posto:
                         </label>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                        <select
+                            name="selectedCliente"
+                            value={formData.selectedCliente} // Atualiza para armazenar apenas um valor
+                            onChange={(e) => {
+                                const selectedValue = e.target.value; // Captura o valor selecionado
+                                setFormData((prev) => ({
+                                    ...prev,
+                                    selectedCliente: selectedValue, // Atualiza o estado com o valor único
+                                }));
+                            }}
+                            className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                            <option value="" disabled>
+                                Selecione um Cliente ou Posto
+                            </option>
                             {Array.isArray(clientes) &&
                                 clientes.map((cliente) => (
-                                    <div key={cliente.clienteId} className="flex items-center">
-                                        <input
-                                            type="checkbox"
-                                            name="selectedClientes"
-                                            value={cliente.clientePosto}
-                                            checked={formData.selectedClientes.includes(cliente.clientePosto)}
-                                            onChange={handleChange}
-                                            className="mr-2"
-                                        />
-                                        <span className="text-gray-300">{cliente.clientePosto}</span>
-                                    </div>
+                                    <option key={cliente.clienteId} value={cliente.clientePosto}>
+                                        {cliente.clientePosto}
+                                    </option>
                                 ))}
-                        </div>
+                        </select>
                     </div>
 
                     {/* Sessão com input de texto */}
