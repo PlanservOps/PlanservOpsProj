@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {motion} from "framer-motion";
-import api from "../../api";
+import { motion } from "framer-motion";
 import axiosInstance from "../../lib/axiosInstance";
 
 const AvaliacoesPage = () => {
@@ -17,23 +16,19 @@ const AvaliacoesPage = () => {
         input3: "",
     });
 
-    const baseUrl = import.meta.env.VITE_API_URL;
-
-    // Busca os clientes cadastrados no banco
     useEffect(() => {
-            const fetchClientes = async () => {
-                try {				
-                    const response = await api.get("/Clientes");
-                    setClientes(response.data);
-                } catch (error) {
-                    console.error("Erro ao buscar usuários:", error);
-                }
-            };
-    
-            fetchClientes();
-        }, [baseUrl]);
+        const fetchClientes = async () => {
+            try {
+                const response = await axiosInstance.get("/Clientes");
+                setClientes(response.data);
+            } catch (error) {
+                console.error("Erro ao buscar clientes:", error);
+            }
+        };
 
-    // Manipula mudanças no formulário
+        fetchClientes();
+    }, []);
+
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
 
@@ -52,24 +47,26 @@ const AvaliacoesPage = () => {
         }
     };
 
-    // Envia o formulário
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Dados do formulário:", formData);
-        // Aqui você pode enviar os dados para o backend
     };
 
     return (
-        <motion.div
-			className='bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-700'
-			initial={{ opacity: 0, y: 20 }}
-			animate={{ opacity: 1, y: 0 }}
-			transition={{ delay: 0.2 }}
-		>			
-            <div className='flex justify-between items-center mb-6'>
-                <h1 className='text-xl font-semibold text-gray-100'>Relatório Gerencial Operacional</h1>
-            </div>    
+        <div className="flex justify-center items-center h-screen bg-gray-900">
+            <motion.div
+                className="bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-700 max-w-4xl w-full h-full sm:h-auto sm:max-h-screen overflow-y-auto"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+            >
                 <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="flex justify-between items-center mb-6">
+                        <h1 className="text-xl font-semibold text-gray-100">
+                            Relatório Gerencial Operacional
+                        </h1>
+                    </div>
+
                     {/* Sessão com seleção numérica (1 a 15) */}
                     <div>
                         <label className="block text-sm font-medium text-gray-300">
@@ -123,7 +120,7 @@ const AvaliacoesPage = () => {
                         <label className="block text-sm font-medium text-gray-300">
                             Cliente/ Posto:
                         </label>
-                        <div className="space-y-2">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                             {Array.isArray(clientes) &&
                                 clientes.map((cliente) => (
                                     <div key={cliente.clienteId} className="flex items-center">
@@ -158,7 +155,7 @@ const AvaliacoesPage = () => {
                     {/* Sessão com outro input de texto */}
                     <div>
                         <label className="block text-sm font-medium text-gray-300">
-                            Soluções apontadas  (escrever cliente - solução)
+                            Soluções apontadas (escrever cliente - solução)
                         </label>
                         <input
                             type="text"
@@ -219,13 +216,14 @@ const AvaliacoesPage = () => {
                     <div>
                         <button
                             type="submit"
-                            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors w-full sm:w-auto"
                         >
                             Enviar
                         </button>
                     </div>
                 </form>
-        </motion.div>    
+            </motion.div>
+        </div>
     );
 };
 
