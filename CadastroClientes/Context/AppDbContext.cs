@@ -1,4 +1,5 @@
 ﻿using CadastroCliente.Models;
+using CadastroClientes.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CadastroCliente.Context
@@ -10,6 +11,7 @@ namespace CadastroCliente.Context
         }
 
         public DbSet<ClienteTest> ClienteTest { get; set; }
+        public DbSet<FormularioOperacional> FormularioOperacional { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
