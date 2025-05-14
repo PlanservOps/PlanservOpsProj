@@ -1,14 +1,232 @@
-import React from 'react'
-import InfoBanner from '../../components/common/InfoBanner' 
+import React, { useState, useEffect } from "react";
+import {motion} from "framer-motion";
+import api from "../../api";
+import axiosInstance from "../../lib/axiosInstance";
 
 const AvaliacoesPage = () => {
-    return (
-        <div className="p-6">
-            <InfoBanner message="Esta página está em desenvolvimento. Algumas mudanças ainda irão ocorrer." />
-            <h1 className="text-2xl font-bold">Bem-vindo à Página de Avaliações</h1>
-            {/* Conteúdo da página */}
-        </div>
-    )
-}
+    const [clientes, setClientes] = useState([]);
+    const [formData, setFormData] = useState({
+        range1: 1,
+        range2: 1,
+        range3: 1,
+        selectedClientes: [],
+        input1: "",
+        input2: "",
+        rating1: 1,
+        rating2: 1,
+        input3: "",
+    });
 
-export default AvaliacoesPage
+    const baseUrl = import.meta.env.VITE_API_URL;
+
+    // Busca os clientes cadastrados no banco
+    useEffect(() => {
+            const fetchClientes = async () => {
+                try {				
+                    const response = await api.get("/Clientes");
+                    setClientes(response.data);
+                } catch (error) {
+                    console.error("Erro ao buscar usuários:", error);
+                }
+            };
+    
+            fetchClientes();
+        }, [baseUrl]);
+
+    // Manipula mudanças no formulário
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+
+        if (type === "checkbox") {
+            setFormData((prev) => ({
+                ...prev,
+                selectedClientes: checked
+                    ? [...prev.selectedClientes, value]
+                    : prev.selectedClientes.filter((cliente) => cliente !== value),
+            }));
+        } else {
+            setFormData((prev) => ({
+                ...prev,
+                [name]: value,
+            }));
+        }
+    };
+
+    // Envia o formulário
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("Dados do formulário:", formData);
+        // Aqui você pode enviar os dados para o backend
+    };
+
+    return (
+        <motion.div
+			className='bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-700'
+			initial={{ opacity: 0, y: 20 }}
+			animate={{ opacity: 1, y: 0 }}
+			transition={{ delay: 0.2 }}
+		>			
+            <div className='flex justify-between items-center mb-6'>
+                <h1 className='text-xl font-semibold text-gray-100'>Relatório Gerencial Operacional</h1>
+            </div>    
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* Sessão com seleção numérica (1 a 15) */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-300">
+                            Quantidade de clientes atendidos no dia:
+                        </label>
+                        <input
+                            type="number"
+                            name="range1"
+                            min="1"
+                            max="15"
+                            value={formData.range1}
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    {/* Sessão com seleção numérica (1 a 100) */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-300">
+                            Quantidade de problemas identificados no dia:
+                        </label>
+                        <input
+                            type="number"
+                            name="range2"
+                            min="1"
+                            max="100"
+                            value={formData.range2}
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    {/* Sessão com seleção numérica (1 a 15) */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-300">
+                            Quantidade de gestores atendidos pessoalmente:
+                        </label>
+                        <input
+                            type="number"
+                            name="range3"
+                            min="1"
+                            max="15"
+                            value={formData.range3}
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    {/* Sessão com checkbox para clientes */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-300">
+                            Cliente/ Posto:
+                        </label>
+                        <div className="space-y-2">
+                            {Array.isArray(clientes) &&
+                                clientes.map((cliente) => (
+                                    <div key={cliente.clienteId} className="flex items-center">
+                                        <input
+                                            type="checkbox"
+                                            name="selectedClientes"
+                                            value={cliente.clientePosto}
+                                            checked={formData.selectedClientes.includes(cliente.clientePosto)}
+                                            onChange={handleChange}
+                                            className="mr-2"
+                                        />
+                                        <span className="text-gray-300">{cliente.clientePosto}</span>
+                                    </div>
+                                ))}
+                        </div>
+                    </div>
+
+                    {/* Sessão com input de texto */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-300">
+                            Problemas identificados (escrever cliente - problema)
+                        </label>
+                        <input
+                            type="text"
+                            name="input1"
+                            value={formData.input1}
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    {/* Sessão com outro input de texto */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-300">
+                            Soluções apontadas  (escrever cliente - solução)
+                        </label>
+                        <input
+                            type="text"
+                            name="input2"
+                            value={formData.input2}
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    {/* Sessão com rating (1 a 10) */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-300">
+                            Qual a nota do Supervisor Igo nas atividades realizadas hoje?
+                        </label>
+                        <input
+                            type="number"
+                            name="rating1"
+                            min="1"
+                            max="10"
+                            value={formData.rating1}
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    {/* Sessão com outro rating (1 a 10) */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-300">
+                            Qual a nota do Supervisor Robson nas atividades realizadas hoje?
+                        </label>
+                        <input
+                            type="number"
+                            name="rating2"
+                            min="1"
+                            max="10"
+                            value={formData.rating2}
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    {/* Sessão com outro input de texto */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-300">
+                            Observações Gerais
+                        </label>
+                        <input
+                            type="text"
+                            name="input3"
+                            value={formData.input3}
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    {/* Botão de envio */}
+                    <div>
+                        <button
+                            type="submit"
+                            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                        >
+                            Enviar
+                        </button>
+                    </div>
+                </form>
+        </motion.div>    
+    );
+};
+
+export default AvaliacoesPage;
