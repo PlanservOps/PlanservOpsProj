@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import axiosInstance from "../../lib/axiosInstance";
+import api from "../../api";
 
 const AvaliacoesPage = () => {
     const [clientes, setClientes] = useState([]);
@@ -8,7 +8,7 @@ const AvaliacoesPage = () => {
         range1: 1,
         range2: 1,
         range3: 1,
-        selectedClientes: [],
+        selectedCliente: "",
         input1: "",
         input2: "",
         rating1: 1,
@@ -19,7 +19,7 @@ const AvaliacoesPage = () => {
     useEffect(() => {
         const fetchClientes = async () => {
             try {
-                const response = await axiosInstance.get("/Clientes");
+                const response = await api.get("/Clientes");
                 setClientes(response.data);
             } catch (error) {
                 console.error("Erro ao buscar clientes:", error);
