@@ -16,6 +16,8 @@ const AvaliacoesPage = () => {
         input3: "",
     });
 
+    const [successMessage, setSuccessMessage] = useState("");
+
     useEffect(() => {
         const fetchClientes = async () => {
             try {
@@ -50,6 +52,10 @@ const AvaliacoesPage = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Dados do formulário:", formData);
+        setSuccessMessage("Formulário enviado com sucesso!");
+        setTimeout(() => {
+            setSuccessMessage("");
+        }, 3000);
     };
 
     return (
@@ -60,6 +66,12 @@ const AvaliacoesPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
             >
+                {successMessage && (
+                    <div className="mb-4 p-3 rounded bg-green-600 text-white text-center">
+                        {successMessage}
+                    </div>
+                )}
+
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="flex justify-between items-center mb-6">
                         <h1 className="text-xl font-semibold text-gray-100">
