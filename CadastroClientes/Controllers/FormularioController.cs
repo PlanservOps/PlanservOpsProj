@@ -1,4 +1,5 @@
-﻿using CadastroCliente.Context;
+﻿using CadastroClientes.Models;
+using CadastroClientes.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadastroClientes.Controllers
@@ -7,41 +8,43 @@ namespace CadastroClientes.Controllers
     [Route("api/[controller]")]
     public class FormularioController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private IFormularioService _formularioService;
 
-        public FormularioController(AppDbContext context)
+        public FormularioController(IFormularioService formularioService)
         {
-            _context = context;
+            _formularioService = formularioService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostFormulario([FromBody] FormularioDto dto)
+        public async Task<ActionResult<FormularioOperacional>> PostFormulario([FromBody] FormularioOperacional formulario)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var formulario = new Formulario
+            try
             {
-                Campo1 = dto.Campo1,
-                Campo2 = dto.Campo2,
-                OutraEntidadeId = dto.OutraEntidadeId,
-                DataEnvio = DateTime.UtcNow
-            };
+                await _formularioService.PostFormulario(formulario);
+                return Ok(formulario);
 
-            _context.Formularios.Add(formulario);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetFormulario), new { id = formulario.Id }, formulario);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao criar cliente");
+            }
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetFormulario(int id)
+        [HttpGet("{id:int}", Name ="GetFormulario")]
+        public async Task<ActionResult<FormularioOperacional>> GetFormulario(int id)
         {
-            var formulario = await _context.Formularios.FindAsync(id);
-            if (formulario == null)
-                return NotFound();
+            try
+            {
+                var formulario = await _formularioService.GetFormulario(id);
+                if (formulario == null)
+                    return NotFound($"Não existe formulário com id={id}");
 
-            return Ok(formulario);
+                return Ok(formulario);
+            }
+            catch
+            {
+                return BadRequest("Request inválido");
+            }
         }
     }
 

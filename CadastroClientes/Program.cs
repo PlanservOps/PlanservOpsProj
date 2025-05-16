@@ -12,6 +12,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
 builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<IFormularioService, FormularioService>();
 
 builder.Services.AddCors(options =>
 {

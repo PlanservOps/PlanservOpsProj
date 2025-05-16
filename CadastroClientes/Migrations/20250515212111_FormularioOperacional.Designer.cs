@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CadastroClientes.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250514082125_FormularioOperacional")]
+    [Migration("20250515212111_FormularioOperacional")]
     partial class FormularioOperacional
     {
         /// <inheritdoc />
@@ -107,9 +107,9 @@ namespace CadastroClientes.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AvaliacaoIgor")
+                    b.Property<int>("AvaliacaoIgo")
                         .HasColumnType("integer")
-                        .HasColumnName("avaliacaoigor");
+                        .HasColumnName("avaliacaoigo");
 
                     b.Property<int>("AvaliacaoRobson")
                         .HasColumnType("integer")
@@ -117,7 +117,8 @@ namespace CadastroClientes.Migrations
 
                     b.Property<string>("Cliente")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(400)
+                        .HasColumnType("character varying(400)")
                         .HasColumnName("clienteposto");
 
                     b.Property<int>("ClientePostoClienteId")
@@ -141,14 +142,14 @@ namespace CadastroClientes.Migrations
 
                     b.Property<string>("ObservacoesGerais")
                         .IsRequired()
-                        .HasMaxLength(360)
-                        .HasColumnType("character varying(360)")
+                        .HasMaxLength(400)
+                        .HasColumnType("character varying(400)")
                         .HasColumnName("observacoesgerais");
 
                     b.Property<string>("ProblemasIdentificados")
                         .IsRequired()
-                        .HasMaxLength(360)
-                        .HasColumnType("character varying(360)")
+                        .HasMaxLength(400)
+                        .HasColumnType("character varying(400)")
                         .HasColumnName("problemasidentificados");
 
                     b.Property<int>("ProblemasReportados")
@@ -157,8 +158,8 @@ namespace CadastroClientes.Migrations
 
                     b.Property<string>("SolucoesApresentadas")
                         .IsRequired()
-                        .HasMaxLength(360)
-                        .HasColumnType("character varying(360)")
+                        .HasMaxLength(400)
+                        .HasColumnType("character varying(400)")
                         .HasColumnName("solucoesapresentadas");
 
                     b.HasKey("Id");

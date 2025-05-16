@@ -10,7 +10,7 @@ namespace CadastroClientes.Services
         {
             _context = context;
         }
-        public async Task CreateFormulario(FormularioOperacional formulario)
+        public async Task PostFormulario(FormularioOperacional formulario)
         {
             _context.FormularioOperacional.Add(formulario);
             await _context.SaveChangesAsync();
