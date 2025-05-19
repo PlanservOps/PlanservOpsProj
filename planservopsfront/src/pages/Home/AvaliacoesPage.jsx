@@ -59,9 +59,9 @@ const AvaliacoesPage = () => {
     };
 
     return (
-        <div className="flex justify-center items-center h-screen bg-gray-900">
+        <div className="flex justify-center items-center min-h-screen bg-gray-900">
             <motion.div
-                className="bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-700 max-w-4xl w-full h-full sm:h-auto sm:max-h-screen overflow-y-auto"
+                className="bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-700 max-w-4xl w-full sm:h-auto sm:max-h-screen overflow-y-auto"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
