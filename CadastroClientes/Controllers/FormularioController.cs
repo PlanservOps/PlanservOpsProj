@@ -43,7 +43,7 @@ namespace CadastroClientes.Controllers
             }
             catch
             {
-                return BadRequest("Request inválido");
+                return BadRequest("Request inválido"); 
             }
         }
     }
