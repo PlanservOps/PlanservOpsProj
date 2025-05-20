@@ -60,7 +60,7 @@ const AvaliacoesFormPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-900 flex flex-col">
+        <div className="flex-1 overflow-auto relative z-10">
             <Header title="Relatório Gerencial Operacional" />
                 <div className="flex-1 flex justify-center items-start px-4 pt-8 pb-8">
                     <motion.div
