@@ -1,4 +1,5 @@
-﻿using CadastroClientes.Models;
+﻿using CadastroCliente.Models;
+using CadastroClientes.Models;
 using CadastroClientes.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,20 @@ namespace CadastroClientes.Controllers
         public FormularioController(IFormularioService formularioService)
         {
             _formularioService = formularioService;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IAsyncEnumerable<FormularioOperacional>>> GetFormulario()
+        {
+            try
+            {
+                var formulario = await _formularioService.GetFormulario();
+                return Ok(formulario);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao obter Clientes");
+            }
         }
 
         [HttpPost]
@@ -31,11 +46,11 @@ namespace CadastroClientes.Controllers
         }
 
         [HttpGet("{id:int}", Name ="GetFormulario")]
-        public async Task<ActionResult<FormularioOperacional>> GetFormulario(int id)
+        public async Task<ActionResult<FormularioOperacional>> GetFormularioId(int id)
         {
             try
             {
-                var formulario = await _formularioService.GetFormulario(id);
+                var formulario = await _formularioService.GetFormularioId(id);
                 if (formulario == null)
                     return NotFound($"Não existe formulário com id={id}");
 

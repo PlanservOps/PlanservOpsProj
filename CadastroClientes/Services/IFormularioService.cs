@@ -4,7 +4,8 @@ namespace CadastroClientes.Services
 {
     public interface IFormularioService
     {
+        Task<IEnumerable<FormularioOperacional>> GetFormulario();
         Task PostFormulario(FormularioOperacional formulario);
-        Task<FormularioOperacional> GetFormulario(int id);
+        Task<FormularioOperacional> GetFormularioId(int id);
     }
 }

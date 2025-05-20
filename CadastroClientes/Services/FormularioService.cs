@@ -1,5 +1,6 @@
 ﻿using CadastroCliente.Context;
 using CadastroClientes.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CadastroClientes.Services
 {
@@ -10,12 +11,16 @@ namespace CadastroClientes.Services
         {
             _context = context;
         }
+        public async Task<IEnumerable<FormularioOperacional>> GetFormulario()
+        {
+            return await _context.FormularioOperacional.ToListAsync();            
+        }
         public async Task PostFormulario(FormularioOperacional formulario)
         {
             _context.FormularioOperacional.Add(formulario);
             await _context.SaveChangesAsync();
         }
-        public async Task<FormularioOperacional> GetFormulario(int id)
+        public async Task<FormularioOperacional> GetFormularioId(int id)
         {
             var formulario = await _context.FormularioOperacional.FindAsync(id);
             return formulario;
