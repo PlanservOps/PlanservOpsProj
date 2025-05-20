@@ -10,7 +10,7 @@ import SettingsPage from "./pages/Home/SettingsPage"
 import OcorrenciasPage from "./pages/Home/OcorrenciasPage"
 import ReclamacoesPage from "./pages/Home/ReclamacoesPage"
 import ChecklistPage from "./pages/Home/ChecklistPage"
-import AvaliacoesPage from "./pages/Home/AvaliacoesPage"
+import AvaliacoesFormPage from "./pages/Home/AvaliacoesFormPage"
 import EficienciaPage from "./pages/Home/EficienciaPage"
 
 
@@ -37,7 +37,7 @@ function App() {
         <Route path='/Ocorrencias' element={<OcorrenciasPage/>}/> 
         <Route path='/Reclamacoes' element={<ReclamacoesPage/>}/> 
         <Route path='/Checklist' element={<ChecklistPage/>}/>
-        <Route path='/Avaliacoes' element={<AvaliacoesPage/>}/>
+        <Route path='/AvaliacoesForm' element={<AvaliacoesFormPage/>}/>
         <Route path='/Eficiência' element={<EficienciaPage/>}/>
         <Route path='/Settings' element={<SettingsPage/>}/>
       </Routes>

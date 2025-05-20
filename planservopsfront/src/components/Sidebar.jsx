@@ -9,7 +9,7 @@ const SIDEBAR_ITEMS = [
     {name: "Ocorrências", icon:ShieldAlert, color:"#10B981", href:"/Ocorrencias"},
     {name: "Reclamações", icon:MessageCircleWarning, color:"#10B981", href:"/Reclamacoes"},
     {name: "Checklist", icon:Columns2, color:"#10B981", href:"/Checklist"},
-    {name: "Avaliações", icon:Columns2, color:"#10B981", href:"/Avaliacoes"},
+    {name: "Formulário de Avaliações", icon:Columns2, color:"#10B981", href:"/AvaliacoesForm"},
     {name: "Eficiência", icon:MessageSquareMore, color:"#10B981", href:"/Eficiência"},
     {name: "Configurações", icon:Search, color:"#10B981", href:"/Settings"},
 ];
