@@ -93,7 +93,7 @@ function UsersTable() {
 	const addUser = async () => {		
 			try {
 				console.log("Enviando usuário:", newUser);
-				const { data } = await axiosInstance.post("/api/Clientes", payload);
+				const { data } = await api.post("/api/Clientes", payload);
 				setUsers([...users, data]);
 				setFilteredUsers([...users, data]);
 				setShowForm(false);
@@ -117,7 +117,7 @@ function UsersTable() {
 
 	const deleteUser = async (userId) => {
 		try {
-			await axiosInstance.delete(`/api/Clientes/${userId}`);
+			await api.delete(`/api/Clientes/${userId}`);
 			const updatedUsers = users.filter((user) => user.clienteId !== userId);
 			setUsers(updatedUsers);
 			setFilteredUsers(updatedUsers);

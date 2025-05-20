@@ -59,6 +59,30 @@ const AvaliacoesFormPage = () => {
         }, 3000);
     };
 
+    const payload = {
+        range1: formData.range1,
+        range2: formData.range2,
+        range3: formData.range3,
+        selectedCliente: formData.selectedCliente,
+        input1: formData.input1,
+        input2: formData.input2,
+        rating1: formData.rating1,
+        rating2: formData.rating2,
+        input3: formData.input3,
+	};
+
+    const addForm = async () => {		
+			try {
+				console.log("Enviando usuário:", payload);
+				const { data } = await api.post("/api/Formulario", payload);
+				setFormData([...formData, data]);				
+				setSuccessMessage("Cliente adicionado com sucesso!");
+				setTimeout(() => setSuccessMessage(""), 3000);
+			} catch (error) {
+				console.error("Erro ao adicionar usuário:", error);
+			}
+	};
+
     return (
         <div className="flex-1 overflow-auto relative z-10">
             <Header title="Relatório Gerencial Operacional" />
@@ -237,6 +261,7 @@ const AvaliacoesFormPage = () => {
                                 <button
                                     type="submit"
                                     className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors w-full sm:w-auto"
+                                    onClick={addForm}
                                 >
                                     Enviar
                                 </button>
