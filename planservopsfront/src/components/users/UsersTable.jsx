@@ -30,6 +30,18 @@ function UsersTable() {
 
 	const openCloseForm = () => {
 		setShowForm(!showForm);
+			if (showForm) {
+			setEditUserId(null);
+			setNewUser({
+				clientePosto: "",
+				clienteResponsavel: "",
+				clienteContato: "",
+				clienteFuncaoResponsavel: "",
+				clienteEndereco: "",
+				clienteBairro: "",
+				clienteFuncoesTerceirizadas: ""
+			});
+		}
 	};
 
 	const openEditForm = (user) => {
@@ -37,6 +49,20 @@ function UsersTable() {
         setNewUser(user); 
         setShowForm(true); 
     };
+
+	const openAddForm = () => {
+    setEditUserId(null); // Limpa o modo edição
+    setNewUser({
+        clientePosto: "",
+        clienteResponsavel: "",
+        clienteContato: "",
+        clienteFuncaoResponsavel: "",
+        clienteEndereco: "",
+        clienteBairro: "",
+        clienteFuncoesTerceirizadas: ""
+    });
+    setShowForm(true);
+};
 
 	const updateUser = async () => {
         try {
@@ -137,7 +163,7 @@ function UsersTable() {
 		>
 			<div className='flex justify-between items-center mb-6'>
 				<h2 className='text-xl font-semibold text-gray-100'>Clientes</h2>
-				<button className=' bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors' onClick={openCloseForm}>Adicionar Cliente</button>
+				<button className=' bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors' onClick={openAddForm}>Adicionar Cliente</button>
 				<div className='relative'>
 					<input
 						type='text'
@@ -342,7 +368,18 @@ function UsersTable() {
 						) : (
 							<button
 								className='bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors'
-								onClick={addUser}
+								onClick={() => {
+									addUser();
+									setNewUser({
+										clientePosto: "",
+										clienteResponsavel: "",
+										clienteContato: "",
+										clienteFuncaoResponsavel: "",
+										clienteEndereco: "",
+										clienteBairro: "",
+										clienteFuncoesTerceirizadas: ""
+									});
+								}}
 							>
 								Adicionar
 							</button>
