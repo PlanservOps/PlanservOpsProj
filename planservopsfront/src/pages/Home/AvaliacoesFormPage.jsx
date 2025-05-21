@@ -74,7 +74,7 @@ const AvaliacoesFormPage = () => {
     const addForm = async () => {		
 			try {
 				console.log("Enviando usuário:", payload);
-				const { data } = await api.post("/api/Formulario", payload);
+				const { data } = await api.post("/Formulario", payload);
 				setFormData([...formData, data]);				
 				setSuccessMessage("Cliente adicionado com sucesso!");
 				setTimeout(() => setSuccessMessage(""), 3000);
@@ -130,7 +130,7 @@ const AvaliacoesFormPage = () => {
                                 <input
                                     type="number"
                                     name="range2"
-                                    min="1"
+                                    min="0"
                                     max="100"
                                     value={formData.range2}
                                     onChange={handleChange}

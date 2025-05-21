@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
-import axiosInstance from "../../lib/axiosInstance";
 import api from "../../api";
 
 
@@ -67,7 +66,7 @@ function UsersTable() {
 	const updateUser = async () => {
         try {
             console.log("Atualizando usuário:", newUser);
-            const { data } = await axiosInstance.put(`/api/Clientes/${editUserId}`, payload); 
+            const { data } = await api.put(`/Clientes/${editUserId}`, payload); 
             const updatedUsers = users.map((user) =>
                 user.clienteId === editUserId ? data : user
             );
@@ -119,7 +118,7 @@ function UsersTable() {
 	const addUser = async () => {		
 			try {
 				console.log("Enviando usuário:", newUser);
-				const { data } = await api.post("/api/Clientes", payload);
+				const { data } = await api.post("/Clientes", payload);
 				setUsers([...users, data]);
 				setFilteredUsers([...users, data]);
 				setShowForm(false);
@@ -143,7 +142,7 @@ function UsersTable() {
 
 	const deleteUser = async (userId) => {
 		try {
-			await api.delete(`/api/Clientes/${userId}`);
+			await api.delete(`/Clientes/${userId}`);
 			const updatedUsers = users.filter((user) => user.clienteId !== userId);
 			setUsers(updatedUsers);
 			setFilteredUsers(updatedUsers);
@@ -163,7 +162,13 @@ function UsersTable() {
 		>
 			<div className='flex justify-between items-center mb-6'>
 				<h2 className='text-xl font-semibold text-gray-100'>Clientes</h2>
-				<button className=' bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors' onClick={openAddForm}>Adicionar Cliente</button>
+				<button 
+					className=' bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors' 
+					onClick={openAddForm}
+					>
+						Adicionar Cliente
+				</button>
+
 				<div className='relative'>
 					<input
 						type='text'
@@ -256,9 +261,15 @@ function UsersTable() {
 								</td>
 
 								<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
-									<button className='text-indigo-400 hover:text-indigo-300 mr-2' onClick={() => openEditForm(user)}>Editar
+									<button
+										type="button"
+										className='text-indigo-400 hover:text-indigo-300 mr-2' 
+										onClick={() => openEditForm(user)}
+									>
+										Editar
 									</button>
 									<button
+										type="button"
 										className='text-red-400 hover:text-red-300'
 										onClick={() => deleteUser(user.clienteId)}
 									>
@@ -360,6 +371,7 @@ function UsersTable() {
 					<div className="mt-6 flex justify-end space-x-4">
 						{editUserId ? (
 							<button
+								type="button"
 								className='bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors'
 								onClick={updateUser}
 							>
