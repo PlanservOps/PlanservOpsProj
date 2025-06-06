@@ -8,7 +8,7 @@ namespace CadastroClientes.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(Roles = "AdminMaster, AdminInterno")]
     public class ClientesController : ControllerBase
     {
         private IClienteService _clienteService;

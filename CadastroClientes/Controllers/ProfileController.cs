@@ -63,6 +63,7 @@ namespace CadastroClientes.Controllers
             {
                 new Claim("email", userInfo.Email),
                 new Claim("planservToken", "Token Planserv"),
+                new Claim(ClaimTypes.Role, userInfo.Role.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

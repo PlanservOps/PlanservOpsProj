@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CadastroClientes.LeadsOperacionais;
+using System.ComponentModel.DataAnnotations;
 
 namespace CadastroClientes.ViewModels
 {
@@ -12,5 +13,7 @@ namespace CadastroClientes.ViewModels
         [StringLength(20, ErrorMessage = "A senha deve ter entre 8 e 20 caracteres", MinimumLength = 8)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        public LeadsRole Role { get; set; } 
     }
 }
