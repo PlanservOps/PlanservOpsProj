@@ -69,7 +69,6 @@ const OcorrenciasPage = () => {
         <div className="flex-1 overflow-auto relative z-10">
             <Header title="Ocorrências" />
             <div className="p-6">
-                <InfoBanner message="Esta página está em desenvolvimento. Algumas mudanças ainda irão ocorrer." />
                 <div className="flex justify-between items-center mb-6">
                     <h1 className="text-2xl font-bold text-gray-100">Ocorrências</h1>
                     <button
