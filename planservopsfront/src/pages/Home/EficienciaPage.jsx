@@ -1,5 +1,6 @@
 import React from 'react'
 import InfoBanner from '../../components/common/InfoBanner' 
+import Header from '../../components/common/Header'
 import { useEffect, useState } from 'react'
 import api from '../../api'
 
@@ -24,7 +25,8 @@ const EficienciaPage = () => {
     }, [searchTerm, page]);
 
     return (
-        <div className="p-6">
+        <div className="flex-1 overflow-auto relative z-10">
+            <Header title="Eficiência" />
             <h1 className="text-2xl font-bold mb-4">Histórico de Formulários</h1>
 
             <input
@@ -60,7 +62,7 @@ const EficienciaPage = () => {
             </table>
 
             {/* Paginação simples */}
-            <div className="mt-4 flex gap-2">
+            <div className="mt-4 flex gap-2 justify-center">
                 <button
                     onClick={() => setPage((p) => Math.max(p - 1, 1))}
                     disabled={page === 1}
