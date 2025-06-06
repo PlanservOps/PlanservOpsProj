@@ -5,9 +5,9 @@ namespace CadastroClientes.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "AdminMaster,GerenteOperacional")]
     public class OcorrenciasController : ControllerBase
     {
-        [Authorize(Roles = "AdminMaster,GerenteOperacional")]
         [HttpGet]
         public IActionResult GetOcorrencias()
         {

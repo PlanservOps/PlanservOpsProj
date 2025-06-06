@@ -1,12 +1,14 @@
 ﻿using CadastroCliente.Models;
 using CadastroClientes.Models;
 using CadastroClientes.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadastroClientes.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "AdminMaster, Fiscal")]
     public class FormularioController : ControllerBase
     {
         private IFormularioService _formularioService;
