@@ -1,17 +1,17 @@
-import { Menu, TableOfContents, Users, ShieldAlert, Columns2, MessageSquareMore, MessageCircleWarning, Search } from "lucide-react"
+import { Menu, Users, ShieldAlert, MessageCircleWarning, ClipboardCheck, ChartLineIcon, Settings, AppWindow, BookCheck } from "lucide-react"
 import { useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { href, Link } from "react-router-dom";
 
 const SIDEBAR_ITEMS = [
-    {name:"Overview", icon:TableOfContents, color:"#10B981", href:"/Home"},
+    {name:"Overview", icon:AppWindow, color:"#10B981", href:"/Home"},
     {name: "Clientes", icon:Users, color:"#10B981", href:"/Users"},
     {name: "Ocorrências", icon:ShieldAlert, color:"#10B981", href:"/Ocorrencias"},
     {name: "Reclamações", icon:MessageCircleWarning, color:"#10B981", href:"/Reclamacoes"},
-    {name: "Checklist", icon:Columns2, color:"#10B981", href:"/Checklist"},
-    {name: "Formulário de Avaliações", icon:Columns2, color:"#10B981", href:"/AvaliacoesForm"},
-    {name: "Eficiência", icon:MessageSquareMore, color:"#10B981", href:"/Eficiência"},
-    {name: "Configurações", icon:Search, color:"#10B981", href:"/Settings"},
+    {name: "Checklist", icon:ClipboardCheck, color:"#10B981", href:"/Checklist"},
+    {name: "Formulário de Avaliações", icon:BookCheck, color:"#10B981", href:"/AvaliacoesForm"},
+    {name: "Eficiência", icon:ChartLineIcon, color:"#10B981", href:"/Eficiência"},
+    {name: "Configurações", icon:Settings, color:"#10B981", href:"/Settings"},
 ];
 
 const Sidebar = () => {
