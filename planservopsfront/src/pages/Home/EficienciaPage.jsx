@@ -40,7 +40,7 @@ const EficienciaPage = () => {
 
             <table className="w-full border">
                 <thead>
-                    <tr className="bg-gray-100">
+                    <tr className="bg-gray-700 text-white">
                         <th className="p-2 border">Nome</th>
                         <th className="p-2 border">Data de Envio</th>
                         <th className="p-2 border">Status</th>
@@ -64,7 +64,7 @@ const EficienciaPage = () => {
                 <button
                     onClick={() => setPage((p) => Math.max(p - 1, 1))}
                     disabled={page === 1}
-                    className="px-4 py-2 bg-gray-200 rounded"
+                    className="px-4 py-2 bg-gray-700 rounded"
                 >
                     Anterior
                 </button>
@@ -72,7 +72,7 @@ const EficienciaPage = () => {
                 <button
                     onClick={() => setPage((p) => p + 1)}
                     disabled={formularios.length < 10}
-                    className="px-4 py-2 bg-gray-200 rounded"
+                    className="px-4 py-2 bg-gray-700 rounded"
                 >
                     Próxima
                 </button>
