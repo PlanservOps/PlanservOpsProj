@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import InfoBanner from "../../components/common/InfoBanner";
 import Header from "../../components/common/Header";
 import StatsCards from "../../components/common/StatsCards";
 import { BellPlus, TriangleAlert, ShieldAlert, BarChart2 } from "lucide-react";
