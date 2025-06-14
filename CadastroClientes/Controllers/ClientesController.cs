@@ -1,6 +1,5 @@
 ﻿using CadastroCliente.Models;
 using CadastroClientes.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

@@ -21,7 +21,7 @@ namespace CadastroClientes.Controllers
         }
 
         [HttpPost("CreateUser")]
-        public async Task<ActionResult<UserToken>> CreateUser([FromBody] RegisterViewModel model)
+        public async Task<ActionResult<ProfileToken>> CreateUser([FromBody] RegisterViewModel model)
         {
             if (model.Password != model.ConfirmPassword)
             {
@@ -42,7 +42,7 @@ namespace CadastroClientes.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult<UserToken>> Login([FromBody] LoginViewModel userInfo)
+        public async Task<ActionResult<ProfileToken>> Login([FromBody] LoginViewModel userInfo)
         {
             var result = await _authentication.Autheticate(userInfo.Email, userInfo.Password);
 
@@ -57,7 +57,7 @@ namespace CadastroClientes.Controllers
             }
         }
 
-        private ActionResult<UserToken> GenerateToken(LoginViewModel userInfo)
+        private ActionResult<ProfileToken> GenerateToken(LoginViewModel userInfo)
         {
             var claims = new[]
             {
@@ -81,7 +81,7 @@ namespace CadastroClientes.Controllers
                 signingCredentials: creds
             );
 
-            return new UserToken()
+            return new ProfileToken()
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
                 Expiration = expiration,

@@ -14,7 +14,7 @@ namespace CadastroCliente.Models
         [Required]
         [EmailAddress]
         [StringLength(400)]
-        public string LeadLogin { get; set; }
+        public string LeadEmail { get; set; }
         [Required]
         [StringLength(400)]
         public string LeadPassword { get; set; }

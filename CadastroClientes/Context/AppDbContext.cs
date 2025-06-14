@@ -14,6 +14,7 @@ namespace CadastroCliente.Context
 
         public DbSet<ClienteTest> ClienteTest { get; set; }
         public DbSet<FormularioOperacional> FormularioOperacional { get; set; }
+        public DbSet<IdentityUser> Users { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
