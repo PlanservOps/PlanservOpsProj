@@ -7,7 +7,6 @@ namespace CadastroClientes.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "AdminMaster, AdminInterno")]
     public class ClientesController : ControllerBase
     {
         private IClienteService _clienteService;

@@ -8,7 +8,6 @@ namespace CadastroClientes.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "AdminMaster, Fiscal")]
     public class FormularioController : ControllerBase
     {
         private IFormularioService _formularioService;
