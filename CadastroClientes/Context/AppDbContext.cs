@@ -1,4 +1,5 @@
 ﻿using CadastroCliente.Models;
+using CadastroClientes.LeadsOperacionais;
 using CadastroClientes.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -6,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CadastroCliente.Context
 {
-    public class AppDbContext : IdentityDbContext<IdentityUser>
+    public class AppDbContext : IdentityDbContext<IdentityUser, IdentityRole, string>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
         {
@@ -15,10 +16,30 @@ namespace CadastroCliente.Context
         public DbSet<ClienteTest> ClienteTest { get; set; }
         public DbSet<FormularioOperacional> FormularioOperacional { get; set; }
         public DbSet<Ocorrencias> Ocorrencias { get; set; }
+        public DbSet<LeadsOperacionais> LeadsOperacionais { get; set; }
         public DbSet<FuncaoTerceirizada> FuncaoTerceirizada { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
+            // Força todos os DateTime para UTC
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                foreach (var property in entityType.GetProperties())
+                {
+                    if (property.ClrType == typeof(DateTime) || property.ClrType == typeof(DateTime?))
+                    {
+                        property.SetValueConverter(
+                            new Microsoft.EntityFrameworkCore.Storage.ValueConversion.ValueConverter<DateTime, DateTime>(
+                                v => v.ToUniversalTime(),
+                                v => DateTime.SpecifyKind(v, DateTimeKind.Utc)
+                            )
+                        );
+                    }
+                }
+            }
+
             modelBuilder.Entity<ClienteTest>().HasData(
                 new ClienteTest
                 {
@@ -48,8 +69,8 @@ namespace CadastroCliente.Context
                 new FormularioOperacional
                 {
                     Id = 1,
-                    DataEnvio = new DateTime(2024, 6, 15),
-                    HoraEnvio = new DateTime(2024, 6, 15, 8, 0, 0),
+                    DataEnvio = new DateTime(2024, 6, 15, 0, 0, 0, DateTimeKind.Utc),
+                    HoraEnvio = new DateTime(2024, 6, 15, 8, 0, 0, DateTimeKind.Utc),
                     ClientesAtendidos = 10,
                     ProblemasReportados = 2,
                     GestoresAtendidos = 5,
@@ -68,7 +89,7 @@ namespace CadastroCliente.Context
                     OcorrenciaId = 1,
                     ClientePostoId = 1, 
                     ClienteResponsavelId = 1, 
-                    OcorrenciaData = new DateTime(2024, 6, 15, 8, 0, 0),
+                    OcorrenciaData = new DateTime(2024, 6, 15, 8, 0, 0, DateTimeKind.Utc),
                     OcorrenciaDescricao = "Problema de vazamento no banheiro",
                     OcorrenciaStatus = CadastroClientes.Models.Ocorrencias.StatusEnum.Resolvido,
                 },
@@ -77,9 +98,19 @@ namespace CadastroCliente.Context
                     OcorrenciaId = 2,
                     ClientePostoId = 2, 
                     ClienteResponsavelId = 2, 
-                    OcorrenciaData = new DateTime(2024, 6, 15, 9, 0, 0),
+                    OcorrenciaData = new DateTime(2024, 6, 15, 9, 0, 0, DateTimeKind.Utc),
                     OcorrenciaDescricao = "Falta de energia na área comum",
                     OcorrenciaStatus = CadastroClientes.Models.Ocorrencias.StatusEnum.Resolvido,
+                }
+            );
+            modelBuilder.Entity<LeadsOperacionais>().HasData(
+                new LeadsOperacionais
+                {
+                    LeadId = 1,
+                    LeadName = "João Silva",
+                    LeadEmail = "",
+                    LeadPassword = "senha123",
+                    LeadRole = LeadsRole.AdminMaster
                 }
             );
 

@@ -33,7 +33,6 @@ namespace CadastroClientes.Models
 
         [Required]
         [Column("clientepostoid")]
-        [StringLength(400)]
         public int ClientePostoId { get; set; }
 
         [Required]
