@@ -32,9 +32,9 @@ namespace CadastroClientes.Models
         public int GestoresAtendidos { get; set; }
 
         [Required]
-        [Column("clienteposto")]
+        [Column("clientepostoid")]
         [StringLength(400)]
-        public string Cliente { get; set; }
+        public int ClientePostoId { get; set; }
 
         [Required]
         public virtual ClienteTest ClientePosto { get; set; }
