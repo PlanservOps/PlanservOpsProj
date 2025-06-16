@@ -1,13 +1,16 @@
 import React from 'react'
-import InfoBanner from '../../components/common/InfoBanner'
+import Header from '../../components/common/Header'
+import CleaningChecklist from '../../components/checklistComponent/Checklist'
 
 const ChecklistPage = () => {
     return (
-        <div className="p-6">
-            <InfoBanner message="Esta página está em desenvolvimento. Algumas mudanças ainda irão ocorrer." />
-            <h1 className="text-2xl font-bold">Bem-vindo à Página de Checklist</h1>
-            {/* Conteúdo da página */}
+        <div className="flex-1 overflow-auto relative z-10">
+            <Header title="Checklist de Limpeza" />            
+            <div className="p-4">
+                <CleaningChecklist />
+            </div>
         </div>
+        
     )
 }
 

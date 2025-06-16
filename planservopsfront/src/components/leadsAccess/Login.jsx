@@ -41,7 +41,7 @@ const Login = () => {
       				navigate("/Checklist");
       				break;
     			default:
-      				navigate("/login");
+      				navigate("/");
 }
 			} catch (err) {
 			setError("E-mail ou senha inválidos.");

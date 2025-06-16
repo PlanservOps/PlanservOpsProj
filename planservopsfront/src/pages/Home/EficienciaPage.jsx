@@ -1,5 +1,4 @@
 import React from 'react'
-import InfoBanner from '../../components/common/InfoBanner' 
 import Header from '../../components/common/Header'
 import { useEffect, useState } from 'react'
 import api from '../../api'

@@ -39,8 +39,8 @@ function App() {
         <Route path='/Reclamacoes' element={<PrivateRoute roleRequired={["Diretoria", "GerenteOperacional"]}><ReclamacoesPage/></PrivateRoute>}/> 
         <Route path='/Checklist' element={<PrivateRoute roleRequired={["Diretoria", "Fiscal"]}><ChecklistPage/></PrivateRoute>}/>
         <Route path='/AvaliacoesForm' element={<PrivateRoute roleRequired={["Diretoria", "Fiscal"]}><AvaliacoesFormPage/></PrivateRoute>}/>
-        <Route path='/Eficiência' element={<PrivateRoute roleRequired={["Diretoria"]}><EficienciaPage/></PrivateRoute>}/>
-        <Route path='/Settings' element={<PrivateRoute roleRequired={["Diretoria"]}><SettingsPage/></PrivateRoute>}/>
+        <Route path='/Eficiência' element={<PrivateRoute roleRequired={["Diretoria", "GerenteOperacional"]}><EficienciaPage/></PrivateRoute>}/>
+        <Route path='/Settings' element={<PrivateRoute roleRequired={["Diretoria", "AdministradorInterno"]}><SettingsPage/></PrivateRoute>}/>
       </Routes>
     </div>
   )
