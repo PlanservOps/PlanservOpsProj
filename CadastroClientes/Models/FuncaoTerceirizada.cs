@@ -13,6 +13,5 @@ namespace CadastroClientes.Models
         [Column("funcaoTerceirizadaNome", TypeName = "varchar(100)")]
         public string FuncaoTerceirizadaNome { get; set; }
 
-        public ICollection<ClienteTest> Clientes { get; set; } = new List<ClienteTest>();
     }
 }

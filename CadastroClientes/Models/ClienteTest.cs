@@ -42,5 +42,7 @@ namespace CadastroCliente.Models
             Sindico,
             Gerente
         }
+
+        public ICollection<FuncaoTerceirizada> FuncaoTerceirizada { get; set; } = new List<FuncaoTerceirizada>();
     }
 }
