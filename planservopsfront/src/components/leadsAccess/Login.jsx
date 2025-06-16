@@ -23,8 +23,26 @@ const Login = () => {
 			});
 			// Salve o token JWT (exemplo: localStorage)
 			localStorage.setItem("token", res.data.token);
+
+			const payload = JSON.parse(atob(res.data.token.split('.')[1]));
+  			const role = payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 			// Redirecione para a página principal
-			navigate("/Home");
+			switch (role) {
+    			case "AdministradorInterno":
+      				navigate("/Users");
+      				break;
+ 				case "Diretoria":
+      				navigate("/Home");
+      				break;
+    			case "GerenteOperacional":
+      				navigate("/Ocorrencias");
+      				break;
+    			case "Fiscal":
+      				navigate("/Checklist");
+      				break;
+    			default:
+      				navigate("/login");
+}
 			} catch (err) {
 			setError("E-mail ou senha inválidos.");
 			}
