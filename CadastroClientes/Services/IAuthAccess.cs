@@ -2,8 +2,8 @@
 {
     public interface IAuthAccess
     {
-        Task<string> Autheticate(string email, string password);
-        Task <bool> RegisterUser(string email, string password);
+        Task<string> Authenticate(string email, string password);
+        Task<(bool Success, IEnumerable<string> Errors)> RegisterUser(string email, string password);
         Task LogOut();
     }
 }

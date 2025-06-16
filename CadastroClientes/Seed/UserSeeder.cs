@@ -8,12 +8,12 @@ namespace CadastroCliente.Seed
         {
             var users = new[]
             {
-                new { Nome = "Delano Thomaz", Email = "delano@planservrh.com.br", Senha = "Z1QSGTk8l1", Role = "Diretoria" },
-                new { Nome = "Emelly Lima", Email = "emelly.planservrh@gmail.com", Senha = "Ymeqli1JIG", Role = "Diretoria" },
-                new { Nome = "Luiza Santos", Email = "luiza@planservrh.com.br", Senha = "Y9ZHE0QMWX", Role = "Diretoria" },
-                new { Nome = "João Ramalho", Email = "joao.planservrh@gmail.com", Senha = "zis6Cwyv1U", Role = "GerenteOperacional" },
-                new { Nome = "Deisy", Email = "deisyara@planservrh.com.br", Senha = "YBMs7o49Xa", Role = "AdministradorInterno" },
-                new { Nome = "Igor Rocha", Email = "lordao.planserv@gmail.com", Senha = "zLY1ALa1xS", Role = "Fiscal" },
+                new { Nome = "Delano Thomaz", Email = "delano@planservrh.com.br", Senha = "rp_p2WJVNe", Role = "Diretoria" },
+                new { Nome = "Emelly Lima", Email = "emelly.planservrh@gmail.com", Senha = "wrl_p8$aIi", Role = "Diretoria" },
+                new { Nome = "Luiza Santos", Email = "luiza@planservrh.com.br", Senha = "T0Xm&hIDQt", Role = "Diretoria" },
+                new { Nome = "João Ramalho", Email = "joao.planservrh@gmail.com", Senha = "xgACk4yux=", Role = "GerenteOperacional" },
+                new { Nome = "Deisy", Email = "deisyara@planservrh.com.br", Senha = "vdw+Vj_Dvz", Role = "AdministradorInterno" },
+                new { Nome = "Igor Rocha", Email = "lordao.planserv@gmail.com", Senha = "fs2@S6bQgH", Role = "Fiscal" },
             };
 
             foreach (var u in users)

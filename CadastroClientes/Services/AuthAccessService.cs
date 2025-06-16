@@ -35,7 +35,7 @@ namespace CadastroClientes.Services
             return await GenerateTokenAsync(user);
         }
 
-        public async Task<bool> RegisterUser(string email, string password)
+        public async Task<(bool Success, IEnumerable<string> Errors)> RegisterUser(string email, string password)
         {
             var user = new IdentityUser { UserName = email, Email = email };
             var result = await _userManager.CreateAsync(user, password);
@@ -43,7 +43,7 @@ namespace CadastroClientes.Services
             {
                 await _signInManager.SignInAsync(user, isPersistent: false);
             }
-            return result.Succeeded;
+            return (result.Succeeded, result.Errors.Select(e => e.Description));
         }
 
         public async Task LogOut()
@@ -77,11 +77,6 @@ namespace CadastroClientes.Services
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-        public Task<string> Autheticate(string email, string password)
-        {
-            throw new NotImplementedException();
         }
     }
 }

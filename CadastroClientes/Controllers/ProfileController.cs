@@ -26,15 +26,15 @@ namespace CadastroClientes.Controllers
                 return BadRequest(ModelState);
             }
 
-            var result = await _authentication.RegisterUser(model.Email, model.Password);
+            var (success, errors) = await _authentication.RegisterUser(model.Email, model.Password);
 
-            if (result)
+            if (success)
             {
                 return Ok($"Usuário {model.Email} criado com sucesso");
             }
             else
             {
-                ModelState.AddModelError("Register", "Falha ao criar usuário. Verifique as credenciais.");
+                ModelState.AddModelError("Register", string.Join("; ", errors));
                 return BadRequest(ModelState);
             }
         }
@@ -42,7 +42,7 @@ namespace CadastroClientes.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
-            var token = await _authentication.Autheticate(model.Email, model.Password);
+            var token = await _authentication.Authenticate(model.Email, model.Password);
 
             if (string.IsNullOrEmpty(token))
                 return Unauthorized("Usuário ou senha inválidos");

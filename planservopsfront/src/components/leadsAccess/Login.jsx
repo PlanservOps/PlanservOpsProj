@@ -1,43 +1,34 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import api from '../../api'
 import { useNavigate } from 'react-router-dom'
 import Logo from '../../assets/images/Logo nobg.png'
 
 const Login = () => {
-	const navigate = useNavigate();
+	  	const [form, setForm] = useState({ email: "", senha: "" });
+  		const [error, setError] = useState("");
+  		const navigate = useNavigate();
 
-    const [newLeadAccess, setNewLeadAccess] = useState(
-        {
-            leadEmail: "",
-            leadPassword: ""
-        }
-    )
-    const handleInput = (e) => {
-        const { name, value } = e.target
-        setNewLeadAccess({ ...newLeadAccess, [name]: value })
-    };
+     	const handleChange = (e) => {
+    		setForm({ ...form, [e.target.name]: e.target.value });
+  			};
 
-	const handleLogin = () => {
-		if (!newLeadAccess.leadEmail || !newLeadAccess.leadPassword) {
-			alert("Preencha todos os campos")
-			return
-		}
-		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		if (!emailRegex.test(newLeadAccess.leadEmail)) {
-			alert("E-mail inválido")
-			return
-		}
-		
-			if (
-				newLeadAccess.leadEmail === "planservacesso@planserv.com" &&
-				newLeadAccess.leadPassword === "planserv1234"
-	
-			) {
-				navigate("/Home");
-			} else {
-				alert("E-mail ou senha inválidos");
-				}
-	}
+  		const handleSubmit = async (e) => {
+    		e.preventDefault();
+    		setError("");
+			try {
+			const res = await api.post("/profile/login", {
+				email: form.email,
+				password: form.password,
+			});
+			// Salve o token JWT (exemplo: localStorage)
+			localStorage.setItem("token", res.data.token);
+			// Redirecione para a página principal
+			navigate("/Home");
+			} catch (err) {
+			setError("E-mail ou senha inválidos.");
+			}
+		};
 
 	const handleKeyDown = (e) => {
         if (e.key === "Enter") {
@@ -45,7 +36,6 @@ const Login = () => {
         }
     };
 		
-	console.log("Enviando dados de login:", newLeadAccess)
 
   return (
     <motion.div
@@ -53,39 +43,37 @@ const Login = () => {
         <div className="form-register bg-gray-700 p-6 rounded-lg shadow-lg w-full max-w-md mx-auto">
 					<img src={Logo} alt='logo'/>
 					
-					<div className="space-y-4">
+					<form onSubmit={handleSubmit} className="space-y-5">
 						<div>
-							<label className="block text-sm font-medium text-gray-300">E-mail</label>
-							<input
-								type="text"
-								name="leadEmail"
-								value={newLeadAccess.leadEmail}
-								onChange={handleInput}
-								onKeyDown={handleKeyDown}
-								className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-							/>
+						<label className="block text-sm font-medium mb-1 text-gray-300">E-mail</label>
+						<input
+							type="email"
+							name="email"
+							value={form.email}
+							onChange={handleChange}
+							required
+							className="w-full px-3 py-2 bg-gray-800 text-gray-100 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+						/>
 						</div>
 						<div>
-							<label className="block text-sm font-medium text-gray-300">Senha</label>
-							<input
-								type="password"
-								name="leadPassword"
-								value={newLeadAccess.leadPassword}
-								onChange={handleInput}
-								onKeyDown={handleKeyDown}
-								className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-							/>
-						</div>			
-					</div>
-			
-					<div className="mt-6 flex justify-end space-x-4">
+						<label className="block text-sm font-medium mb-1 text-gray-300">Senha</label>
+						<input
+							type="password"
+							name="senha"
+							value={form.senha}
+							onChange={handleChange}
+							required
+							className="w-full px-3 py-2 bg-gray-800 text-gray-100 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+						/>
+						</div>
 						<button
-							className='bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors'
-							onClick={handleLogin}
+						type="submit"
+						className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition font-semibold shadow"
 						>
-							Entrar
-						</button>						
-					</div> 
+						Entrar
+						</button>
+						{error && <div className="text-red-400 mt-2">{error}</div>}
+					</form>
 				</div>
     </motion.div>    
 )
