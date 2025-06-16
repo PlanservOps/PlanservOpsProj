@@ -1,5 +1,6 @@
 import { useState, useEffect, Children, use } from "react"
 import { Route, Routes, useLocation } from "react-router-dom"
+import { PrivateRoute } from "./components/PrivateRoute"
 
 import LoginPage from "./pages/LoginPage"
 import OverviewPage from "./pages/Home/OverviewPage"
@@ -32,14 +33,14 @@ function App() {
 
       <Routes>
         <Route path='/*' element={<LoginPage/>}/>
-        <Route path='/Home' element={<OverviewPage/>}/>
-        <Route path='/Users' element={<UsersPage/>}/>
-        <Route path='/Ocorrencias' element={<OcorrenciasPage/>}/> 
-        <Route path='/Reclamacoes' element={<ReclamacoesPage/>}/> 
-        <Route path='/Checklist' element={<ChecklistPage/>}/>
-        <Route path='/AvaliacoesForm' element={<AvaliacoesFormPage/>}/>
-        <Route path='/Eficiência' element={<EficienciaPage/>}/>
-        <Route path='/Settings' element={<SettingsPage/>}/>
+        <Route path='/Home' element={<PrivateRoute roleRequired={["Diretoria"]}><OverviewPage/></PrivateRoute>}/>
+        <Route path='/Users' element={<PrivateRoute roleRequired={["Diretoria", "AdministradorInterno"]}><UsersPage/></PrivateRoute>}/>
+        <Route path='/Ocorrencias' element={<PrivateRoute roleRequired={["Diretoria", "GerenteOperacional"]}><OcorrenciasPage/></PrivateRoute>}/> 
+        <Route path='/Reclamacoes' element={<PrivateRoute roleRequired={["Diretoria", "GerenteOperacional"]}><ReclamacoesPage/></PrivateRoute>}/> 
+        <Route path='/Checklist' element={<PrivateRoute roleRequired={["Diretoria", "Fiscal"]}><ChecklistPage/></PrivateRoute>}/>
+        <Route path='/AvaliacoesForm' element={<PrivateRoute roleRequired={["Diretoria", "Fiscal"]}><AvaliacoesFormPage/></PrivateRoute>}/>
+        <Route path='/Eficiência' element={<PrivateRoute roleRequired={["Diretoria"]}><EficienciaPage/></PrivateRoute>}/>
+        <Route path='/Settings' element={<PrivateRoute roleRequired={["Diretoria"]}><SettingsPage/></PrivateRoute>}/>
       </Routes>
     </div>
   )

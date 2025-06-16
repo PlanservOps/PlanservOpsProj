@@ -35,12 +35,16 @@ namespace CadastroClientes.Services
             return await GenerateTokenAsync(user);
         }
 
-        public async Task<(bool Success, IEnumerable<string> Errors)> RegisterUser(string email, string password)
+        public async Task<(bool Success, IEnumerable<string> Errors)> RegisterUser(string email, string password, string role)
         {
             var user = new IdentityUser { UserName = email, Email = email };
             var result = await _userManager.CreateAsync(user, password);
             if (result.Succeeded)
             {
+                if (!string.IsNullOrEmpty(role))
+                {
+                    await _userManager.AddToRoleAsync(user, role);
+                }
                 await _signInManager.SignInAsync(user, isPersistent: false);
             }
             return (result.Succeeded, result.Errors.Select(e => e.Description));

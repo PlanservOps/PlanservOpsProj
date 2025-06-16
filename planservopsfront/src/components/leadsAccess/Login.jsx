@@ -19,7 +19,7 @@ const Login = () => {
 			try {
 			const res = await api.post("/profile/login", {
 				email: form.email,
-				password: form.password,
+				password: form.senha,
 			});
 			// Salve o token JWT (exemplo: localStorage)
 			localStorage.setItem("token", res.data.token);

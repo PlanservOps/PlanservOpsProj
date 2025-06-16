@@ -26,7 +26,7 @@ namespace CadastroClientes.Controllers
                 return BadRequest(ModelState);
             }
 
-            var (success, errors) = await _authentication.RegisterUser(model.Email, model.Password);
+            var (success, errors) = await _authentication.RegisterUser(model.Email, model.Password, model.Role);
 
             if (success)
             {

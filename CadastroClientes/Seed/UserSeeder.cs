@@ -12,8 +12,8 @@ namespace CadastroCliente.Seed
                 new { Nome = "Emelly Lima", Email = "emelly.planservrh@gmail.com", Senha = "wrl_p8$aIi", Role = "Diretoria" },
                 new { Nome = "Luiza Santos", Email = "luiza@planservrh.com.br", Senha = "T0Xm&hIDQt", Role = "Diretoria" },
                 new { Nome = "João Ramalho", Email = "joao.planservrh@gmail.com", Senha = "xgACk4yux=", Role = "GerenteOperacional" },
-                new { Nome = "Deisy", Email = "deisyara@planservrh.com.br", Senha = "vdw+Vj_Dvz", Role = "AdministradorInterno" },
-                new { Nome = "Igor Rocha", Email = "lordao.planserv@gmail.com", Senha = "fs2@S6bQgH", Role = "Fiscal" },
+                new { Nome = "Deisy", Email = "deisyara@planservrh.com.br", Senha = "fs2@S6bQgH", Role = "AdministradorInterno" },
+                new { Nome = "Igor Rocha", Email = "lordao.planserv@gmail.com", Senha = "Qr4VpEdo$O", Role = "Fiscal" },
             };
 
             foreach (var u in users)
