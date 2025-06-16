@@ -1,7 +1,5 @@
-﻿using CadastroCliente.Models;
-using CadastroClientes.Models;
+﻿using CadastroClientes.Models;
 using CadastroClientes.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadastroClientes.Controllers
