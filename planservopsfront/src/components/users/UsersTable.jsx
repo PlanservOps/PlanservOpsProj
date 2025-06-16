@@ -2,11 +2,16 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
 import api from "../../api";
+import FuncoesTerceirizadasSelect from "../common/FuncoesTerceirizadasSelect";
 
 
 function UsersTable() {
 
 	const baseUrl = import.meta.env.VITE_API_URL;
+
+	const [form, setForm] = useState({
+		terceirizada: ""
+	});
 
 	const [searchTerm, setSearchTerm] = useState("");
 	const [users, setUsers] = useState([]); 
@@ -358,12 +363,9 @@ function UsersTable() {
 						</div>
 						<div>
 							<label className="block text-sm font-medium text-gray-300">Funções Terceirizadas</label>
-							<input
-								type="text"
-								name="clienteFuncoesTerceirizadas"
-								value={newUser.clienteFuncoesTerceirizadas}
-								onChange={handleChange}
-								className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+							<FuncoesTerceirizadasSelect
+								value={form.terceirizada}
+								onChange={val => setForm({ ...form, terceirizada: val })}
 							/>
 						</div>
 					</div>
