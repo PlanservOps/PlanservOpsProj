@@ -135,14 +135,16 @@ function UsersTable() {
 	};
 
 	const handleSearch = (e) => {
-		const term = e.target.value.toLowerCase();
-		setSearchTerm(term);
-		const filtered = users.filter(
-			(user) => user.post.toLowerCase().includes(term) ||
-				user.name.toLowerCase().includes(term) ||
-				user.phone.toLowerCase().includes(term)
-		);
-		setFilteredUsers(filtered);
+	const term = e.target.value.toLowerCase();
+	setSearchTerm(term);
+	if (!term) {
+		setFilteredUsers(users); // mostra todos se o campo estiver vazio
+		return;
+	}
+	const filtered = users.filter(
+		(user) => user.clientePosto?.toLowerCase().includes(term)
+	);
+	setFilteredUsers(filtered);
 	};
 
 	const deleteUser = async (userId) => {
