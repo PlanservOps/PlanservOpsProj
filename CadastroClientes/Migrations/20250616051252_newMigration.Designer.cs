@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CadastroClientes.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250615083729_initial")]
-    partial class initial
+    [Migration("20250616051252_newMigration")]
+    partial class newMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,7 +93,7 @@ namespace CadastroClientes.Migrations
                             ClienteContato = "83981295876",
                             ClienteEndereco = "AVENIDA PRESIDENTE AFONSO PENA, 382, BESSA, EM JOAO PESSOA NO ESTADO DA PB, CEP: 58035-030",
                             ClienteFuncaoResponsavel = 0,
-                            ClienteFuncoesTerceirizadasId = 1,
+                            ClienteFuncoesTerceirizadasId = 2,
                             ClientePosto = "Imperial Bessa",
                             ClienteResponsavel = "Mariana"
                         });
@@ -232,17 +232,19 @@ namespace CadastroClientes.Migrations
                 {
                     b.Property<int>("FuncaoTerceirizadaId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("funcoaterceirizadaid");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("FuncaoTerceirizadaId"));
 
                     b.Property<string>("FuncaoTerceirizadaNome")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("funcaoTerceirizadaNome");
 
                     b.HasKey("FuncaoTerceirizadaId");
 
-                    b.ToTable("FuncaoTerceirizada");
+                    b.ToTable("funcoaterceirizada");
 
                     b.HasData(
                         new
@@ -525,7 +527,7 @@ namespace CadastroClientes.Migrations
             modelBuilder.Entity("CadastroCliente.Models.ClienteTest", b =>
                 {
                     b.HasOne("CadastroClientes.Models.FuncaoTerceirizada", "ClienteFuncoesTerceirizadas")
-                        .WithMany("Clientes")
+                        .WithMany()
                         .HasForeignKey("ClienteFuncoesTerceirizadasId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -612,11 +614,6 @@ namespace CadastroClientes.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("CadastroClientes.Models.FuncaoTerceirizada", b =>
-                {
-                    b.Navigation("Clientes");
                 });
 #pragma warning restore 612, 618
         }

@@ -70,6 +70,30 @@ namespace CadastroClientes.Migrations
                     b.HasIndex("ClienteFuncoesTerceirizadasId");
 
                     b.ToTable("clientetest");
+
+                    b.HasData(
+                        new
+                        {
+                            ClienteId = 1,
+                            ClienteBairro = "Miramar",
+                            ClienteContato = "83981295876",
+                            ClienteEndereco = "RUA DOMINGOS MOROSO, S/N MIRAMAR EM JOAO PESSOA NO ESTADO DA PB, CEP:58043-170",
+                            ClienteFuncaoResponsavel = 1,
+                            ClienteFuncoesTerceirizadasId = 1,
+                            ClientePosto = "Arvoredo",
+                            ClienteResponsavel = "Antônio Henrique"
+                        },
+                        new
+                        {
+                            ClienteId = 2,
+                            ClienteBairro = "Bessa",
+                            ClienteContato = "83981295876",
+                            ClienteEndereco = "AVENIDA PRESIDENTE AFONSO PENA, 382, BESSA, EM JOAO PESSOA NO ESTADO DA PB, CEP: 58035-030",
+                            ClienteFuncaoResponsavel = 0,
+                            ClienteFuncoesTerceirizadasId = 2,
+                            ClientePosto = "Imperial Bessa",
+                            ClienteResponsavel = "Mariana"
+                        });
                 });
 
             modelBuilder.Entity("CadastroCliente.Models.LeadsOperacionais", b =>
@@ -106,6 +130,16 @@ namespace CadastroClientes.Migrations
                     b.HasKey("LeadId");
 
                     b.ToTable("LeadsOperacionais");
+
+                    b.HasData(
+                        new
+                        {
+                            LeadId = 1,
+                            LeadEmail = "",
+                            LeadName = "João Silva",
+                            LeadPassword = "senha123",
+                            LeadRole = 0
+                        });
                 });
 
             modelBuilder.Entity("CadastroClientes.Models.FormularioOperacional", b =>
@@ -172,6 +206,23 @@ namespace CadastroClientes.Migrations
                     b.HasIndex("ClientePostoId");
 
                     b.ToTable("formulariooperacional");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AvaliacaoIgo = 4,
+                            AvaliacaoRobson = 5,
+                            ClientePostoId = 1,
+                            ClientesAtendidos = 10,
+                            DataEnvio = new DateTime(2024, 6, 15, 0, 0, 0, 0, DateTimeKind.Utc),
+                            GestoresAtendidos = 5,
+                            HoraEnvio = new DateTime(2024, 6, 15, 8, 0, 0, 0, DateTimeKind.Utc),
+                            ObservacoesGerais = "Serviço de limpeza agendado para amanhã.",
+                            ProblemasIdentificados = "Falta de limpeza na área comum",
+                            ProblemasReportados = 2,
+                            SolucoesApresentadas = "Contratação de serviços de limpeza"
+                        });
                 });
 
             modelBuilder.Entity("CadastroClientes.Models.FuncaoTerceirizada", b =>
@@ -252,6 +303,26 @@ namespace CadastroClientes.Migrations
                     b.HasIndex("ClienteResponsavelId");
 
                     b.ToTable("ocorrencias");
+
+                    b.HasData(
+                        new
+                        {
+                            OcorrenciaId = 1,
+                            ClientePostoId = 1,
+                            ClienteResponsavelId = 1,
+                            OcorrenciaData = new DateTime(2024, 6, 15, 8, 0, 0, 0, DateTimeKind.Utc),
+                            OcorrenciaDescricao = "Problema de vazamento no banheiro",
+                            OcorrenciaStatus = 3
+                        },
+                        new
+                        {
+                            OcorrenciaId = 2,
+                            ClientePostoId = 2,
+                            ClienteResponsavelId = 2,
+                            OcorrenciaData = new DateTime(2024, 6, 15, 9, 0, 0, 0, DateTimeKind.Utc),
+                            OcorrenciaDescricao = "Falta de energia na área comum",
+                            OcorrenciaStatus = 3
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -453,7 +524,7 @@ namespace CadastroClientes.Migrations
             modelBuilder.Entity("CadastroCliente.Models.ClienteTest", b =>
                 {
                     b.HasOne("CadastroClientes.Models.FuncaoTerceirizada", "ClienteFuncoesTerceirizadas")
-                        .WithMany("Clientes")
+                        .WithMany()
                         .HasForeignKey("ClienteFuncoesTerceirizadasId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -540,11 +611,6 @@ namespace CadastroClientes.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("CadastroClientes.Models.FuncaoTerceirizada", b =>
-                {
-                    b.Navigation("Clientes");
                 });
 #pragma warning restore 612, 618
         }

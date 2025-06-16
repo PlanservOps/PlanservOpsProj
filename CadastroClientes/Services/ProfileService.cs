@@ -12,17 +12,17 @@ namespace CadastroClientes.Services
             throw new NotImplementedException();
         }
 
-        public Task<ProfileToken> CreateUserAsync(RegisterViewModel model)
+        public Task<TokenResponse> CreateUserAsync(RegisterViewModel model)
         {
             throw new NotImplementedException();
         }
 
-        public ActionResult<ProfileToken> GenerateToken(LoginViewModel userInfo)
+        public ActionResult<TokenResponse> GenerateToken(LoginViewModel userInfo)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ProfileToken> LoginAsync(LoginViewModel userInfo)
+        public Task<TokenResponse> LoginAsync(LoginViewModel userInfo)
         {
             throw new NotImplementedException();
         }

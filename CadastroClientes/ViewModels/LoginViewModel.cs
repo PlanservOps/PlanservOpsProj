@@ -1,5 +1,4 @@
-﻿using CadastroClientes.LeadsOperacionais;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CadastroClientes.ViewModels
 {
@@ -14,6 +13,5 @@ namespace CadastroClientes.ViewModels
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        public LeadsRole Role { get; set; } 
     }
 }

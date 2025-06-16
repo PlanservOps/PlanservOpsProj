@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CadastroClientes.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class newMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -54,16 +54,16 @@ namespace CadastroClientes.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FuncaoTerceirizada",
+                name: "funcoaterceirizada",
                 columns: table => new
                 {
-                    FuncaoTerceirizadaId = table.Column<int>(type: "integer", nullable: false)
+                    funcoaterceirizadaid = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FuncaoTerceirizadaNome = table.Column<string>(type: "text", nullable: false)
+                    funcaoTerceirizadaNome = table.Column<string>(type: "varchar(100)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FuncaoTerceirizada", x => x.FuncaoTerceirizadaId);
+                    table.PrimaryKey("PK_funcoaterceirizada", x => x.funcoaterceirizadaid);
                 });
 
             migrationBuilder.CreateTable(
@@ -206,10 +206,10 @@ namespace CadastroClientes.Migrations
                 {
                     table.PrimaryKey("PK_clientetest", x => x.clienteid);
                     table.ForeignKey(
-                        name: "FK_clientetest_FuncaoTerceirizada_clientefuncoesterceirizadas",
+                        name: "FK_clientetest_funcoaterceirizada_clientefuncoesterceirizadas",
                         column: x => x.clientefuncoesterceirizadas,
-                        principalTable: "FuncaoTerceirizada",
-                        principalColumn: "FuncaoTerceirizadaId",
+                        principalTable: "funcoaterceirizada",
+                        principalColumn: "funcoaterceirizadaid",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -272,8 +272,13 @@ namespace CadastroClientes.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "FuncaoTerceirizada",
-                columns: new[] { "FuncaoTerceirizadaId", "FuncaoTerceirizadaNome" },
+                table: "LeadsOperacionais",
+                columns: new[] { "leadid", "leademail", "leadname", "leadpassword", "leadcreateddate" },
+                values: new object[] { 1, "", "João Silva", "senha123", 0 });
+
+            migrationBuilder.InsertData(
+                table: "funcoaterceirizada",
+                columns: new[] { "funcoaterceirizadaid", "funcaoTerceirizadaNome" },
                 values: new object[,]
                 {
                     { 1, "Agente de Portaria" },
@@ -283,17 +288,12 @@ namespace CadastroClientes.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "LeadsOperacionais",
-                columns: new[] { "leadid", "leademail", "leadname", "leadpassword", "leadcreateddate" },
-                values: new object[] { 1, "", "João Silva", "senha123", 0 });
-
-            migrationBuilder.InsertData(
                 table: "clientetest",
                 columns: new[] { "clienteid", "clientebairro", "clientecontato", "clienteendereco", "clientefuncaoresponsavel", "clientefuncoesterceirizadas", "clienteposto", "clienteresponsavel" },
                 values: new object[,]
                 {
                     { 1, "Miramar", "83981295876", "RUA DOMINGOS MOROSO, S/N MIRAMAR EM JOAO PESSOA NO ESTADO DA PB, CEP:58043-170", 1, 1, "Arvoredo", "Antônio Henrique" },
-                    { 2, "Bessa", "83981295876", "AVENIDA PRESIDENTE AFONSO PENA, 382, BESSA, EM JOAO PESSOA NO ESTADO DA PB, CEP: 58035-030", 0, 1, "Imperial Bessa", "Mariana" }
+                    { 2, "Bessa", "83981295876", "AVENIDA PRESIDENTE AFONSO PENA, 382, BESSA, EM JOAO PESSOA NO ESTADO DA PB, CEP: 58035-030", 0, 2, "Imperial Bessa", "Mariana" }
                 });
 
             migrationBuilder.InsertData(
@@ -405,7 +405,7 @@ namespace CadastroClientes.Migrations
                 name: "clientetest");
 
             migrationBuilder.DropTable(
-                name: "FuncaoTerceirizada");
+                name: "funcoaterceirizada");
         }
     }
 }

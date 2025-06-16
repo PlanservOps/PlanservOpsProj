@@ -33,7 +33,7 @@ namespace CadastroCliente.Models
         public string ClienteBairro { get; set; }
 
         [Column("clientefuncoesterceirizadas")]
-        public int ClienteFuncoesTerceirizadasId { get; set; }
+        public int? ClienteFuncoesTerceirizadasId { get; set; }
         public FuncaoTerceirizada ClienteFuncoesTerceirizadas { get; set; }
 
         public enum FuncaoEnum
@@ -42,7 +42,5 @@ namespace CadastroCliente.Models
             Sindico,
             Gerente
         }
-
-        public ICollection<FuncaoTerceirizada> FuncaoTerceirizada { get; set; } = new List<FuncaoTerceirizada>();
     }
 }

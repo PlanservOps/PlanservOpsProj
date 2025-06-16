@@ -2,6 +2,9 @@ import { Menu, Users, ShieldAlert, MessageCircleWarning, ClipboardCheck, ChartLi
 import { useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { href, Link } from "react-router-dom";
+import {getUserRole} from "../utils/auth";
+
+const role = getUserRole();
 
 const SIDEBAR_ITEMS = [
     {name:"Overview", icon:AppWindow, color:"#10B981", href:"/Home"},
@@ -22,6 +25,20 @@ const Sidebar = () => {
     animate={{width: isSidebarOpen ? 256 : 80}}
     >
         <div className='h-full bg-gray-800 bg-opacity-50 backdrop-blur-md p-4 flex flex-col border-r border-gray-700'>
+            {role === "Diretoria" && (
+                <Link to="/overview" className="hover:text-blue-400 transition">Dashboard</Link>
+            )}
+            {role === "AdministradorInterno" && (
+                <Link to="/clientes" className="hover:text-blue-400 transition">Clientes</Link>
+            )}
+            {role === "Fiscal" && (
+                <Link to="/checklist" className="hover:text-blue-400 transition">Checklist</Link>
+            )}
+            {/* Exemplo: mostrar para mais de um papel */}
+            {["Diretoria", "AdministradorInterno"].includes(role) && (
+                <Link to="/relatorios" className="hover:text-blue-400 transition">Relatórios</Link>
+            )}
+            
             <motion.button
                 whileHover={{scale: 1.1}}
                 whileTap={{scale: 0.9}}

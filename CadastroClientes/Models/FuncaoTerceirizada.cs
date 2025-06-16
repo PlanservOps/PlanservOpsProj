@@ -1,5 +1,4 @@
-﻿using CadastroCliente.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CadastroClientes.Models

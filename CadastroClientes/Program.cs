@@ -1,4 +1,5 @@
 using CadastroCliente.Context;
+using CadastroCliente.Seed;
 using CadastroClientes.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -34,7 +35,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddScoped<IAuthAccess, AuthAccessService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IFormularioService, FormularioService>();
 
@@ -85,6 +85,16 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    await IdentitySeeder.SeedRolesAsync(roleManager);
+
+    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+    await UserSeeder.SeedUsersAsync(userManager);
+}
 
     app.UseSwagger();
     app.UseSwaggerUI();

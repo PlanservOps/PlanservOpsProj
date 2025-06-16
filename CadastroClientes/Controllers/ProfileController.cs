@@ -1,9 +1,6 @@
 ﻿using CadastroClientes.Services;
 using CadastroClientes.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 
 namespace CadastroClientes.Controllers
 {
@@ -21,17 +18,18 @@ namespace CadastroClientes.Controllers
         }
 
         [HttpPost("CreateUser")]
-        public async Task<ActionResult<ProfileToken>> CreateUser([FromBody] RegisterViewModel model)
+        public async Task<ActionResult> CreateUser([FromBody] RegisterViewModel model)
         {
             if (model.Password != model.ConfirmPassword)
             {
                 ModelState.AddModelError("Password", "As senhas não coincidem.");
                 return BadRequest(ModelState);
             }
+
             var result = await _authentication.RegisterUser(model.Email, model.Password);
 
             if (result)
-            {                
+            {
                 return Ok($"Usuário {model.Email} criado com sucesso");
             }
             else
@@ -41,51 +39,21 @@ namespace CadastroClientes.Controllers
             }
         }
 
-        [HttpPost("Login")]
-        public async Task<ActionResult<ProfileToken>> Login([FromBody] LoginViewModel userInfo)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
-            var result = await _authentication.Autheticate(userInfo.Email, userInfo.Password);
+            var token = await _authentication.Autheticate(model.Email, model.Password);
 
-            if(result)
+            if (string.IsNullOrEmpty(token))
+                return Unauthorized("Usuário ou senha inválidos");
+
+            return Ok(new TokenResponse
             {
-                return GenerateToken(userInfo);
-            }
-            else
-            {
-                ModelState.AddModelError("LoginUser", "Login inválido.");
-                return BadRequest(ModelState);
-            }
-        }
-
-        private ActionResult<ProfileToken> GenerateToken(LoginViewModel userInfo)
-        {
-            var claims = new[]
-            {
-                new Claim("email", userInfo.Email),
-                new Claim("planservToken", "Token Planserv"),
-                new Claim(ClaimTypes.Role, userInfo.Role.ToString()),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
-
-            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var expiration = DateTime.Now.AddMinutes(Convert.ToDouble(20));
-
-            JwtSecurityToken token = new JwtSecurityToken(
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Audience"],
-                claims: claims,
-                expires: expiration,
-                signingCredentials: creds
-            );
-
-            return new ProfileToken()
-            {
-                Token = new JwtSecurityTokenHandler().WriteToken(token),
-                Expiration = expiration,
-            };
+                Token = token,
+                Expiration = DateTime.UtcNow.AddMinutes(60),
+                Email = model.Email,
+                // O campo Role pode ser recuperado do token no frontend se necessário
+            });
         }
     }
 }
