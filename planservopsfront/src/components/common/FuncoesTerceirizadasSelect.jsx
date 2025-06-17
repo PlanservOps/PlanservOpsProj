@@ -14,15 +14,15 @@ const FuncoesTerceirizadasSelect = ({ value, onChange }) => {
   }, []);
 
   const handleSelect = (funcao) => {
-    onChange(funcao.nome);
-    setInput(funcao.nome);
+    onChange(funcao.funcaoTerceirizadaNome);
+    setInput(funcao.funcaoTerceirizadaNome);
     setShowOptions(false);
   };
 
   const handleAddNew = async () => {
     if (input.trim() && !funcoes.some(f => f.nome.toLowerCase() === input.trim().toLowerCase())) {
       try {
-        const res = await api.post('/FuncaoTerceirizada', { nome: input.trim() });
+        const res = await api.post('/FuncaoTerceirizada', { funcaoTerceirizadaNome: input.trim() });
         setFuncoes([...funcoes, res.data]);
         onChange(res.data.nome);
         setShowOptions(false);
@@ -33,9 +33,13 @@ const FuncoesTerceirizadasSelect = ({ value, onChange }) => {
     }
   };
 
-  const filteredFuncoes = funcoes.filter(f =>
-    f.nome.toLowerCase().includes(input.toLowerCase())
-  );
+const filteredFuncoes = !input
+  ? funcoes
+  : funcoes.filter(f =>
+      f && f.nome && f.nome.toLowerCase().includes(input.toLowerCase())
+    );
+
+  console.log("Funções do banco:", funcoes);
 
   return (
     <div className="relative">
@@ -52,17 +56,17 @@ const FuncoesTerceirizadasSelect = ({ value, onChange }) => {
         autoComplete="off"
       />
       {showOptions && (
-        <div className="absolute left-0 right-0 mt-1 bg-gray-900 border border-gray-700 rounded shadow-lg z-50 max-h-40 overflow-auto">
-          {filteredFuncoes.map(funcao => (
-            <div
-              key={funcao.id}
+        <ul className="absolute left-0 right-0 mt-1 bg-gray-900 border border-gray-700 rounded shadow-lg z-50 max-h-40 overflow-auto">
+          {filteredFuncoes.map(f => (
+            <li
+              key={f.funcoaterceirizadaid}
               className="px-4 py-2 cursor-pointer hover:bg-gray-700 text-gray-100"
-              onClick={() => handleSelect(funcao)}
+              onClick={() => handleSelect(f)}
             >
-              {funcao.nome}
-            </div>
+              {f.funcaoTerceirizadaNome}
+            </li>
           ))}
-          {input && !funcoes.some(f => f.nome.toLowerCase() === input.trim().toLowerCase()) && (
+          {input && !funcoes.some(f => f && f.nome && f.nome.toLowerCase() === input.trim().toLowerCase()) && (
             <div
               className="px-4 py-2 cursor-pointer text-blue-400 hover:bg-gray-700"
               onClick={handleAddNew}
@@ -70,7 +74,7 @@ const FuncoesTerceirizadasSelect = ({ value, onChange }) => {
               Adicionar nova função: <span className="font-semibold">{input}</span>
             </div>
           )}
-        </div>
+        </ul>
       )}
     </div>
   );
