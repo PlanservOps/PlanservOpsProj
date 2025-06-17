@@ -8,9 +8,9 @@ namespace CadastroClientes.Models
     {
         [Key]
         [Column("funcoaterceirizadaid")]
-        public int FuncaoTerceirizadaId { get; set; }
+        public int funcoaterceirizadaid { get; set; }
         [Column("funcaoTerceirizadaNome", TypeName = "varchar(100)")]
-        public string FuncaoTerceirizadaNome { get; set; }
+        public string funcaoTerceirizadaNome { get; set; }
 
     }
 }

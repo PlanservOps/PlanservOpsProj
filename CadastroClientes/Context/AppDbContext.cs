@@ -118,10 +118,10 @@ namespace CadastroCliente.Context
             );
 
             modelBuilder.Entity<FuncaoTerceirizada>().HasData(
-                new FuncaoTerceirizada { FuncaoTerceirizadaId = 1, FuncaoTerceirizadaNome = "Agente de Portaria" },
-                new FuncaoTerceirizada { FuncaoTerceirizadaId = 2, FuncaoTerceirizadaNome = "Auxiliar de Serviços Gerais" },
-                new FuncaoTerceirizada { FuncaoTerceirizadaId = 3, FuncaoTerceirizadaNome = "Jardineiro" },
-                new FuncaoTerceirizada { FuncaoTerceirizadaId = 4, FuncaoTerceirizadaNome = "Concierge" }
+                new FuncaoTerceirizada { funcoaterceirizadaid = 1, funcaoTerceirizadaNome = "Agente de Portaria" },
+                new FuncaoTerceirizada { funcoaterceirizadaid = 2, funcaoTerceirizadaNome = "Auxiliar de Serviços Gerais" },
+                new FuncaoTerceirizada { funcoaterceirizadaid = 3, funcaoTerceirizadaNome = "Jardineiro" },
+                new FuncaoTerceirizada { funcoaterceirizadaid = 4, funcaoTerceirizadaNome = "Concierge" }
             );
 
             modelBuilder.Entity<Ocorrencias>()

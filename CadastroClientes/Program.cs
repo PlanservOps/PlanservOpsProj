@@ -38,6 +38,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddScoped<IAuthAccess, AuthAccessService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IFormularioService, FormularioService>();
+builder.Services.AddScoped<IFuncaoTerceirizadaService, FuncaoTerceirizadaService>();
 
 builder.Services.AddCors(options =>
 {

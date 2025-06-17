@@ -8,7 +8,7 @@ const FuncoesTerceirizadasSelect = ({ value, onChange }) => {
   const [showOptions, setShowOptions] = useState(false);
 
     useEffect(() => {
-    api.get('/funcoes-terceirizadas')
+    api.get('/FuncaoTerceirizada')
       .then(res => setFuncoes(res.data))
       .catch(() => setFuncoes([]));
   }, []);
@@ -22,7 +22,7 @@ const FuncoesTerceirizadasSelect = ({ value, onChange }) => {
   const handleAddNew = async () => {
     if (input.trim() && !funcoes.some(f => f.nome.toLowerCase() === input.trim().toLowerCase())) {
       try {
-        const res = await api.post('/funcoes-terceirizadas', { nome: input.trim() });
+        const res = await api.post('/FuncaoTerceirizada', { nome: input.trim() });
         setFuncoes([...funcoes, res.data]);
         onChange(res.data.nome);
         setShowOptions(false);

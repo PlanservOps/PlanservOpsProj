@@ -1,32 +1,44 @@
-﻿using CadastroClientes.Models;
+﻿using CadastroCliente.Context;
+using CadastroClientes.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CadastroClientes.Services
 {
     public class FuncaoTerceirizadaService : IFuncaoTerceirizadaService
     {
-        public Task<FuncaoTerceirizada> CreateFuncao(FuncaoTerceirizada funcaoTerceirizada)
+        private readonly AppDbContext _context;
+        public FuncaoTerceirizadaService(AppDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+        public async Task CreateFuncao(FuncaoTerceirizada funcao)
+        {
+            _context.FuncaoTerceirizada.Add(funcao);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<bool> DeleteFuncao(int id)
+        public async Task DeleteFuncao(FuncaoTerceirizada funcao)
         {
-            throw new NotImplementedException();
+            _context.FuncaoTerceirizada.Remove(funcao);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<FuncaoTerceirizada>> GetAllFuncao()
+        public async Task<IEnumerable<FuncaoTerceirizada>> GetAllFuncao()
         {
-            throw new NotImplementedException();
+            //incluir filtro ou paginação de dados
+            return await _context.FuncaoTerceirizada.ToListAsync();
         }
 
-        public Task<FuncaoTerceirizada> GetFuncaoById(int id)
+        public async Task<FuncaoTerceirizada> GetFuncaoById(int id)
         {
-            throw new NotImplementedException();
+            var funcao = await _context.FuncaoTerceirizada.FindAsync(id);
+            return funcao;
         }
 
-        public Task<FuncaoTerceirizada> UpdateFuncao(FuncaoTerceirizada funcaoTerceirizada)
+        public async Task UpdateFuncao(FuncaoTerceirizada funcao)
         {
-            throw new NotImplementedException();
+            _context.Entry(funcao).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
     }
 }

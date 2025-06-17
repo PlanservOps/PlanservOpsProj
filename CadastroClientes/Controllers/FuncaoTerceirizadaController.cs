@@ -8,7 +8,13 @@ namespace CadastroClientes.Controllers
     [Route("api/[controller]")]
     public class FuncaoTerceirizadaController : ControllerBase
     {
-        private readonly IFuncaoTerceirizadaService _funcaoTerceirizadaService;
+        private IFuncaoTerceirizadaService _funcaoTerceirizadaService;
+
+        public FuncaoTerceirizadaController(IFuncaoTerceirizadaService funcaoTerceirizadaService)
+        {
+            _funcaoTerceirizadaService = funcaoTerceirizadaService;
+        }
+
         [HttpPost]
         public async Task<ActionResult<FuncaoTerceirizada>> CreateFuncao([FromBody] FuncaoTerceirizada funcao)
         {
@@ -60,7 +66,7 @@ namespace CadastroClientes.Controllers
         {
             try
             {
-                if (funcao.FuncaoTerceirizadaId == id)
+                if (funcao.funcoaterceirizadaid == id)
                 {
                     await _funcaoTerceirizadaService.UpdateFuncao(funcao);
                     return Ok($"Função terceirizada com id={id} foi atualizado com sucesso");
@@ -81,10 +87,10 @@ namespace CadastroClientes.Controllers
         {
             try
             {
-                var funcao = await _funcaoTerceirizadaService.GetAllFuncao();
+                var funcao = await _funcaoTerceirizadaService.GetFuncaoById(id);
                 if (funcao != null)
                 {
-                    await _funcaoTerceirizadaService.DeleteFuncao(id);
+                    await _funcaoTerceirizadaService.DeleteFuncao(funcao);
                     return Ok($"Função terceirizada com id={id} foi excluído com sucesso");
 
                 }

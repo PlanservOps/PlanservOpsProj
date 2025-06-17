@@ -1,4 +1,5 @@
-﻿using CadastroClientes.Models;
+﻿using CadastroCliente.Models;
+using CadastroClientes.Models;
 
 namespace CadastroClientes.Services
 {
@@ -6,8 +7,8 @@ namespace CadastroClientes.Services
     {
         Task<IEnumerable<FuncaoTerceirizada>> GetAllFuncao();
         Task<FuncaoTerceirizada> GetFuncaoById(int id);
-        Task<FuncaoTerceirizada> CreateFuncao(FuncaoTerceirizada funcaoTerceirizada);
-        Task<FuncaoTerceirizada> UpdateFuncao(FuncaoTerceirizada funcaoTerceirizada);
-        Task<bool> DeleteFuncao(int id);
+        Task CreateFuncao(FuncaoTerceirizada funcaoTerceirizada);
+        Task UpdateFuncao(FuncaoTerceirizada funcaoTerceirizada);
+        Task DeleteFuncao(FuncaoTerceirizada funcao);
     }
 }
