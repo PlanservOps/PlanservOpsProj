@@ -2,6 +2,7 @@
 using CadastroClientes.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace CadastroClientes.Controllers
 {
@@ -69,13 +70,15 @@ namespace CadastroClientes.Controllers
         public async Task<ActionResult<ClienteTest>> CreateCliente([FromBody]ClienteTest cliente)
         {
             try
-            {               
+            {
+                Console.WriteLine($"[DEBUG] Dados recebidos: {JsonSerializer.Serialize(cliente)}");
                 await _clienteService.CreateCliente(cliente);
                 return Ok(cliente);
 
             }
             catch
             {
+                Console.WriteLine($"[ERROR] Não foi.");
                 return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao criar cliente");
             }
         }
