@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CadastroCliente.Models;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CadastroClientes.Models
@@ -12,5 +13,6 @@ namespace CadastroClientes.Models
         [Column("funcaoTerceirizadaNome", TypeName = "varchar(100)")]
         public string funcaoTerceirizadaNome { get; set; }
 
+        public ICollection<ClienteTest> Clientes { get; set; }
     }
 }
