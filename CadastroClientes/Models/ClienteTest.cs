@@ -34,7 +34,6 @@ namespace CadastroCliente.Models
 
         [Column("clientefuncoesterceirizadas")]
         public int? ClienteFuncoesTerceirizadasId { get; set; }
-        public FuncaoTerceirizada ClienteFuncoesTerceirizadas { get; set; }
 
         public enum FuncaoEnum
         {
