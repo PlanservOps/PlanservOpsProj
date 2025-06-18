@@ -14,17 +14,18 @@ const FuncoesTerceirizadasSelect = ({ value, onChange }) => {
   }, []);
 
   const handleSelect = (funcao) => {
-    onChange(funcao.funcaoTerceirizadaNome);
+    onChange(funcao.funcoaterceirizadaid);
     setInput(funcao.funcaoTerceirizadaNome);
     setShowOptions(false);
   };
 
   const handleAddNew = async () => {
-    if (input.trim() && !funcoes.some(f => f.nome.toLowerCase() === input.trim().toLowerCase())) {
+    if (input.trim() && !funcoes.some(f => f.funcaoTerceirizadaNome.toLowerCase() === input.trim().toLowerCase())) {
       try {
         const res = await api.post('/FuncaoTerceirizada', { funcaoTerceirizadaNome: input.trim() });
         setFuncoes([...funcoes, res.data]);
-        onChange(res.data.nome);
+        onChange(res.data.funcoaterceirizadaid);
+        setInput(res.data.funcaoTerceirizadaNome);
         setShowOptions(false);
       } catch (error) {
         console.error("Erro ao adicionar nova função:", error);
@@ -36,7 +37,7 @@ const FuncoesTerceirizadasSelect = ({ value, onChange }) => {
 const filteredFuncoes = !input
   ? funcoes
   : funcoes.filter(f =>
-      f && f.nome && f.nome.toLowerCase().includes(input.toLowerCase())
+      f && f.funcaoTerceirizadaNome  && f.funcaoTerceirizadaNome .toLowerCase().includes(input.toLowerCase())
     );
 
   console.log("Funções do banco:", funcoes);
@@ -66,7 +67,7 @@ const filteredFuncoes = !input
               {f.funcaoTerceirizadaNome}
             </li>
           ))}
-          {input && !funcoes.some(f => f && f.nome && f.nome.toLowerCase() === input.trim().toLowerCase()) && (
+          {input && !funcoes.some(f => f && f.funcaoTerceirizadaNome  && f.funcaoTerceirizadaNome .toLowerCase() === input.trim().toLowerCase()) && (
             <div
               className="px-4 py-2 cursor-pointer text-blue-400 hover:bg-gray-700"
               onClick={handleAddNew}

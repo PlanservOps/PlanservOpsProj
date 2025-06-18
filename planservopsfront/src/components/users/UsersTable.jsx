@@ -26,7 +26,7 @@ function UsersTable() {
 		clienteFuncaoResponsavel: "",
 		clienteEndereco: "",
 		clienteBairro: "",
-		clienteFuncoesTerceirizadas: ""
+		clienteFuncoesTerceirizadasId: ""
 	})
 	
 	const [editUserId, setEditUserId] = useState(null);
@@ -43,7 +43,7 @@ function UsersTable() {
 				clienteFuncaoResponsavel: "",
 				clienteEndereco: "",
 				clienteBairro: "",
-				clienteFuncoesTerceirizadas: ""
+				clienteFuncoesTerceirizadasId: ""
 			});
 		}
 	};
@@ -63,7 +63,7 @@ function UsersTable() {
         clienteFuncaoResponsavel: "",
         clienteEndereco: "",
         clienteBairro: "",
-        clienteFuncoesTerceirizadas: ""
+        clienteFuncoesTerceirizadasId: ""
     });
     setShowForm(true);
 };
@@ -121,17 +121,28 @@ function UsersTable() {
 	};
 
 	const addUser = async () => {		
-			try {
-				console.log("Enviando usuário:", newUser);
-				const { data } = await api.post("/Clientes", payload);
-				setUsers([...users, data]);
-				setFilteredUsers([...users, data]);
-				setShowForm(false);
-				setSuccessMessage("Cliente adicionado com sucesso!");
-				setTimeout(() => setSuccessMessage(""), 3000);
-			} catch (error) {
-				console.error("Erro ao adicionar usuário:", error);
+		  try {
+			const payload = {
+				...newUser,
+				clienteFuncaoResponsavel: funcaoEnumMap[newUser.clienteFuncaoResponsavel],
+				clienteFuncoesTerceirizadasId: parseInt(newUser.clienteFuncoesTerceirizadasId)
+			};
+
+			if (newUser.clienteFuncoesTerceirizadasId) {
+  				payload.clienteFuncoesTerceirizadasId = parseInt(newUser.clienteFuncoesTerceirizadasId);
 			}
+
+			console.log("Enviando usuário:", payload);
+
+			const { data } = await api.post("/Clientes", payload);
+			setUsers([...users, data]);
+			setFilteredUsers([...users, data]);
+			setShowForm(false);
+			setSuccessMessage("Cliente adicionado com sucesso!");
+			setTimeout(() => setSuccessMessage(""), 3000);
+		} catch (error) {
+			console.error("Erro ao adicionar usuário:", error);
+		}
 	};
 
 	const handleSearch = (e) => {
@@ -264,7 +275,7 @@ function UsersTable() {
 									<div className='text-sm text-gray-300'>{user.clienteBairro}</div>
 								</td>
 								<td className='px-6 py-4 whitespace-nowrap'>
-									<div className='text-sm text-gray-300'>{user.clienteFuncoesTerceirizadas}</div>
+									<div className='text-sm text-gray-300'>{user.clienteFuncoesTerceirizadasId}</div>
 								</td>
 
 								<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
@@ -366,8 +377,8 @@ function UsersTable() {
 						<div>
 							<label className="block text-sm font-medium text-gray-300">Funções Terceirizadas</label>
 							<FuncoesTerceirizadasSelect
-								value={form.terceirizada}
-								onChange={val => setForm({ ...form, terceirizada: val })}
+								value={form.clienteFuncoesTerceirizadasId}
+								onChange={(id) => setForm(prev => ({ ...prev, clienteFuncoesTerceirizadasId: id }))}
 							/>
 						</div>
 					</div>
@@ -393,7 +404,7 @@ function UsersTable() {
 										clienteFuncaoResponsavel: "",
 										clienteEndereco: "",
 										clienteBairro: "",
-										clienteFuncoesTerceirizadas: ""
+										clienteFuncoesTerceirizadasId: ""
 									});
 								}}
 							>
