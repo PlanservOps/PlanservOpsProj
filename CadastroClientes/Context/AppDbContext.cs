@@ -25,13 +25,6 @@ namespace CadastroCliente.Context
 
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ClienteTest>()
-                .HasOne(c => c.ClienteFuncoesTerceirizadas)
-                .WithMany() // ou .WithMany(f => f.Clientes) se você quiser criar a navegação reversa
-                .HasForeignKey(c => c.ClienteFuncoesTerceirizadasId)
-                .OnDelete(DeleteBehavior.SetNull); // ou Restrict, se preferir
-
-
             //Força todos os DateTime para UTC
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
