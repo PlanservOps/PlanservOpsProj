@@ -1,5 +1,4 @@
-﻿using CadastroCliente.Models;
-using CadastroClientes.Models;
+﻿using CadastroClientes.Models;
 
 namespace CadastroClientes.Services
 {

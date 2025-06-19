@@ -7,6 +7,6 @@ namespace CadastroClientes.Services
         Task<IEnumerable<Ocorrencias>> GetOcorrencia();
         Task<Ocorrencias> GetOcorrenciaById(int id);
         Task CreateOcorrencia(Ocorrencias ocorrencia);
-        Task DeleteOcorrencia(int id);
+        Task DeleteOcorrencia(Ocorrencias ocorrencia);
     }
 }

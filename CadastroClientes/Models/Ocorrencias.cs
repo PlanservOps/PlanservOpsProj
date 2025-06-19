@@ -12,13 +12,11 @@ namespace CadastroClientes.Models
         [Column("ocorrenciaid")]
         public int OcorrenciaId { get; set; }
         [Required]
-        [Column("clientepostoid")]
-        public int ClientePostoId { get; set; }
-        public virtual ClienteTest ClientePosto { get; set; }
+        [Column("clienteposto")]
+        public string ClientePosto { get; set; }
         [Required]
-        [Column("clienteresponsavelid")]
-        public int ClienteResponsavelId { get; set; }
-        public virtual ClienteTest ClienteResponsavel { get; set; }
+        [Column("clienteresponsavel")]
+        public string ClienteResponsavel { get; set; }
         [Required]
         [Column("ocorrenciadata")]
         public DateTime OcorrenciaData { get; set; }

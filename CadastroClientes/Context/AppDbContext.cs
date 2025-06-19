@@ -90,8 +90,8 @@ namespace CadastroCliente.Context
                 new Ocorrencias
                 {
                     OcorrenciaId = 1,
-                    ClientePostoId = 1,
-                    ClienteResponsavelId = 1,
+                    ClientePosto = "nomeposto",
+                    ClienteResponsavel = "nomeresponsavel",
                     OcorrenciaData = new DateTime(2024, 6, 15, 8, 0, 0, DateTimeKind.Utc),
                     OcorrenciaDescricao = "Problema de vazamento no banheiro",
                     OcorrenciaStatus = CadastroClientes.Models.Ocorrencias.StatusEnum.Resolvido,
@@ -99,8 +99,8 @@ namespace CadastroCliente.Context
                 new Ocorrencias
                 {
                     OcorrenciaId = 2,
-                    ClientePostoId = 2,
-                    ClienteResponsavelId = 2,
+                    ClientePosto = "nomeposto1",
+                    ClienteResponsavel = "nomeresponsavel",
                     OcorrenciaData = new DateTime(2024, 6, 15, 9, 0, 0, DateTimeKind.Utc),
                     OcorrenciaDescricao = "Falta de energia na área comum",
                     OcorrenciaStatus = CadastroClientes.Models.Ocorrencias.StatusEnum.Resolvido,
@@ -124,15 +124,6 @@ namespace CadastroCliente.Context
                 new FuncaoTerceirizada { funcoaterceirizadaid = 4, funcaoTerceirizadaNome = "Concierge" }
             );
 
-            modelBuilder.Entity<Ocorrencias>()
-                .HasOne(o => o.ClientePosto)
-                .WithMany()
-                .HasForeignKey(o => o.ClientePostoId);
-
-            modelBuilder.Entity<Ocorrencias>()
-                .HasOne(o => o.ClienteResponsavel)
-                .WithMany()
-                .HasForeignKey(o => o.ClienteResponsavelId);
         }
     }
 }

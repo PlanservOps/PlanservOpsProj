@@ -8,21 +8,11 @@ namespace CadastroClientes.Controllers
     [Route("api/[controller]")]
     public class OcorrenciasController : ControllerBase
     {
-        private readonly IOcorrenciasService _ocorrenciasService;
+        private IOcorrenciasService _ocorrenciasService;
 
-        [HttpPost]
-        public async Task<ActionResult<Ocorrencias>> CreateOcorrencia([FromBody] Ocorrencias ocorrencia)
+        public OcorrenciasController(IOcorrenciasService ocorrenciasService)
         {
-            try
-            {
-                await _ocorrenciasService.CreateOcorrencia(ocorrencia);
-                return Ok(ocorrencia);
-
-            }
-            catch
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao criar Ocorrencia");
-            }
+            _ocorrenciasService = ocorrenciasService;
         }
 
         [HttpGet]
@@ -56,15 +46,31 @@ namespace CadastroClientes.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<ActionResult<Ocorrencias>> CreateOcorrencia([FromBody] Ocorrencias ocorrencia)
+        {
+            try
+            {
+                await _ocorrenciasService.CreateOcorrencia(ocorrencia);
+                return Ok(ocorrencia);
+
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao criar Ocorrencia");
+            }
+        }
+
+
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteOcorrencia(int id)
         {
             try
             {
-                var ocorrencia = await _ocorrenciasService.GetOcorrencia();
+                var ocorrencia = await _ocorrenciasService.GetOcorrenciaById(id);
                 if (ocorrencia != null)
                 {
-                    await _ocorrenciasService.DeleteOcorrencia(id);
+                    await _ocorrenciasService.DeleteOcorrencia(ocorrencia);
                     return Ok($"Ocorrencia com id={id} foi excluído com sucesso");
 
                 }
