@@ -46,10 +46,13 @@ function OcorrenciasPage() {
   const [statusList, setStatusList] = useState([]);
 
   // Filtra ocorrências pelo tipo do statcard selecionado
-  const ocorrenciasFiltradas = selectedStat
-    ? ocorrencias
-        .filter((o) => o.ocorrenciaStatus === selectedStat)
-        .sort((a, b) => new Date(a.data) - new Date(b.data))
+  const ocorrenciasFiltradas =
+  selectedStat === "novas"
+    ? ocorrencias.filter(isNovaOcorrencia)
+    : selectedStat === "naoatendida"
+    ? ocorrencias.filter(isNaoAtendida)
+    : selectedStat === "resolvida"
+    ? ocorrencias.filter(isResolvida)
     : [];
 
   const handleRegister = async (e) => {
@@ -101,7 +104,7 @@ function OcorrenciasPage() {
             <StatsCards
               name="Novas Ocorrências"
               icon={BellPlus}
-              value={ocorrencias.filter((o) => o.tipo === "Nova" || o.tipo === "Novas Ocorrências").length}
+              value={ocorrencias.length}
               color="#8B5CF6"
             />
           </div>
@@ -166,7 +169,13 @@ function OcorrenciasPage() {
             className="mb-8"
           >
             <h2 className="text-xl font-semibold text-gray-200 mb-4">
-              {selectedStat}
+              {selectedStat === "novas"
+                ? "Novas Ocorrências"
+                : selectedStat === "naoatendida"
+                ? "Não Atendidas"
+                : selectedStat === "resolvida"
+                ? "Resolvidas"
+                : ""}
             </h2>
             {ocorrenciasFiltradas.length === 0 ? (
               <div className="text-gray-400">Nenhuma ocorrência encontrada.</div>
