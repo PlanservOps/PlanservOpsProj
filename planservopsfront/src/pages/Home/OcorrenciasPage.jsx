@@ -185,20 +185,30 @@ function OcorrenciasPage() {
             ) : (
               <ul className="divide-y divide-gray-700 rounded-lg bg-gray-800">
                 {ocorrenciasFiltradas.map((o) => (
-                  <li
-                    key={o.id}
+                    <li
+                    key={o.ocorrenciaId}
                     className="p-4 hover:bg-gray-700 cursor-pointer"
                     onClick={() => setSelectedOcorrencia(o)}
-                  >{o.ClientePosto} - {o.OcorrenciaDescricao}
+                    >
                     <div className="flex justify-between">
-                      <span className="font-medium text-blue-300">{o.posto}</span>
-                      <span className="text-gray-400">{new Date(o.data).toLocaleDateString()}</span>
+                        <span className="font-medium text-blue-300">{o.clientePosto}</span>
+                        <span className="text-gray-400">
+                        {o.ocorrenciaData ? new Date(o.ocorrenciaData).toLocaleDateString() : ""}
+                        </span>
                     </div>
-                    <div className="text-gray-200">{o.clienteResponsavel}</div>
-                    <div className="text-gray-200">{o.ocorrenciaDescricao}</div>
-                  </li>
+                    <div className="text-gray-200">Responsável: {o.clienteResponsavel}</div>
+                    <div className="text-gray-200">Descrição: {o.ocorrenciaDescricao}</div>
+                    <div className="text-gray-200">
+                        Status: {
+                        o.ocorrenciaStatus === 0 ? "Pendente" :
+                        o.ocorrenciaStatus === 1 ? "Prioridade Alta" :
+                        o.ocorrenciaStatus === 2 ? "Não Atendido" :
+                        o.ocorrenciaStatus === 3 ? "Resolvido" : "Desconhecido"
+                        }
+                    </div>
+                    </li>
                 ))}
-              </ul>
+             </ul>
             )}
             <button
               className="mt-4 text-blue-400 hover:underline"
