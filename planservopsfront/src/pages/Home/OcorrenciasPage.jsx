@@ -70,6 +70,7 @@ function OcorrenciasPage() {
         // Atualize a lista de ocorrências após o cadastro
         const response = await api.get(`${import.meta.env.VITE_API_URL}/ocorrencias`);
         setOcorrencias(response.data);
+        console.log("Ocorrências carregadas:", response.data);
     } catch (err) {
         if (err.response) {
             console.log("Detalhe do erro:", err.response.data);
@@ -77,6 +78,8 @@ function OcorrenciasPage() {
         alert("Erro ao registrar ocorrência");
     }
   };
+
+  console.log("Ocorrências no render:", ocorrencias);
 
   return (
     <div className="flex-1 overflow-auto relative z-10">
@@ -191,7 +194,8 @@ function OcorrenciasPage() {
                       <span className="font-medium text-blue-300">{o.posto}</span>
                       <span className="text-gray-400">{new Date(o.data).toLocaleDateString()}</span>
                     </div>
-                    <div className="text-gray-200">{o.responsavel}</div>
+                    <div className="text-gray-200">{o.clienteResponsavel}</div>
+                    <div className="text-gray-200">{o.ocorrenciaDescricao}</div>
                   </li>
                 ))}
               </ul>
@@ -217,22 +221,22 @@ function OcorrenciasPage() {
               Detalhes da Ocorrência
             </h2>
             <div className="mb-2">
-              <span className="text-gray-400">Posto: </span>
-              <span className="text-white">{selectedOcorrencia.posto}</span>
-            </div>
-            <div className="mb-2">
-              <span className="text-gray-400">Responsável: </span>
-              <span className="text-white">{selectedOcorrencia.responsavel}</span>
-            </div>
-            <div className="mb-2">
-              <span className="text-gray-400">Data: </span>
-              <span className="text-white">
-                {new Date(selectedOcorrencia.data).toLocaleDateString()}
-              </span>
-            </div>
-            <div className="mb-2">
-              <span className="text-gray-400">Detalhes: </span>
-              <span className="text-white">{selectedOcorrencia.detalhes}</span>
+                <span className="text-gray-400">Posto: </span>
+                <span className="text-white">{selectedOcorrencia.clientePosto}</span>
+                </div>
+                <div className="mb-2">
+                <span className="text-gray-400">Responsável: </span>
+                <span className="text-white">{selectedOcorrencia.clienteResponsavel}</span>
+                </div>
+                <div className="mb-2">
+                <span className="text-gray-400">Data: </span>
+                <span className="text-white">
+                    {selectedOcorrencia.ocorrenciaData ? new Date(selectedOcorrencia.ocorrenciaData).toLocaleDateString() : ""}
+                </span>
+                </div>
+                <div className="mb-2">
+                <span className="text-gray-400">Detalhes: </span>
+                <span className="text-white">{selectedOcorrencia.ocorrenciaDescricao}</span>
             </div>
             <button
               className="mt-4 text-blue-400 hover:underline"
