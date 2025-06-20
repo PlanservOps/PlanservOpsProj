@@ -42,18 +42,18 @@ function OcorrenciasPage() {
     fetchClientes();
   }, []);
 
-    const handleChange = (e) => {
+  const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
     if (type === "checkbox") {
-      setFormData((prev) => ({
+      setForm((prev) => ({
         ...prev,
         selectedPosto: checked
           ? [...prev.selectedPosto, value]
           : prev.selectedPosto.filter((cliente) => cliente !== value),
       }));
     } else {
-      setFormData((prev) => ({
+      setForm((prev) => ({
         ...prev,
         [name]: value,
       }));
@@ -68,6 +68,19 @@ function OcorrenciasPage() {
           `${import.meta.env.VITE_API_URL}/ocorrencias`
         );
         setOcorrencias(response.data);
+
+        // DEBUG AQUI:
+        console.log("📦 Ocorrências carregadas:", response.data);
+        if (Array.isArray(response.data)) {
+          console.log(
+            "🔍 Chaves de 1ª ocorrência:",
+            Object.keys(response.data[0])
+          );
+          console.log(
+            "🔍 OcorrenciaStatus dos registros:",
+            response.data.map((o) => o.ocorrenciaStatus)
+          );
+        }
       } catch (err) {
         setError("Erro ao buscar ocorrências");
       } finally {
@@ -80,14 +93,18 @@ function OcorrenciasPage() {
   const [statusList, setStatusList] = useState([]);
 
   // Filtra ocorrências pelo tipo do statcard selecionado
-  const ocorrenciasFiltradas =
-    selectedStat === "novas"
-      ? ocorrencias.filter(isNovaOcorrencia)
-      : selectedStat === "naoatendida"
-      ? ocorrencias.filter(isNaoAtendida)
-      : selectedStat === "resolvida"
-      ? ocorrencias.filter(isResolvida)
-      : [];
+  const ocorrenciasFiltradas = (() => {
+    switch (selectedStat) {
+      case "novas":
+        return ocorrencias.filter(isNovaOcorrencia);
+      case "naoatendida":
+        return ocorrencias.filter(isNaoAtendida);
+      case "resolvida":
+        return ocorrencias.filter(isResolvida);
+      default:
+        return [];
+    }
+  })();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -101,11 +118,11 @@ function OcorrenciasPage() {
       });
       setShowModal(false);
       setForm({
-        posto: "",
+        selectedPosto: "",
         responsavel: "",
         data: "",
         detalhes: "",
-        status: "",
+        ocorrenciaStatus: "",
       });
       // Atualize a lista de ocorrências após o cadastro
       const response = await api.get(
@@ -119,7 +136,24 @@ function OcorrenciasPage() {
       }
       alert("Erro ao registrar ocorrência");
     }
+    console.log("Ocorrências carregadas:", response.data);
+    console.log(
+      "Status das ocorrências:",
+      response.data.map((o) => o.ocorrenciaStatus)
+    );
   };
+
+  function isNovaOcorrencia(o) {
+    return o.ocorrenciaStatus === "Pendente";
+  }
+
+  function isNaoAtendida(o) {
+    return o.ocorrenciaStatus === "Não Atendido";
+  }
+
+  function isResolvida(o) {
+    return o.ocorrenciaStatus === "Resolvido";
+  }
 
   console.log("Ocorrências no render:", ocorrencias);
 
@@ -142,21 +176,24 @@ function OcorrenciasPage() {
           <div
             className="cursor-pointer"
             onClick={() => {
-              setSelectedStat("Nova");
+              setSelectedStat("novas");
               setSelectedOcorrencia(null);
             }}
           >
             <StatsCards
               name="Novas Ocorrências"
               icon={BellPlus}
-              value={ocorrencias.length}
+              value={
+                ocorrencias.filter((o) => o.ocorrenciaStatus === "Pendente")
+                  .length
+              }
               color="#8B5CF6"
             />
           </div>
           <div
             className="cursor-pointer"
             onClick={() => {
-              setSelectedStat("Não Atendida");
+              setSelectedStat("naoatendida");
               setSelectedOcorrencia(null);
             }}
           >
@@ -164,7 +201,8 @@ function OcorrenciasPage() {
               name="Não Atendidas"
               icon={TriangleAlert}
               value={
-                ocorrencias.filter((o) => o.tipo === "Não Atendida").length
+                ocorrencias.filter((o) => o.ocorrenciaStatus === "Pendente")
+                  .length
               }
               color="#EC4899"
             />
@@ -172,7 +210,7 @@ function OcorrenciasPage() {
           <div
             className="cursor-pointer"
             onClick={() => {
-              setSelectedStat("Atendida");
+              setSelectedStat("resolvida");
               setSelectedOcorrencia(null);
             }}
           >
@@ -182,7 +220,7 @@ function OcorrenciasPage() {
               value={
                 ocorrencias.length > 0
                   ? (
-                      (ocorrencias.filter((o) => o.tipo === "Atendida").length /
+                      (ocorrencias.filter((o) => o.ocorrenciaStatus  === "Atendida").length /
                         ocorrencias.length) *
                       100
                     ).toFixed(1) + "%"
@@ -194,7 +232,7 @@ function OcorrenciasPage() {
           <div
             className="cursor-pointer"
             onClick={() => {
-              setSelectedStat("Reclamações");
+              setSelectedStat("reclamacoes");
               setSelectedOcorrencia(null);
             }}
           >
@@ -205,6 +243,19 @@ function OcorrenciasPage() {
               color="#FF0000"
             />
           </div>
+          {/* TESTE: mostrar todas as ocorrências sem filtro
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold text-white mb-4">
+              Todas as Ocorrências
+            </h2>
+            <ul className="divide-y divide-gray-700 rounded-lg bg-gray-800">
+              {ocorrencias.map((o) => (
+                <li key={o.ocorrenciaId} className="p-4 text-white">
+                  <pre>{JSON.stringify(o, null, 2)}</pre>
+                </li>
+              ))}
+            </ul>
+          </div> */}
         </div>
 
         {/* Lista de ocorrências filtradas */}
@@ -222,6 +273,8 @@ function OcorrenciasPage() {
                 ? "Não Atendidas"
                 : selectedStat === "resolvida"
                 ? "Resolvidas"
+                : selectedStat === "reclamacoes"
+                ? "Reclamações"
                 : ""}
             </h2>
             {ocorrenciasFiltradas.length === 0 ? (
@@ -253,16 +306,7 @@ function OcorrenciasPage() {
                       Descrição: {o.ocorrenciaDescricao}
                     </div>
                     <div className="text-gray-200">
-                      Status:{" "}
-                      {o.ocorrenciaStatus === 0
-                        ? "Pendente"
-                        : o.ocorrenciaStatus === 1
-                        ? "Prioridade Alta"
-                        : o.ocorrenciaStatus === 2
-                        ? "Não Atendido"
-                        : o.ocorrenciaStatus === 3
-                        ? "Resolvido"
-                        : "Desconhecido"}
+                        Status: {o.ocorrenciaStatus || "Desconhecido"}
                     </div>
                   </li>
                 ))}
@@ -337,36 +381,36 @@ function OcorrenciasPage() {
                 Registrar Ocorrência
               </h2>
               <form onSubmit={handleRegister} className="space-y-4">
-                 <div>
-              <label className="block text-sm font-medium text-gray-300">
-                Posto
-              </label>
-              <select
-                name="selectedCliente"
-                value={form.selectedPosto} // Atualiza para armazenar apenas um valor
-                onChange={(e) => {
-                  const selectedValue = e.target.value; // Captura o valor selecionado
-                  setForm((prev) => ({
-                    ...prev,
-                    selectedPosto: selectedValue, // Atualiza o estado com o valor único
-                  }));
-                }}
-                className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="" disabled>
-                  Selecione um Posto
-                </option>
-                {Array.isArray(clientes) &&
-                  clientes.map((cliente) => (
-                    <option
-                      key={cliente.clienteId}
-                      value={cliente.clientePosto}
-                    >
-                      {cliente.clientePosto}
+                <div>
+                  <label className="block text-sm font-medium text-gray-300">
+                    Posto
+                  </label>
+                  <select
+                    name="selectedCliente"
+                    value={form.selectedPosto} // Atualiza para armazenar apenas um valor
+                    onChange={(e) => {
+                      const selectedValue = e.target.value; // Captura o valor selecionado
+                      setForm((prev) => ({
+                        ...prev,
+                        selectedPosto: selectedValue, // Atualiza o estado com o valor único
+                      }));
+                    }}
+                    className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="" disabled>
+                      Selecione um Posto
                     </option>
-                  ))}
-              </select>
-            </div>
+                    {Array.isArray(clientes) &&
+                      clientes.map((cliente) => (
+                        <option
+                          key={cliente.clienteId}
+                          value={cliente.clientePosto}
+                        >
+                          {cliente.clientePosto}
+                        </option>
+                      ))}
+                  </select>
+                </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-300">
                     Nome Responsável
