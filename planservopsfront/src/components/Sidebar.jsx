@@ -12,8 +12,8 @@ const SIDEBAR_ITEMS = [
     {name: "Ocorrências", icon:ShieldAlert, color:"#10B981", href:"/Ocorrencias"},
     {name: "Reclamações", icon:MessageCircleWarning, color:"#10B981", href:"/Reclamacoes"},
     {name: "Checklist", icon:ClipboardCheck, color:"#10B981", href:"/Checklist"},
-    {name: "Formulário de Avaliações", icon:BookCheck, color:"#10B981", href:"/AvaliacoesForm"},
-    {name: "Eficiência", icon:ChartLineIcon, color:"#10B981", href:"/Eficiência"},
+    {name: "Formulário Operacional", icon:BookCheck, color:"#10B981", href:"/AvaliacoesForm"},
+    {name: "Histórico de formulários", icon:ChartLineIcon, color:"#10B981", href:"/HistoryForm"},
     {name: "Configurações", icon:Settings, color:"#10B981", href:"/Settings"},
 ];
 

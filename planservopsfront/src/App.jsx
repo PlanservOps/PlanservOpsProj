@@ -12,8 +12,7 @@ import OcorrenciasPage from "./pages/Home/OcorrenciasPage"
 import ReclamacoesPage from "./pages/Home/ReclamacoesPage"
 import ChecklistPage from "./pages/Home/ChecklistPage"
 import AvaliacoesFormPage from "./pages/Home/AvaliacoesFormPage"
-import EficienciaPage from "./pages/Home/EficienciaPage"
-
+import HistoryFormPage from "./pages/Home/HistoryFormPage"
 
 function App() {
   const location = useLocation();
@@ -38,8 +37,9 @@ function App() {
         <Route path='/Ocorrencias' element={<PrivateRoute roleRequired={["Diretoria", "GerenteOperacional"]}><OcorrenciasPage/></PrivateRoute>}/> 
         <Route path='/Reclamacoes' element={<PrivateRoute roleRequired={["Diretoria", "GerenteOperacional"]}><ReclamacoesPage/></PrivateRoute>}/> 
         <Route path='/Checklist' element={<PrivateRoute roleRequired={["Diretoria", "Fiscal"]}><ChecklistPage/></PrivateRoute>}/>
-        <Route path='/AvaliacoesForm' element={<PrivateRoute roleRequired={["Diretoria", "Fiscal"]}><AvaliacoesFormPage/></PrivateRoute>}/>
-        <Route path='/Eficiência' element={<PrivateRoute roleRequired={["Diretoria", "GerenteOperacional"]}><EficienciaPage/></PrivateRoute>}/>
+        <Route path='/AvaliacoesForm' element={<PrivateRoute roleRequired={["Diretoria", "GerenteOperacional"]}><AvaliacoesFormPage/></PrivateRoute>}/>
+        <Route path='/HistoryForm' element={<PrivateRoute roleRequired={["Diretoria", "GerenteOperacional"]}><HistoryFormPage/></PrivateRoute>}/>
+        {/* <Route path='/Eficiencia' element={<PrivateRoute roleRequired={["Diretoria", "Fiscal"]}><EficienciaPage/></PrivateRoute>}/> */}
         <Route path='/Settings' element={<PrivateRoute roleRequired={["Diretoria", "AdministradorInterno"]}><SettingsPage/></PrivateRoute>}/>
       </Routes>
     </div>
