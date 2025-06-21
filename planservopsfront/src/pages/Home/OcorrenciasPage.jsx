@@ -243,19 +243,6 @@ function OcorrenciasPage() {
               color="#FF0000"
             />
           </div>
-          {/* TESTE: mostrar todas as ocorrências sem filtro
-          <div className="mb-8">
-            <h2 className="text-xl font-semibold text-white mb-4">
-              Todas as Ocorrências
-            </h2>
-            <ul className="divide-y divide-gray-700 rounded-lg bg-gray-800">
-              {ocorrencias.map((o) => (
-                <li key={o.ocorrenciaId} className="p-4 text-white">
-                  <pre>{JSON.stringify(o, null, 2)}</pre>
-                </li>
-              ))}
-            </ul>
-          </div> */}
         </div>
 
         {/* Lista de ocorrências filtradas */}
