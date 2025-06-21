@@ -36,7 +36,7 @@ namespace CadastroClientes.Models
         public int ClientePostoId { get; set; }
 
         [Required]
-        public virtual ClienteTest ClientePosto { get; set; }
+        public virtual ClientesHumanas ClientePosto { get; set; }
 
         [Required]
         [StringLength(400)]

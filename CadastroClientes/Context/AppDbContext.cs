@@ -13,7 +13,7 @@ namespace CadastroCliente.Context
         {
         }
 
-        public DbSet<ClienteTest> ClienteTest { get; set; }
+        public DbSet<ClientesHumanas> ClientesHumanas { get; set; }
         public DbSet<FormularioOperacional> FormularioOperacional { get; set; }
         public DbSet<Ocorrencias> Ocorrencias { get; set; }
         public DbSet<LeadsOperacionais> LeadsOperacionais { get; set; }
@@ -42,26 +42,26 @@ namespace CadastroCliente.Context
                 }
             }
 
-            modelBuilder.Entity<ClienteTest>().HasData(
-                new ClienteTest
+            modelBuilder.Entity<ClientesHumanas>().HasData(
+                new ClientesHumanas
                 {
                     ClienteId = 1,
                     ClientePosto = "Arvoredo",
                     ClienteResponsavel = "Antônio Henrique",
                     ClienteContato = "83981295876",
-                    ClienteFuncaoResponsavel = Models.ClienteTest.FuncaoEnum.Sindico,
+                    ClienteFuncaoResponsavel = Models.ClientesHumanas.FuncaoEnum.Sindico,
                     ClienteEndereco = "RUA DOMINGOS MOROSO, S/N MIRAMAR EM JOAO PESSOA NO ESTADO DA PB, CEP:58043-170",
                     ClienteBairro = "Miramar",
                     ClienteFuncoesTerceirizadasId = 1, // Agente de Portaria
 
                 },
-                new ClienteTest
+                new ClientesHumanas
                 {
                     ClienteId = 2,
                     ClientePosto = "Imperial Bessa",
                     ClienteResponsavel = "Mariana",
                     ClienteContato = "83981295876",
-                    ClienteFuncaoResponsavel = Models.ClienteTest.FuncaoEnum.Sindica,
+                    ClienteFuncaoResponsavel = Models.ClientesHumanas.FuncaoEnum.Sindica,
                     ClienteEndereco = "AVENIDA PRESIDENTE AFONSO PENA, 382, BESSA, EM JOAO PESSOA NO ESTADO DA PB, CEP: 58035-030",
                     ClienteBairro = "Bessa",
                     ClienteFuncoesTerceirizadasId = 2 // Auxiliar de Serviços Gerais

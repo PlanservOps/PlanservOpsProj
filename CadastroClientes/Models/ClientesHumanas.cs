@@ -4,8 +4,8 @@ using System.Text.Json.Serialization;
 
 namespace CadastroCliente.Models
 {
-    [Table("clientetest")]
-    public class ClienteTest
+    [Table("clienteshumanas")]
+    public class ClientesHumanas
     {
         [Key]
         [Column("clienteid")]

@@ -13,17 +13,17 @@ namespace CadastroClientes.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<ClienteTest>> GetClientes()
+        public async Task<IEnumerable<ClientesHumanas>> GetClientes()
         {
             //incluir filtro ou paginação de dados
-            return await _context.ClienteTest.ToListAsync();
+            return await _context.ClientesHumanas.ToListAsync();
         }
-        public async Task<IEnumerable<ClienteTest>> GetClientesByClientePosto(string posto)
+        public async Task<IEnumerable<ClientesHumanas>> GetClientesByClientePosto(string posto)
         {
-            IEnumerable<ClienteTest> cliente;
+            IEnumerable<ClientesHumanas> cliente;
             if (!string.IsNullOrWhiteSpace(posto)) 
             {
-                cliente = await _context.ClienteTest.Where(n=> n.ClientePosto.Contains(posto)).ToListAsync();
+                cliente = await _context.ClientesHumanas.Where(n=> n.ClientePosto.Contains(posto)).ToListAsync();
             }
             else
             {
@@ -31,25 +31,25 @@ namespace CadastroClientes.Services
             }
             return cliente;
         }
-        public async Task<ClienteTest> GetCliente(int id)
+        public async Task<ClientesHumanas> GetCliente(int id)
         {
             //implementação simples - necessário tratamento de erros global 
-            var cliente = await _context.ClienteTest.FindAsync(id);
+            var cliente = await _context.ClientesHumanas.FindAsync(id);
             return cliente;
         }
-        public async Task CreateCliente(ClienteTest cliente)
+        public async Task CreateCliente(ClientesHumanas cliente)
         {
-            _context.ClienteTest.Add(cliente);
+            _context.ClientesHumanas.Add(cliente);
             await _context.SaveChangesAsync();
         }
-        public async Task UpdateCliente(ClienteTest cliente)
+        public async Task UpdateCliente(ClientesHumanas cliente)
         {
             _context.Entry(cliente).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
-        public async Task DeleteCliente(ClienteTest cliente)
+        public async Task DeleteCliente(ClientesHumanas cliente)
         {
-            _context.ClienteTest.Remove(cliente);
+            _context.ClientesHumanas.Remove(cliente);
             await _context.SaveChangesAsync();
         }
     }

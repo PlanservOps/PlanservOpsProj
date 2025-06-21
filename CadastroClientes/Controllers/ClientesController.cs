@@ -17,7 +17,7 @@ namespace CadastroClientes.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IAsyncEnumerable<ClienteTest>>> GetClientes()
+        public async Task<ActionResult<IAsyncEnumerable<ClientesHumanas>>> GetClientes()
         {
             try
             {
@@ -31,7 +31,7 @@ namespace CadastroClientes.Controllers
         }
 
         [HttpGet("ClientePorPosto")]
-        public async Task<ActionResult<IAsyncEnumerable<ClienteTest>>> GetClientesByClientePosto([FromQuery]string posto)
+        public async Task<ActionResult<IAsyncEnumerable<ClientesHumanas>>> GetClientesByClientePosto([FromQuery]string posto)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace CadastroClientes.Controllers
         }
 
         [HttpGet("{id:int}", Name="GetCliente")]
-        public async Task<ActionResult<ClienteTest>> GetCliente(int id)
+        public async Task<ActionResult<ClientesHumanas>> GetCliente(int id)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace CadastroClientes.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ClienteTest>> CreateCliente([FromBody]ClienteTest cliente)
+        public async Task<ActionResult<ClientesHumanas>> CreateCliente([FromBody]ClientesHumanas cliente)
         {
             try
             {
@@ -83,7 +83,7 @@ namespace CadastroClientes.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult> UpdateCliente(int id, [FromBody] ClienteTest cliente)
+        public async Task<ActionResult> UpdateCliente(int id, [FromBody] ClientesHumanas cliente)
         {
             try
             {                

@@ -4,11 +4,11 @@ namespace CadastroClientes.Services
 {
     public interface IClienteService
     {
-        Task<IEnumerable<ClienteTest>> GetClientes();
-        Task<ClienteTest> GetCliente(int id);
-        Task<IEnumerable<ClienteTest>> GetClientesByClientePosto(string posto);
-        Task CreateCliente(ClienteTest cliente);
-        Task UpdateCliente(ClienteTest cliente);
-        Task DeleteCliente(ClienteTest cliente);
+        Task<IEnumerable<ClientesHumanas>> GetClientes();
+        Task<ClientesHumanas> GetCliente(int id);
+        Task<IEnumerable<ClientesHumanas>> GetClientesByClientePosto(string posto);
+        Task CreateCliente(ClientesHumanas cliente);
+        Task UpdateCliente(ClientesHumanas cliente);
+        Task DeleteCliente(ClientesHumanas cliente);
     }
 }
