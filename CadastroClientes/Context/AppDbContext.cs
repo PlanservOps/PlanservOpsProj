@@ -42,31 +42,31 @@ namespace CadastroCliente.Context
                 }
             }
 
-            modelBuilder.Entity<ClientesHumanas>().HasData(
-                new ClientesHumanas
-                {
-                    ClienteId = 1,
-                    ClientePosto = "Arvoredo",
-                    ClienteResponsavel = "Antônio Henrique",
-                    ClienteContato = "83981295876",
-                    ClienteFuncaoResponsavel = Models.ClientesHumanas.FuncaoEnum.Sindico,
-                    ClienteEndereco = "RUA DOMINGOS MOROSO, S/N MIRAMAR EM JOAO PESSOA NO ESTADO DA PB, CEP:58043-170",
-                    ClienteBairro = "Miramar",
-                    ClienteFuncoesTerceirizadasId = 1, // Agente de Portaria
+            //modelBuilder.Entity<ClientesHumanas>().HasData(
+            //    new ClientesHumanas
+            //    {
+            //        ClienteId = 1,
+            //        ClientePosto = "Arvoredo",
+            //        ClienteResponsavel = "Antônio Henrique",
+            //        ClienteContato = "83981295876",
+            //        ClienteFuncaoResponsavel = Models.ClientesHumanas.FuncaoEnum.Sindico,
+            //        ClienteEndereco = "RUA DOMINGOS MOROSO, S/N MIRAMAR EM JOAO PESSOA NO ESTADO DA PB, CEP:58043-170",
+            //        ClienteBairro = "Miramar",
+            //        ClienteFuncoesTerceirizadasId = 1, // Agente de Portaria
 
-                },
-                new ClientesHumanas
-                {
-                    ClienteId = 2,
-                    ClientePosto = "Imperial Bessa",
-                    ClienteResponsavel = "Mariana",
-                    ClienteContato = "83981295876",
-                    ClienteFuncaoResponsavel = Models.ClientesHumanas.FuncaoEnum.Sindica,
-                    ClienteEndereco = "AVENIDA PRESIDENTE AFONSO PENA, 382, BESSA, EM JOAO PESSOA NO ESTADO DA PB, CEP: 58035-030",
-                    ClienteBairro = "Bessa",
-                    ClienteFuncoesTerceirizadasId = 2 // Auxiliar de Serviços Gerais
-                }
-            );
+            //    },
+            //    new ClientesHumanas
+            //    {
+            //        ClienteId = 2,
+            //        ClientePosto = "Imperial Bessa",
+            //        ClienteResponsavel = "Mariana",
+            //        ClienteContato = "83981295876",
+            //        ClienteFuncaoResponsavel = Models.ClientesHumanas.FuncaoEnum.Sindica,
+            //        ClienteEndereco = "AVENIDA PRESIDENTE AFONSO PENA, 382, BESSA, EM JOAO PESSOA NO ESTADO DA PB, CEP: 58035-030",
+            //        ClienteBairro = "Bessa",
+            //        ClienteFuncoesTerceirizadasId = 2 // Auxiliar de Serviços Gerais
+            //    }
+            //);
 
             modelBuilder.Entity<FormularioOperacional>().HasData(
                 new FormularioOperacional
