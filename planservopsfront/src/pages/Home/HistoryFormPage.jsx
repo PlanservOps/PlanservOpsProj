@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../components/common/Header'
-import { useEffect, useState } from 'react'
 import api from '../../api'
 
 const EficienciaPage = () => {
@@ -11,13 +10,19 @@ const EficienciaPage = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            try {				
-				const response = await api.get("/Formulario");
-				setFormularios(response.data);
-				setTotal(response.data);
-			} catch (error) {
-				console.error("Erro ao buscar usuários:", error);
-			}
+            try {
+                // Monta a query string para busca e paginação
+                const params = {};
+                if (searchTerm) params.nome = searchTerm;
+                params.page = page;
+                params.pageSize = 10; // ajuste conforme sua API
+
+                const response = await api.get("/Formulario", { params });
+                setFormularios(response.data.items || response.data); // ajuste conforme resposta da API
+                setTotal(response.data.total || response.data.length || 0);
+            } catch (error) {
+                console.error("Erro ao buscar formulários:", error);
+            }
         };
 
         fetchData();
@@ -33,7 +38,7 @@ const EficienciaPage = () => {
                 placeholder="Buscar por nome..."
                 value={searchTerm}
                 onChange={(e) => {
-                    setPage(1); // volta pra página 1 quando mudar a busca
+                    setPage(1);
                     setSearchTerm(e.target.value);
                 }}
                 className="border p-2 rounded mb-4 w-full max-w-md"
@@ -52,7 +57,7 @@ const EficienciaPage = () => {
                         <tr key={form.id}>
                             <td className="p-2 border">{form.nome}</td>
                             <td className="p-2 border">
-                                {new Date(form.dataEnvio).toLocaleDateString()}
+                                {form.dataEnvio ? new Date(form.dataEnvio).toLocaleDateString() : ""}
                             </td>
                             <td className="p-2 border">{form.status}</td>
                         </tr>
@@ -81,7 +86,5 @@ const EficienciaPage = () => {
         </div>
     );
 }
-    
-
 
 export default EficienciaPage
