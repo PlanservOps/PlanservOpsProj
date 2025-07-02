@@ -77,7 +77,7 @@ namespace CadastroCliente.Context
                     ClientesAtendidos = 10,
                     ProblemasReportados = 2,
                     GestoresAtendidos = 5,
-                    ClientePostoId = 1,
+                    ClientePosto = "Arvoredo",
                     ProblemasIdentificados = "Falta de limpeza na área comum",
                     SolucoesApresentadas = "Contratação de serviços de limpeza",
                     AvaliacaoIgo = 4,
@@ -86,43 +86,43 @@ namespace CadastroCliente.Context
                 }
             );
 
-            modelBuilder.Entity<Ocorrencias>().HasData(
-                new Ocorrencias
-                {
-                    OcorrenciaId = 1,
-                    ClientePosto = "nomeposto",
-                    ClienteResponsavel = "nomeresponsavel",
-                    OcorrenciaData = new DateTime(2024, 6, 15, 8, 0, 0, DateTimeKind.Utc),
-                    OcorrenciaDescricao = "Problema de vazamento no banheiro",
-                    OcorrenciaStatus = CadastroClientes.Models.Ocorrencias.StatusEnum.Resolvido,
-                },
-                new Ocorrencias
-                {
-                    OcorrenciaId = 2,
-                    ClientePosto = "nomeposto1",
-                    ClienteResponsavel = "nomeresponsavel",
-                    OcorrenciaData = new DateTime(2024, 6, 15, 9, 0, 0, DateTimeKind.Utc),
-                    OcorrenciaDescricao = "Falta de energia na área comum",
-                    OcorrenciaStatus = CadastroClientes.Models.Ocorrencias.StatusEnum.Resolvido,
-                }
-            );
-            modelBuilder.Entity<LeadsOperacionais>().HasData(
-                new LeadsOperacionais
-                {
-                    LeadId = 1,
-                    LeadName = "João Silva",
-                    LeadEmail = "",
-                    LeadPassword = "senha123",
-                    LeadRole = LeadsRole.AdminMaster
-                }
-            );
+            //modelBuilder.Entity<Ocorrencias>().HasData(
+            //    new Ocorrencias
+            //    {
+            //        OcorrenciaId = 1,
+            //        ClientePosto = "nomeposto",
+            //        ClienteResponsavel = "nomeresponsavel",
+            //        OcorrenciaData = new DateTime(2024, 6, 15, 8, 0, 0, DateTimeKind.Utc),
+            //        OcorrenciaDescricao = "Problema de vazamento no banheiro",
+            //        OcorrenciaStatus = CadastroClientes.Models.Ocorrencias.StatusEnum.Resolvido,
+            //    },
+            //    new Ocorrencias
+            //    {
+            //        OcorrenciaId = 2,
+            //        ClientePosto = "nomeposto1",
+            //        ClienteResponsavel = "nomeresponsavel",
+            //        OcorrenciaData = new DateTime(2024, 6, 15, 9, 0, 0, DateTimeKind.Utc),
+            //        OcorrenciaDescricao = "Falta de energia na área comum",
+            //        OcorrenciaStatus = CadastroClientes.Models.Ocorrencias.StatusEnum.Resolvido,
+            //    }
+            //);
+            //modelBuilder.Entity<LeadsOperacionais>().HasData(
+            //    new LeadsOperacionais
+            //    {
+            //        LeadId = 1,
+            //        LeadName = "João Silva",
+            //        LeadEmail = "",
+            //        LeadPassword = "senha123",
+            //        LeadRole = LeadsRole.AdminMaster
+            //    }
+            //);
 
-            modelBuilder.Entity<FuncaoTerceirizada>().HasData(
-                new FuncaoTerceirizada { funcoaterceirizadaid = 1, funcaoTerceirizadaNome = "Agente de Portaria" },
-                new FuncaoTerceirizada { funcoaterceirizadaid = 2, funcaoTerceirizadaNome = "Auxiliar de Serviços Gerais" },
-                new FuncaoTerceirizada { funcoaterceirizadaid = 3, funcaoTerceirizadaNome = "Jardineiro" },
-                new FuncaoTerceirizada { funcoaterceirizadaid = 4, funcaoTerceirizadaNome = "Concierge" }
-            );
+            //modelBuilder.Entity<FuncaoTerceirizada>().HasData(
+            //    new FuncaoTerceirizada { funcoaterceirizadaid = 1, funcaoTerceirizadaNome = "Agente de Portaria" },
+            //    new FuncaoTerceirizada { funcoaterceirizadaid = 2, funcaoTerceirizadaNome = "Auxiliar de Serviços Gerais" },
+            //    new FuncaoTerceirizada { funcoaterceirizadaid = 3, funcaoTerceirizadaNome = "Jardineiro" },
+            //    new FuncaoTerceirizada { funcoaterceirizadaid = 4, funcaoTerceirizadaNome = "Concierge" }
+            //);
 
         }
     }
