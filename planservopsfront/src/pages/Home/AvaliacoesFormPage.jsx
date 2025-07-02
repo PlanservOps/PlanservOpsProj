@@ -60,26 +60,39 @@ const AvaliacoesFormPage = () => {
   };
 
   const payload = {
-    range1: formData.range1,
-    range2: formData.range2,
-    range3: formData.range3,
-    selectedCliente: formData.selectedCliente,
-    input1: formData.input1,
-    input2: formData.input2,
-    rating1: formData.rating1,
-    rating2: formData.rating2,
-    input3: formData.input3,
+    dataEnvio: new Date().toISOString(),
+    horaEnvio: new Date().toISOString(),
+    clientesAtendidos: Number(formData.range1),
+    problemasReportados: Number(formData.range2),
+    gestoresAtendidos: Number(formData.range3),
+    clientePosto: formData.selectedCliente,
+    problemasIdentificados: formData.input1,
+    solucoesApresentadas: formData.input2,
+    avaliacaoIgo: Number(formData.rating1),
+    avaliacaoRobson: Number(formData.rating2),
+    observacoesGerais: formData.input3,
   };
 
   const addForm = async () => {
     try {
-      console.log("Enviando usuário:", payload);
-      const { data } = await api.post("/Formulario", payload);
-      setFormData([...formData, data]);
-      setSuccessMessage("Cliente adicionado com sucesso!");
+      console.log("Enviando formulário:", payload);
+      const data = await api.post("/Formulario", payload);
+      console.log("Formulário enviado:", data);
+      setFormData({
+        range1: 1,
+        range2: 1,
+        range3: 1,
+        selectedCliente: "",
+        input1: "",
+        input2: "",
+        rating1: 1,
+        rating2: 1,
+        input3: "",
+      });
+      setSuccessMessage("Formulário enviado com sucesso!");
       setTimeout(() => setSuccessMessage(""), 3000);
     } catch (error) {
-      console.error("Erro ao adicionar usuário:", error);
+      console.error("Erro ao adicionar formulário:", error);
     }
   };
 
@@ -162,10 +175,9 @@ const AvaliacoesFormPage = () => {
                 name="selectedCliente"
                 value={formData.selectedCliente} // Atualiza para armazenar apenas um valor
                 onChange={(e) => {
-                  const selectedValue = e.target.value; // Captura o valor selecionado
                   setFormData((prev) => ({
                     ...prev,
-                    selectedCliente: selectedValue, // Atualiza o estado com o valor único
+                    selectedCliente: e.target.value,
                   }));
                 }}
                 className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -174,11 +186,8 @@ const AvaliacoesFormPage = () => {
                   Selecione um Cliente ou Posto
                 </option>
                 {Array.isArray(clientes) &&
-                  clientes.map((cliente) => (
-                    <option
-                      key={cliente.clienteId}
-                      value={cliente.clientePosto}
-                    >
+                  clientes.map((cliente, idx) => (
+                    <option key={idx} value={cliente.clientePosto}>
                       {cliente.clientePosto}
                     </option>
                   ))}
