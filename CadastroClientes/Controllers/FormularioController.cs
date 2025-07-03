@@ -1,8 +1,10 @@
-﻿using CadastroCliente.Models;
-using CadastroClientes.Models;
+﻿using CadastroClientes.Models;
 using CadastroClientes.Services;
-using Microsoft.AspNetCore.Authorization;
+using CadastroClientes.Services.Pdf;
 using Microsoft.AspNetCore.Mvc;
+using QuestPDF.Companion;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
 
 namespace CadastroClientes.Controllers
 {
@@ -17,20 +19,6 @@ namespace CadastroClientes.Controllers
             _formularioService = formularioService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IAsyncEnumerable<FormularioOperacional>>> GetFormulario()
-        {
-            try
-            {
-                var formulario = await _formularioService.GetFormulario();
-                return Ok(formulario);
-            }
-            catch
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao obter Clientes");
-            }
-        }
-
         [HttpPost]
         public async Task<ActionResult<FormularioOperacional>> PostFormulario([FromBody] FormularioOperacional formulario)
         {
@@ -43,6 +31,32 @@ namespace CadastroClientes.Controllers
             catch
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao criar cliente");
+            }
+        }
+
+        [HttpPost("gerar-pdf")]
+        public ActionResult<FormularioOperacional> GerarPdfFormulario([FromBody] FormularioOperacional formulario)
+        {
+#if DEBUG
+            PdfGenerator.MostrarPreview(formulario);
+            return Ok("PDF aberto no Companion para visualização.");
+#else
+            var pdf = PdfGenerator.GerarFormularioPdf(formulario);
+            return File(pdf, "application/pdf", $"relatorio-{formmulario.clientePosto}.pdf");
+#endif
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IAsyncEnumerable<FormularioOperacional>>> GetFormulario()
+        {
+            try
+            {
+                var formulario = await _formularioService.GetFormulario();
+                return Ok(formulario);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao obter Clientes");
             }
         }
 
