@@ -42,7 +42,7 @@ namespace CadastroClientes.Controllers
             return Ok("PDF aberto no Companion para visualização.");
 #else
             var pdf = PdfGenerator.GerarFormularioPdf(formulario);
-            return File(pdf, "application/pdf", $"relatorio-{formmulario.clientePosto}.pdf");
+            return File(pdf, "application/pdf", $"relatorio-{clientePosto}.pdf");
 #endif
         }
 
