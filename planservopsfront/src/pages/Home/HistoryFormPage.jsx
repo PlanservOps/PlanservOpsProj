@@ -5,17 +5,18 @@ import api from '../../api'
 const EficienciaPage = () => {
     const [formularios, setFormularios] = useState([]);
     const [clientePosto, setClientePosto] = useState("");
+    const [clientePostoInput, setClientePostoInput] = useState("");
     const [dataEnvio, setDataEnvio] = useState("");
+    const [dataEnvioInput, setDataEnvioInput] = useState("");
     const [page, setPage] = useState(1);
     const [total, setTotal] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Monta a query string para busca e paginação
                 const params = {};
-                if (clientePosto) params.clientePosto = clientePosto; // ajuste conforme sua API
-                if (dataEnvio) params.dataEnvio = dataEnvio; // ajuste conforme sua API
+                if (clientePosto) params.clientePosto = clientePosto;
+                if (dataEnvio) params.dataEnvio = dataEnvio;
                 params.page = page;
                 params.pageSize = 10;
 
@@ -39,20 +40,26 @@ const EficienciaPage = () => {
                 <input
                     type="text"
                     placeholder="Buscar por cliente..."
-                    value={clientePosto}
-                    onChange={(e) => {
-                        setPage(1);
-                        setClientePosto(e.target.value);
+                    value={clientePostoInput}
+                    onChange={(e) => setClientePostoInput(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            setPage(1);
+                            setClientePosto(clientePostoInput);
+                        }
                     }}
                     className="border p-2 rounded max-w-xs"
                 />
                 <input
                     type="date"
                     placeholder="Buscar por data de envio"
-                    value={dataEnvio}
-                    onChange={(e) => {
-                        setPage(1);
-                        setDataEnvio(e.target.value);
+                    value={dataEnvioInput}
+                    onChange={(e) => setDataEnvioInput(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            setPage(1);
+                            setDataEnvio(dataEnvioInput);
+                        }
                     }}
                     className="border p-2 rounded max-w-xs"
                 />
@@ -71,7 +78,7 @@ const EficienciaPage = () => {
                     {formularios.map((form) => (
                         <tr key={form.id || form.Id || form.formularioid || form.formularioId}>
                             <td className="p-2 border">
-                                {form.clientePosto || form.clientePosto || "-"}
+                                {form.clientePosto || "-"}
                             </td>
                             <td className="p-2 border">
                                 {form.dataEnvio
@@ -87,7 +94,6 @@ const EficienciaPage = () => {
                 </tbody>
             </table>
 
-            {/* Paginação simples */}
             <div className="mt-4 flex gap-2 justify-center">
                 <button
                     onClick={() => setPage((p) => Math.max(p - 1, 1))}
