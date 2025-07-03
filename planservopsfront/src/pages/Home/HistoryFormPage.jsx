@@ -71,7 +71,7 @@ const EficienciaPage = () => {
                     {formularios.map((form) => (
                         <tr key={form.id || form.Id || form.formularioid || form.formularioId}>
                             <td className="p-2 border">
-                                {form.clientePosto?.nome || form.clientePosto?.Nome || "-"}
+                                {form.clientePosto || form.clientePosto || "-"}
                             </td>
                             <td className="p-2 border">
                                 {form.dataEnvio
