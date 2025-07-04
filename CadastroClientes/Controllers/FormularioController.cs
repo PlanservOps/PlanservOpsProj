@@ -35,14 +35,14 @@ namespace CadastroClientes.Controllers
         }
 
         [HttpPost("gerar-pdf")]
-        public ActionResult<FormularioOperacional> GerarPdfFormulario([FromBody] FormularioOperacional formulario)
+        public IActionResult GerarPdfFormulario([FromBody] FormularioOperacional formulario)
         {
 #if DEBUG
             PdfGenerator.MostrarPreview(formulario);
             return Ok("PDF aberto no Companion para visualização.");
 #else
             var pdf = PdfGenerator.GerarFormularioPdf(formulario);
-            return File(pdf, "application/pdf", $"relatorio-{formulario.id}.pdf");
+            return File(pdf, "application/pdf", $"relatorio-{formulario.Id}.pdf");
 #endif
         }
 
