@@ -14,7 +14,7 @@ namespace CadastroClientes.Services.Pdf
 #if DEBUG
         public static void MostrarPreview(FormularioOperacional formulario)
         {
-            new FormularioPdf(formulario).ShowInCompanion();
+            new FormularioPdf(formulario).ShowInCompanion(12500);
         }
 #endif
 
