@@ -1,6 +1,7 @@
 using CadastroCliente.Context;
 using CadastroCliente.Seed;
 using CadastroClientes.Services;
+using CadastroClientes.Services.Pdf;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

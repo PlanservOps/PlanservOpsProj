@@ -21,8 +21,20 @@ namespace CadastroClientes.Services.Pdf
             container.Page(page =>
             {
                 page.Size(PageSizes.A4);
-                page.Margin(20);
-                page.DefaultTextStyle(x => x.FontSize(12));
+                page.Margin(2, QuestPDF.Infrastructure.Unit.Centimetre);
+
+                page.Header()
+                    .Row(row =>
+                    {
+                        row.RelativeItem()
+                            .Column(column =>
+                            {
+                                column.Item()
+                                .Text("Planserv").FontSize(16).Bold().FontColor(Colors.Green.Darken2);
+                                column.Item()
+                                .Text("Relatório de Formulário Gerencial Operacional").FontSize(14).Italic().FontColor(Colors.Grey.Lighten1);
+                            });                            
+                    });
 
                 page.Content().Column(col =>
                 {
