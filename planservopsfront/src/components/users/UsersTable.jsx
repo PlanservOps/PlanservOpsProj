@@ -173,25 +173,25 @@ function UsersTable() {
 
   return (
     <motion.div
-      className="bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-700"
+      className="bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-2 sm:p-6 border border-gray-700"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
     >
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-semibold text-gray-100">Clientes</h2>
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-100">Clientes</h2>
         <button
-          className=" bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors w-full sm:w-auto"
           onClick={openAddForm}
         >
           Adicionar Cliente
         </button>
 
-        <div className="relative">
+        <div className="relative w-full sm:w-64">
           <input
             type="text"
             placeholder="Buscar Clientes..."
-            className="bg-gray-700 text-white placeholder-gray-400 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="bg-gray-700 text-white placeholder-gray-400 rounded-lg pl-10 pr-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={searchTerm}
             onChange={handleSearch}
           />
@@ -200,18 +200,18 @@ function UsersTable() {
       </div>
 
       {successMessage && (
-        <motion.div className="mb-4 p-4 bg-green-600 text-white rounded-lg">
+        <motion.div className="mb-4 p-4 bg-green-600 text-white rounded-lg text-center text-sm sm:text-base">
           {successMessage}
         </motion.div>
       )}
 
       {selectedUser && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-80 p-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
-          <div className="bg-gray-900 rounded-lg p-8 shadow-lg relative w-full max-w-md">
+          <div className="bg-gray-900 rounded-lg p-4 sm:p-8 shadow-lg relative w-full max-w-xs sm:max-w-md">
             <button
               className="absolute top-2 right-2 text-gray-400 hover:text-gray-200"
               onClick={() => setSelectedUser(null)}
@@ -219,10 +219,10 @@ function UsersTable() {
             >
               <X size={20} />
             </button>
-            <h3 className="text-xl font-bold text-white mb-4">
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-">
               Detalhes do Cliente
             </h3>
-            <div className="space-y-2 text-gray-200">
+            <div className="space-y-2 text-gray-200 text-sm sm:text-base">
               <div><strong>Posto:</strong> {selectedUser.clientePosto}</div>
               <div><strong>Responsável:</strong> {selectedUser.clienteResponsavel}</div>
               <div><strong>Contato:</strong> {selectedUser.clienteContato}</div>
@@ -231,9 +231,9 @@ function UsersTable() {
               <div><strong>Bairro:</strong> {selectedUser.clienteBairro}</div>
               <div><strong>Funções Terceirizadas:</strong> {selectedUser.clienteFuncoesTerceirizadasId}</div>
             </div>
-            <div className="flex gap-4 mt-6">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-6">
               <button
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full sm:w-auto"
                 onClick={() => {
                   openEditForm(selectedUser);
                   setSelectedUser(null);
@@ -242,7 +242,7 @@ function UsersTable() {
                 Editar
               </button>
               <button
-                className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+                className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 w-full sm:w-auto"
                 onClick={() => {
                   deleteUser(selectedUser.clienteId);
                   setSelectedUser(null);
@@ -256,31 +256,31 @@ function UsersTable() {
       )}
 
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-700">
+        <table className="min-w-full divide-y divide-gray-700 text-xs sm:text-sm">
           <thead>
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-400 uppercase tracking-wider">
                 Posto
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-400 uppercase tracking-wider">
                 Responsável
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-400 uppercase tracking-wider">
                 Contato
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-400 uppercase tracking-wider">
                 Função
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-400 uppercase tracking-wider">
                 Endereço
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-400 uppercase tracking-wider">
                 Bairro
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-400 uppercase tracking-wider">
                 Funções Terceirizadas
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-400 uppercase tracking-wider">
                 Ações
               </th>
             </tr>
@@ -297,53 +297,53 @@ function UsersTable() {
                   className="hover:bg-gray-700 transition-colors cursor-pointer"
                   onClick={() => setSelectedUser(user)}
                 >
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-2 sm:px-2 sm:px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
-                      <div className="flex-shrink-0 h-10 w-10">
-                        <div className="h-10 w-10 rounded-full bg-gradient-to-r from-purple-400 to-blue-500 flex items-center justify-center text-white font-semibold">
+                      <div className="flex-shrink-0 h-8 w-8 sm:h-10 sm:w-10">
+                        <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-gradient-to-r from-purple-400 to-blue-500 flex items-center justify-center text-white font-semibold">
                           {(user?.clientePosto || "?").charAt(0)}
                         </div>
                       </div>
-                      <div className="ml-4">
-                        <div className="text-sm font-medium text-gray-100">
+                      <div className="ml-2 sm:ml-4">
+                        <div className="text-xs sm:text-sm font-medium text-gray-100">
                           {user.clientePosto}
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-300">
+                  <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
+                    <div className="text-xs sm:text-sm text-gray-300">
                       {user.clienteResponsavel}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-300">
+                  <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
+                    <div className="text-xs sm:text-sm text-gray-300">
                       {user.clienteContato}
                     </div>
                   </td>
 
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
                     <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-800 text-blue-100">
                       {user.clienteFuncaoResponsavel}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-300">
+                  <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
+                    <div className="text-xs sm:text-sm text-gray-300">
                       {user.clienteEndereco}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-300">
+                  <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
+                    <div className="text-xs sm:text-sm text-gray-300">
                       {user.clienteBairro}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-300">
+                  <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
+                    <div className="text-xs sm:text-sm text-gray-300">
                       {user.clienteFuncoesTerceirizadasId}
                     </div>
                   </td>
 
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                  <td className="px-2 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-300">
                     <button
                       type="button"
                       className="text-indigo-400 hover:text-indigo-300 mr-2"
@@ -365,13 +365,13 @@ function UsersTable() {
         </table>
         {showForm && (
           <motion.div
-            className="absolute top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 backdrop-blur-md flex items-center justify-center"
+            className="absolute top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 backdrop-blur-md flex items-center justify-center p-2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="form-register bg-gray-700 p-6 rounded-lg shadow-lg w-full max-w-md">
-              <h2 className="text-xl font-semibold text-white mb-4">
+            <div className="form-register bg-gray-700 p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-xs sm:max-w-md">
+              <h2 className="text-lg sm:text-xl font-semibold text-white mb-4">
                 Adicionar Cliente
               </h2>
 
