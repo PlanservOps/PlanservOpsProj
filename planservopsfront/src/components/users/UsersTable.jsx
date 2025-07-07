@@ -1,19 +1,16 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import api from "../../api";
 import FuncoesTerceirizadasSelect from "../common/FuncoesTerceirizadasSelect";
 
 function UsersTable() {
   const baseUrl = import.meta.env.VITE_API_URL;
 
-  const [form, setForm] = useState({
-    terceirizada: "",
-  });
-
   const [searchTerm, setSearchTerm] = useState("");
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const [showForm, setShowForm] = useState(false);
 
@@ -208,6 +205,56 @@ function UsersTable() {
         </motion.div>
       )}
 
+      {selectedUser && (
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          <div className="bg-gray-900 rounded-lg p-8 shadow-lg relative w-full max-w-md">
+            <button
+              className="absolute top-2 right-2 text-gray-400 hover:text-gray-200"
+              onClick={() => setSelectedUser(null)}
+              title="Fechar"
+            >
+              <X size={20} />
+            </button>
+            <h3 className="text-xl font-bold text-white mb-4">
+              Detalhes do Cliente
+            </h3>
+            <div className="space-y-2 text-gray-200">
+              <div><strong>Posto:</strong> {selectedUser.clientePosto}</div>
+              <div><strong>Responsável:</strong> {selectedUser.clienteResponsavel}</div>
+              <div><strong>Contato:</strong> {selectedUser.clienteContato}</div>
+              <div><strong>Função:</strong> {selectedUser.clienteFuncaoResponsavel}</div>
+              <div><strong>Endereço:</strong> {selectedUser.clienteEndereco}</div>
+              <div><strong>Bairro:</strong> {selectedUser.clienteBairro}</div>
+              <div><strong>Funções Terceirizadas:</strong> {selectedUser.clienteFuncoesTerceirizadasId}</div>
+            </div>
+            <div className="flex gap-4 mt-6">
+              <button
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                onClick={() => {
+                  openEditForm(selectedUser);
+                  setSelectedUser(null);
+                }}
+              >
+                Editar
+              </button>
+              <button
+                className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+                onClick={() => {
+                  deleteUser(selectedUser.clienteId);
+                  setSelectedUser(null);
+                }}
+              >
+                Excluir
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      )}
+
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-700">
           <thead>
@@ -241,12 +288,14 @@ function UsersTable() {
 
           <tbody className="divide-y divide-gray-700">
             {Array.isArray(filteredUsers) &&
-              filteredUsers.map((user) => (				
+              filteredUsers.map((user) => (
                 <motion.tr
                   key={user.clientePosto}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
+                  className="hover:bg-gray-700 transition-colors cursor-pointer"
+                  onClick={() => setSelectedUser(user)}
                 >
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
