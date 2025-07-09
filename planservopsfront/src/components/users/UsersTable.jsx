@@ -173,7 +173,7 @@ function UsersTable() {
 
   return (
     <motion.div
-      className="bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-2 sm:p-6 border border-gray-700"
+      className="bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-2 sm:p-6 border border-gray-200 dark:border-gray-700"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
@@ -256,37 +256,36 @@ function UsersTable() {
       )}
 
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-700 text-xs sm:text-sm">
+        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-xs sm:text-sm">
           <thead>
             <tr>
-              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-400 uppercase tracking-wider">
+              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                 Posto
               </th>
-              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-400 uppercase tracking-wider">
+              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                 Responsável
               </th>
-              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-400 uppercase tracking-wider">
+              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                 Contato
               </th>
-              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-400 uppercase tracking-wider">
+              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                 Função
               </th>
-              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-400 uppercase tracking-wider">
+              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                 Endereço
               </th>
-              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-400 uppercase tracking-wider">
+              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                 Bairro
               </th>
-              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-400 uppercase tracking-wider">
+              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                 Funções Terceirizadas
               </th>
-              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-400 uppercase tracking-wider">
+              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                 Ações
               </th>
             </tr>
           </thead>
-
-          <tbody className="divide-y divide-gray-700">
+          <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
             {Array.isArray(filteredUsers) &&
               filteredUsers.map((user) => (
                 <motion.tr
@@ -294,10 +293,10 @@ function UsersTable() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
-                  className="hover:bg-gray-700 transition-colors cursor-pointer"
+                  className="hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
                   onClick={() => setSelectedUser(user)}
                 >
-                  <td className="px-2 sm:px-2 sm:px-6 py-4 whitespace-nowrap">
+                  <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="flex-shrink-0 h-8 w-8 sm:h-10 sm:w-10">
                         <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-gradient-to-r from-purple-400 to-blue-500 flex items-center justify-center text-white font-semibold">
@@ -305,56 +304,60 @@ function UsersTable() {
                         </div>
                       </div>
                       <div className="ml-2 sm:ml-4">
-                        <div className="text-xs sm:text-sm font-medium text-gray-100">
+                        <div className="text-xs sm:text-sm font-medium">
                           {user.clientePosto}
                         </div>
                       </div>
                     </div>
                   </td>
                   <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
-                    <div className="text-xs sm:text-sm text-gray-300">
+                    <div className="text-xs sm:text-sm">
                       {user.clienteResponsavel}
                     </div>
                   </td>
                   <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
-                    <div className="text-xs sm:text-sm text-gray-300">
+                    <div className="text-xs sm:text-sm">
                       {user.clienteContato}
                     </div>
                   </td>
-
                   <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
                     <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-800 text-blue-100">
                       {user.clienteFuncaoResponsavel}
                     </span>
                   </td>
                   <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
-                    <div className="text-xs sm:text-sm text-gray-300">
+                    <div className="text-xs sm:text-sm">
                       {user.clienteEndereco}
                     </div>
                   </td>
                   <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
-                    <div className="text-xs sm:text-sm text-gray-300">
+                    <div className="text-xs sm:text-sm">
                       {user.clienteBairro}
                     </div>
                   </td>
                   <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
-                    <div className="text-xs sm:text-sm text-gray-300">
+                    <div className="text-xs sm:text-sm">
                       {user.clienteFuncoesTerceirizadasId}
                     </div>
                   </td>
-
-                  <td className="px-2 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-300">
+                  <td className="px-2 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm">
                     <button
                       type="button"
-                      className="text-indigo-400 hover:text-indigo-300 mr-2"
-                      onClick={() => openEditForm(user)}
+                      className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-400 dark:hover:text-indigo-300 mr-2"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openEditForm(user);
+                      }}
                     >
                       Editar
                     </button>
                     <button
                       type="button"
-                      className="text-red-400 hover:text-red-300"
-                      onClick={() => deleteUser(user.clienteId)}
+                      className="text-red-600 dark:text-red-400 hover:text-red-400 dark:hover:text-red-300"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        deleteUser(user.clienteId);
+                      }}
                     >
                       Excluir
                     </button>
@@ -365,12 +368,12 @@ function UsersTable() {
         </table>
         {showForm && (
           <motion.div
-            className="absolute top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 backdrop-blur-md flex items-center justify-center p-2"
+            className="absolute top-0 left-0 w-full h-full bg-gray-200 bg-opacity-70 dark:bg-gray-800 dark:bg-opacity-50 backdrop-blur-md flex items-center justify-center p-2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="form-register bg-gray-700 p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-xs sm:max-w-md">
+            <div className="form-register bg-white dark:bg-gray-700 p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-xs sm:max-w-md">
               <h2 className="text-lg sm:text-xl font-semibold text-white mb-4">
                 Adicionar Cliente
               </h2>
