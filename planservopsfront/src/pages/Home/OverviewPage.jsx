@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Header from "../../components/common/Header";
 import { motion } from "framer-motion";
 import StatsCards from "../../components/common/StatsCards";
 import {
-  BarChart2,
+  UsersIcon,
   BellPlus,
   TriangleAlert,
   ShieldAlert,
@@ -11,8 +11,29 @@ import {
 import PreventiveOverviewChart from "../../components/overview/PreventiveOverviewChart";
 import IndexNpsChart from "../../components/overview/IndexNpsChart";
 import CorrectiveOverviewChart from "../../components/overview/CorrectiveOverviewChart";
+import api from "../../api";
 
 const OverviewPage = () => {
+
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await api.get("/Clientes");
+        setUsers(response.data);
+      } catch (error) {
+        setUsers([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUsers();
+  }, []);
+
+  const totalUsers = users.length;
+
   return (
     <div className="flex-1 overflow-auto relative z-10">
       <Header title="Overview" />
@@ -39,9 +60,9 @@ const OverviewPage = () => {
             color="#EC4899"
           />
           <StatsCards
-            name="Índice de Atendimento"
-            icon={BarChart2}
-            value="60.5%"
+            name="Clientes"
+            icon={UsersIcon}
+            value={loading ? "..." : totalUsers}
             color="#10B981"
           />
           <StatsCards
