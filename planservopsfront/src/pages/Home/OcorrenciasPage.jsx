@@ -198,7 +198,7 @@ function OcorrenciasPage() {
             }}
           >
             <StatsCards
-              name="Não Atendidas"
+              name="Atendidas"
               icon={TriangleAlert}
               value={
                 ocorrencias.filter((o) => o.ocorrenciaStatus === "Pendente")
@@ -220,7 +220,9 @@ function OcorrenciasPage() {
               value={
                 ocorrencias.length > 0
                   ? (
-                      (ocorrencias.filter((o) => o.ocorrenciaStatus  === "Atendida").length /
+                      (ocorrencias.filter(
+                        (o) => o.ocorrenciaStatus === "Atendida"
+                      ).length /
                         ocorrencias.length) *
                       100
                     ).toFixed(1) + "%"
@@ -244,6 +246,119 @@ function OcorrenciasPage() {
             />
           </div>
         </div>
+
+        {/* Lista de todas as ocorrências */}
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
+            Todas as Ocorrências
+          </h2>
+          {loading ? (
+            <div className="text-gray-500">Carregando...</div>
+          ) : ocorrencias.length === 0 ? (
+            <div className="text-gray-500">Nenhuma ocorrência encontrada.</div>
+          ) : (
+            <ul className="divide-y divide-gray-200 dark:divide-gray-700 rounded-lg bg-white dark:bg-gray-800">
+              {ocorrencias.map((o) => (
+                <li
+                  key={o.ocorrenciaId}
+                  className="p-4 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                  onClick={() => setSelectedOcorrencia(o)}
+                >
+                  <div className="flex justify-between">
+                    <span className="font-medium text-blue-700 dark:text-blue-300">
+                      {o.clientePosto}
+                    </span>
+                    <span className="text-gray-500 dark:text-gray-400">
+                      {o.ocorrenciaData
+                        ? new Date(o.ocorrenciaData).toLocaleDateString()
+                        : ""}
+                    </span>
+                  </div>
+                  <div className="text-gray-700 dark:text-gray-200">
+                    Responsável: {o.clienteResponsavel}
+                  </div>
+                  <div className="text-gray-700 dark:text-gray-200">
+                    Descrição: {o.ocorrenciaDescricao}
+                  </div>
+                  <div className="text-gray-700 dark:text-gray-200">
+                    Status: {o.ocorrenciaStatus || "Desconhecido"}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        {/* Card de detalhes da ocorrência selecionada */}
+        {selectedOcorrencia && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40"
+          >
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg w-full max-w-md relative">
+              <button
+                className="absolute top-2 right-2 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+                onClick={() => setSelectedOcorrencia(null)}
+                title="Fechar"
+              >
+                ×
+              </button>
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-200 mb-4">
+                Detalhes da Ocorrência
+              </h2>
+              <div className="mb-2">
+                <span className="text-gray-600 dark:text-gray-400">
+                  Posto:{" "}
+                </span>
+                <span className="text-gray-900 dark:text-white">
+                  {selectedOcorrencia.clientePosto}
+                </span>
+              </div>
+              <div className="mb-2">
+                <span className="text-gray-600 dark:text-gray-400">
+                  Responsável:{" "}
+                </span>
+                <span className="text-gray-900 dark:text-white">
+                  {selectedOcorrencia.clienteResponsavel}
+                </span>
+              </div>
+              <div className="mb-2">
+                <span className="text-gray-600 dark:text-gray-400">Data: </span>
+                <span className="text-gray-900 dark:text-white">
+                  {selectedOcorrencia.ocorrenciaData
+                    ? new Date(
+                        selectedOcorrencia.ocorrenciaData
+                      ).toLocaleDateString()
+                    : ""}
+                </span>
+              </div>
+              <div className="mb-2">
+                <span className="text-gray-600 dark:text-gray-400">
+                  Detalhes:{" "}
+                </span>
+                <span className="text-gray-900 dark:text-white">
+                  {selectedOcorrencia.ocorrenciaDescricao}
+                </span>
+              </div>
+              <div className="mb-2">
+                <span className="text-gray-600 dark:text-gray-400">
+                  Status:{" "}
+                </span>
+                <span className="text-gray-900 dark:text-white">
+                  {selectedOcorrencia.ocorrenciaStatus || "Desconhecido"}
+                </span>
+              </div>
+              <button
+                className="mt-4 text-blue-600 dark:text-blue-400 hover:underline"
+                onClick={() => setSelectedOcorrencia(null)}
+              >
+                Fechar
+              </button>
+            </div>
+          </motion.div>
+        )}
 
         {/* Lista de ocorrências filtradas */}
         {selectedStat && !selectedOcorrencia && (
@@ -293,7 +408,7 @@ function OcorrenciasPage() {
                       Descrição: {o.ocorrenciaDescricao}
                     </div>
                     <div className="text-gray-200">
-                        Status: {o.ocorrenciaStatus || "Desconhecido"}
+                      Status: {o.ocorrenciaStatus || "Desconhecido"}
                     </div>
                   </li>
                 ))}
