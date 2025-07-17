@@ -55,24 +55,24 @@ const ReclamacoesPage = () => {
       <Header title="Reclamações" />
       <div className="flex-1 flex flex-col items-center px-4 pt-8 pb-8">
         <motion.div
-          className="bg-white dark:bg-gray-800 bg-opacity-70 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-200 dark:border-gray-700 max-w-4xl w-full"
+          className="bg-white dark:bg-gray-800 bg-opacity-80 dark:bg-opacity-90 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-200 dark:border-gray-700 max-w-4xl w-full transition-colors"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <h2 className="text-2xl font-semibold mb-6 text-center">
+          <h2 className="text-2xl font-semibold mb-6 text-center text-gray-900 dark:text-gray-100">
             Reclamações Recebidas
           </h2>
           {loading ? (
-            <div className="text-gray-500 text-center">Carregando...</div>
+            <div className="text-gray-500 dark:text-gray-400 text-center">Carregando...</div>
           ) : reclamacoes.length === 0 ? (
-            <div className="text-gray-400 text-center">Nenhuma reclamação encontrada.</div>
+            <div className="text-gray-400 dark:text-gray-500 text-center">Nenhuma reclamação encontrada.</div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {reclamacoes.map((rec, idx) => (
                 <motion.div
                   key={rec.id || idx}
-                  className="bg-gray-100 dark:bg-gray-900 rounded-lg shadow p-5 border border-gray-200 dark:border-gray-700 flex flex-col"
+                  className="bg-gray-100 dark:bg-gray-900 rounded-lg shadow p-5 border border-gray-200 dark:border-gray-700 flex flex-col transition-colors"
                   whileHover={{ scale: 1.03 }}
                 >
                   <div className="mb-2">
