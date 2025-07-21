@@ -28,6 +28,41 @@ const MOCK_RECLAMACOES = [
 const ReclamacoesPage = () => {
   const [reclamacoes, setReclamacoes] = useState(MOCK_RECLAMACOES); // Use o mock inicialmente
   const [loading, setLoading] = useState(false); // Não carrega do backend enquanto mock ativo
+  const [showModal, setShowModal] = useState(false);
+  const [novoCliente, setNovoCliente] = useState("");
+  const [novoProblema, setNovoProblema] = useState("");
+  const [novaData, setNovaData] = useState("");
+  const [clientes, setClientes] = useState([]);
+
+  const handleAddReclamacao = () => {
+    if (!novoCliente.trim() || !novoProblema.trim()) return;
+    setReclamacoes([
+      ...reclamacoes,
+      {
+        id: Date.now(),
+        selectedCliente: novoCliente,
+        input1: novoProblema,
+        createdAt: novaData || new Date().toISOString(),
+      },
+    ]);
+    setShowModal(false);
+    setNovoCliente("");
+    setNovoProblema("");
+    setNovaData("");
+  };
+
+  useEffect(() => {
+    const fetchClientes = async () => {
+      try {
+        const response = await api.get("/Clientes");
+        setClientes(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar clientes:", error);
+        setClientes([]);
+      }
+    };
+    fetchClientes();
+  }, []);
 
   // Descomente este bloco para usar a API real
   /*
@@ -54,6 +89,86 @@ const ReclamacoesPage = () => {
     <div className="flex-1 overflow-auto relative z-10 bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors">
       <Header title="Reclamações" />
       <div className="flex-1 flex flex-col items-center px-4 pt-8 pb-8">
+        <div className="w-full max-w-4xl flex justify-end mb-4">
+          <button
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            onClick={() => setShowModal(true)}
+          >
+            Registrar Nova Reclamação
+          </button>
+        </div>
+        {showModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg w-full max-w-md"
+            >
+              <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">
+                Nova Reclamação
+              </h3>
+              <div className="mb-2">
+                <label className="block text-sm mb-1 text-gray-700 dark:text-gray-300">
+                  Cliente/Posto
+                </label>
+                <select
+                  value={novoCliente}
+                  onChange={(e) => setNovoCliente(e.target.value)}
+                  className="w-full px-3 py-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                  required
+                >
+                  <option value="">Selecione o cliente</option>
+                  {clientes.map((cliente) => (
+                    <option
+                      key={cliente.clienteId}
+                      value={cliente.clientePosto}
+                    >
+                      {cliente.clientePosto}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="mb-2">
+                <label className="block text-sm mb-1 text-gray-700 dark:text-gray-300">
+                  Problema identificado
+                </label>
+                <textarea
+                  value={novoProblema}
+                  onChange={(e) => setNovoProblema(e.target.value)}
+                  className="w-full px-3 py-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                  placeholder="Descreva o problema"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm mb-1 text-gray-700 dark:text-gray-300">
+                  Data
+                </label>
+                <input
+                  type="date"
+                  value={novaData}
+                  onChange={(e) => setNovaData(e.target.value)}
+                  className="w-full px-3 py-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                />
+              </div>
+              <div className="flex justify-end gap-2">
+                <button
+                  className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700"
+                  onClick={() => setShowModal(false)}
+                  type="button"
+                >
+                  Cancelar
+                </button>
+                <button
+                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                  onClick={handleAddReclamacao}
+                  type="button"
+                >
+                  Adicionar
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
         <motion.div
           className="bg-white dark:bg-gray-800 bg-opacity-80 dark:bg-opacity-90 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-200 dark:border-gray-700 max-w-4xl w-full transition-colors"
           initial={{ opacity: 0, y: 20 }}
@@ -64,9 +179,13 @@ const ReclamacoesPage = () => {
             Reclamações Recebidas
           </h2>
           {loading ? (
-            <div className="text-gray-500 dark:text-gray-400 text-center">Carregando...</div>
+            <div className="text-gray-500 dark:text-gray-400 text-center">
+              Carregando...
+            </div>
           ) : reclamacoes.length === 0 ? (
-            <div className="text-gray-400 dark:text-gray-500 text-center">Nenhuma reclamação encontrada.</div>
+            <div className="text-gray-400 dark:text-gray-500 text-center">
+              Nenhuma reclamação encontrada.
+            </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {reclamacoes.map((rec, idx) => (
@@ -76,17 +195,27 @@ const ReclamacoesPage = () => {
                   whileHover={{ scale: 1.03 }}
                 >
                   <div className="mb-2">
-                    <span className="text-sm text-gray-500 dark:text-gray-400">Cliente/Posto:</span>
+                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                      Cliente/Posto:
+                    </span>
                     <div className="text-lg text-blue-700 dark:text-blue-300 font-semibold">
-                      {rec.selectedCliente || rec.clientePosto || "Não informado"}
+                      {rec.selectedCliente ||
+                        rec.clientePosto ||
+                        "Não informado"}
                     </div>
                   </div>
                   <div className="mb-2">
-                    <span className="text-sm text-gray-500 dark:text-gray-400">Problema identificado:</span>
-                    <div className="text-gray-800 dark:text-gray-200">{rec.input1}</div>
+                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                      Problema identificado:
+                    </span>
+                    <div className="text-gray-800 dark:text-gray-200">
+                      {rec.input1}
+                    </div>
                   </div>
                   <div className="mb-2">
-                    <span className="text-sm text-gray-500 dark:text-gray-400">Data:</span>
+                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                      Data:
+                    </span>
                     <div className="text-gray-600 dark:text-gray-400">
                       {rec.createdAt
                         ? new Date(rec.createdAt).toLocaleDateString("pt-BR")
