@@ -1,5 +1,4 @@
 ﻿using CadastroCliente.Models;
-using CadastroClientes.LeadsOperacionais;
 using CadastroClientes.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -18,6 +17,7 @@ namespace CadastroCliente.Context
         public DbSet<Ocorrencias> Ocorrencias { get; set; }
         public DbSet<LeadsOperacionais> LeadsOperacionais { get; set; }
         public DbSet<FuncaoTerceirizada> FuncaoTerceirizada { get; set; }
+        public DbSet<Reclamacoes> Reclamacoes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -68,23 +68,23 @@ namespace CadastroCliente.Context
             //    }
             //);
 
-            modelBuilder.Entity<FormularioOperacional>().HasData(
-                new FormularioOperacional
-                {
-                    Id = 1,
-                    DataEnvio = new DateTime(2024, 6, 15, 0, 0, 0, DateTimeKind.Utc),
-                    HoraEnvio = new DateTime(2024, 6, 15, 8, 0, 0, DateTimeKind.Utc),
-                    ClientesAtendidos = 10,
-                    ProblemasReportados = 2,
-                    GestoresAtendidos = 5,
-                    ClientePosto = "Arvoredo",
-                    ProblemasIdentificados = "Falta de limpeza na área comum",
-                    SolucoesApresentadas = "Contratação de serviços de limpeza",
-                    AvaliacaoIgo = 4,
-                    AvaliacaoRobson = 5,
-                    ObservacoesGerais = "Serviço de limpeza agendado para amanhã."
-                }
-            );
+            //modelBuilder.Entity<FormularioOperacional>().HasData(
+            //    new FormularioOperacional
+            //    {
+            //        Id = 1,
+            //        DataEnvio = new DateTime(2024, 6, 15, 0, 0, 0, DateTimeKind.Utc),
+            //        HoraEnvio = new DateTime(2024, 6, 15, 8, 0, 0, DateTimeKind.Utc),
+            //        ClientesAtendidos = 10,
+            //        ProblemasReportados = 2,
+            //        GestoresAtendidos = 5,
+            //        ClientePosto = "Arvoredo",
+            //        ProblemasIdentificados = "Falta de limpeza na área comum",
+            //        SolucoesApresentadas = "Contratação de serviços de limpeza",
+            //        AvaliacaoIgo = 4,
+            //        AvaliacaoRobson = 5,
+            //        ObservacoesGerais = "Serviço de limpeza agendado para amanhã."
+            //    }
+            //);
 
             //modelBuilder.Entity<Ocorrencias>().HasData(
             //    new Ocorrencias
