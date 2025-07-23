@@ -44,6 +44,7 @@ builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IFormularioService, FormularioService>();
 builder.Services.AddScoped<IFuncaoTerceirizadaService, FuncaoTerceirizadaService>();
 builder.Services.AddScoped<IOcorrenciasService, OcorrenciasService>();
+builder.Services.AddScoped<IReclamacaoService, ReclamacaoService>();
 
 builder.Services.AddCors(options =>
 {

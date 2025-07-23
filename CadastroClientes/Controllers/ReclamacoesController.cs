@@ -15,7 +15,7 @@ namespace CadastroClientes.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IAsyncEnumerable<Reclamacoes>>> GetOcorrencia()
+        public async Task<ActionResult<IAsyncEnumerable<Reclamacoes>>> GetReclamacao()
         {
             try
             {
@@ -24,12 +24,12 @@ namespace CadastroClientes.Controllers
             }
             catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao obter Ocorrencia");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao obter reclamacao");
             }
         }
 
         [HttpGet("{id:int}", Name = "GetReclamacao")]
-        public async Task<ActionResult<Ocorrencias>> GetReclamacaoById(int id)
+        public async Task<ActionResult<Reclamacoes>> GetReclamacaoById(int id)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace CadastroClientes.Controllers
             }
             catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao criar Ocorrencia");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao criar reclamacao");
             }
         }
 
@@ -72,7 +72,7 @@ namespace CadastroClientes.Controllers
                 }
                 else
                 {
-                    return BadRequest($"O id do cliente não confere com o id da URL");
+                    return BadRequest($"O id da reclamacao não confere com o id da URL");
                 }
             }
             catch
@@ -90,7 +90,7 @@ namespace CadastroClientes.Controllers
                 if (reclamacao != null)
                 {
                     await _reclamacaoService.DeleteReclamacao(reclamacao);
-                    return Ok($"Ocorrencia com id={id} foi excluído com sucesso");
+                    return Ok($"Reclamacao com id={id} foi excluído com sucesso");
 
                 }
                 else
