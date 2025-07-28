@@ -3,30 +3,8 @@ import { motion } from "framer-motion";
 import Header from "../../components/common/Header";
 import api from "../../api";
 
-// MOCK DE RECLAMAÇÕES (remova ou comente quando não precisar mais)
-const MOCK_RECLAMACOES = [
-  {
-    id: 1,
-    selectedCliente: "Condomínio Alpha",
-    input1: "Portão eletrônico com falha frequente.",
-    createdAt: "2025-07-10T09:00:00Z",
-  },
-  {
-    id: 2,
-    selectedCliente: "Residencial Beta",
-    input1: "Limpeza das áreas comuns insatisfatória.",
-    createdAt: "2025-07-12T14:30:00Z",
-  },
-  {
-    id: 3,
-    selectedCliente: "Edifício Gama",
-    input1: "Barulho excessivo durante a noite.",
-    createdAt: "2025-07-15T20:15:00Z",
-  },
-];
-
 const ReclamacoesPage = () => {
-  const [reclamacoes, setReclamacoes] = useState(MOCK_RECLAMACOES); // Use o mock inicialmente
+  const [reclamacoes, setReclamacoes] = useState([]); // Use o mock inicialmente
   const [loading, setLoading] = useState(false); // Não carrega do backend enquanto mock ativo
   const [showModal, setShowModal] = useState(false);
   const [novoCliente, setNovoCliente] = useState("");
@@ -35,14 +13,14 @@ const ReclamacoesPage = () => {
   const [clientes, setClientes] = useState([]);
 
   const handleAddReclamacao = () => {
-    if (!novoCliente.trim() || !novoProblema.trim()) return;
     setReclamacoes([
       ...reclamacoes,
       {
-        id: Date.now(),
-        selectedCliente: novoCliente,
-        input1: novoProblema,
-        createdAt: novaData || new Date().toISOString(),
+        clientePosto: "",
+        reclamacaoDescricao: "",
+        reclamacaoData: "",
+        status: "",
+        dataResolucao: ""
       },
     ]);
     setShowModal(false);
@@ -64,17 +42,12 @@ const ReclamacoesPage = () => {
     fetchClientes();
   }, []);
 
-  // Descomente este bloco para usar a API real
-  /*
   useEffect(() => {
     setLoading(true);
     const fetchReclamacoes = async () => {
       try {
-        const { data } = await api.get("/Formulario");
-        const reclamacoesFiltradas = data.filter(
-          (item) => item.input1 && item.input1.trim() !== ""
-        );
-        setReclamacoes(reclamacoesFiltradas);
+        const { data } = await api.get("/Reclamacoes");
+        setReclamacoes(data);
       } catch (error) {
         console.error("Erro ao buscar reclamações:", error);
       } finally {
@@ -83,7 +56,6 @@ const ReclamacoesPage = () => {
     };
     fetchReclamacoes();
   }, []);
-  */
 
   return (
     <div className="flex-1 overflow-auto relative z-10 bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors">
@@ -188,9 +160,9 @@ const ReclamacoesPage = () => {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {reclamacoes.map((rec, idx) => (
+              {reclamacoes.map((data, idx) => (
                 <motion.div
-                  key={rec.id || idx}
+                  key={data.reclamacaoId || idx}
                   className="bg-gray-100 dark:bg-gray-900 rounded-lg shadow p-5 border border-gray-200 dark:border-gray-700 flex flex-col transition-colors"
                   whileHover={{ scale: 1.03 }}
                 >
@@ -199,8 +171,8 @@ const ReclamacoesPage = () => {
                       Cliente/Posto:
                     </span>
                     <div className="text-lg text-blue-700 dark:text-blue-300 font-semibold">
-                      {rec.selectedCliente ||
-                        rec.clientePosto ||
+                      {data.selectedCliente ||
+                        data.clientePosto ||
                         "Não informado"}
                     </div>
                   </div>
@@ -209,7 +181,7 @@ const ReclamacoesPage = () => {
                       Problema identificado:
                     </span>
                     <div className="text-gray-800 dark:text-gray-200">
-                      {rec.input1}
+                      {data.reclamacaoDescricao}
                     </div>
                   </div>
                   <div className="mb-2">
@@ -217,8 +189,8 @@ const ReclamacoesPage = () => {
                       Data:
                     </span>
                     <div className="text-gray-600 dark:text-gray-400">
-                      {rec.createdAt
-                        ? new Date(rec.createdAt).toLocaleDateString("pt-BR")
+                      {data.reclamacaoDescricao
+                        ? new Date(data.reclamacaoData).toLocaleDateString("pt-BR")
                         : "Data não disponível"}
                     </div>
                   </div>
