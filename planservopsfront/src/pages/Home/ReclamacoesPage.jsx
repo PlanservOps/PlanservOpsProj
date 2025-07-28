@@ -12,22 +12,27 @@ const ReclamacoesPage = () => {
   const [novaData, setNovaData] = useState("");
   const [clientes, setClientes] = useState([]);
 
-  const handleAddReclamacao = () => {
-    setReclamacoes([
-      ...reclamacoes,
-      {
-        clientePosto: "",
-        reclamacaoDescricao: "",
-        reclamacaoData: "",
-        status: "",
-        dataResolucao: ""
-      },
-    ]);
+  const handleAddReclamacao = async () => {
+  if (!novoCliente || !novoProblema || !novaData) return;
+
+  const novaReclamacao = {
+    clientePosto: novoCliente,
+    reclamacaoDescricao: novoProblema,
+    reclamacaoData: novaData,
+  };
+
+  try {
+    const { data } = await api.post("/Reclamacoes", novaReclamacao);
+    setReclamacoes([...reclamacoes, data]); // Adiciona a nova reclamação à lista
     setShowModal(false);
     setNovoCliente("");
     setNovoProblema("");
     setNovaData("");
-  };
+  } catch (error) {
+    alert("Erro ao registrar reclamação!");
+    console.error(error);
+  }
+};
 
   useEffect(() => {
     const fetchClientes = async () => {
