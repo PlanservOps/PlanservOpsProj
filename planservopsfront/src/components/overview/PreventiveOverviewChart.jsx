@@ -11,17 +11,17 @@ import { motion } from "framer-motion";
 
 const progressData = [
   { name: "Jul", progress: 20 },
-  { name: "Aug", progress: 25 },
+  { name: "Aug", progress: 23 },
   { name: "Sep", progress: 22 },
   { name: "Oct", progress: 28 },
-  { name: "Nov", progress: 40 },
-  { name: "Dec", progress: 35 },
-  { name: "Jan", progress: 30 },
+  { name: "Nov", progress: 20 },
+  { name: "Dec", progress: 25 },
+  { name: "Jan", progress: 20 },
   { name: "Feb", progress: 28 },
-  { name: "Mar", progress: 30 },
+  { name: "Mar", progress: 20 },
   { name: "Apr", progress: 22 },
   { name: "May", progress: 25 },
-  { name: "Jun", progress: 16 },
+  { name: "Jun", progress: 26 },
 ];
 
 import React from "react";

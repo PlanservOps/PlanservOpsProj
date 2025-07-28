@@ -11,18 +11,18 @@ import { motion } from "framer-motion";
 import React from "react";
 
 const progressData = [
-  { name: "Jul", progress: 40 },
-  { name: "Aug", progress: 30 },
-  { name: "Sep", progress: 25 },
-  { name: "Oct", progress: 35 },
-  { name: "Nov", progress: 12 },
-  { name: "Dec", progress: 26 },
-  { name: "Jan", progress: 26 },
-  { name: "Feb", progress: 30 },
-  { name: "Mar", progress: 25 },
-  { name: "Apr", progress: 20 },
-  { name: "May", progress: 18 },
-  { name: "Jun", progress: 15 },
+  { name: "Jul", progress: 20 },
+  { name: "Aug", progress: 23 },
+  { name: "Sep", progress: 22 },
+  { name: "Oct", progress: 28 },
+  { name: "Nov", progress: 20 },
+  { name: "Dec", progress: 25 },
+  { name: "Jan", progress: 20 },
+  { name: "Feb", progress: 28 },
+  { name: "Mar", progress: 20 },
+  { name: "Apr", progress: 22 },
+  { name: "May", progress: 25 },
+  { name: "Jun", progress: 26 },
 ];
 
 const CorrectiveOverviewChart = () => {
