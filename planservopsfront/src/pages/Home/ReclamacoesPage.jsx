@@ -12,27 +12,42 @@ const ReclamacoesPage = () => {
   const [novaData, setNovaData] = useState("");
   const [clientes, setClientes] = useState([]);
 
-  const handleAddReclamacao = async () => {
-  if (!novoCliente || !novoProblema || !novaData) return;
+  const [successMessage, setSuccessMessage] = useState("");
 
-  const novaReclamacao = {
-    clientePosto: novoCliente,
-    reclamacaoDescricao: novoProblema,
-    reclamacaoData: novaData,
-  };
-
-  try {
-    const { data } = await api.post("/Reclamacoes", novaReclamacao);
-    setReclamacoes([...reclamacoes, data]); // Adiciona a nova reclamação à lista
-    setShowModal(false);
-    setNovoCliente("");
-    setNovoProblema("");
-    setNovaData("");
-  } catch (error) {
-    alert("Erro ao registrar reclamação!");
-    console.error(error);
+  function getStatusLabel(status) {
+    switch (status) {
+      case 0:
+        return "Pendente";
+      case 1:
+        return "Resolvido";
+      case 2:
+        return "Cancelado";
+      default:
+        return "Desconhecido";
+    }
   }
-};
+
+  const handleAddReclamacao = async () => {
+    if (!novoCliente || !novoProblema || !novaData) return;
+
+    const novaReclamacao = {
+      clientePosto: novoCliente,
+      reclamacaoDescricao: novoProblema,
+      reclamacaoData: novaData,
+    };
+
+    try {
+      const { data } = await api.post("/Reclamacoes", novaReclamacao);
+      setReclamacoes([...reclamacoes, data]); // Adiciona a nova reclamação à lista
+      setShowModal(false);
+      setNovoCliente("");
+      setNovoProblema("");
+      setNovaData("");
+    } catch (error) {
+      alert("Erro ao registrar reclamação!");
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     const fetchClientes = async () => {
@@ -146,6 +161,11 @@ const ReclamacoesPage = () => {
             </motion.div>
           </div>
         )}
+         {successMessage && (
+                <div className="mb-4 px-4 py-2 bg-green-100 text-green-800 rounded text-center">
+                  {successMessage}
+                </div>
+              )}
         <motion.div
           className="bg-white dark:bg-gray-800 bg-opacity-80 dark:bg-opacity-90 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-200 dark:border-gray-700 max-w-4xl w-full transition-colors"
           initial={{ opacity: 0, y: 20 }}
@@ -167,7 +187,7 @@ const ReclamacoesPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {reclamacoes.map((data, idx) => (
                 <motion.div
-                  key={data.reclamacaoId || idx}
+                  key={data.reclamacaoid || idx}
                   className="bg-gray-100 dark:bg-gray-900 rounded-lg shadow p-5 border border-gray-200 dark:border-gray-700 flex flex-col transition-colors"
                   whileHover={{ scale: 1.03 }}
                 >
@@ -191,11 +211,51 @@ const ReclamacoesPage = () => {
                   </div>
                   <div className="mb-2">
                     <span className="text-sm text-gray-500 dark:text-gray-400">
+                      Status:
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-gray-800 dark:text-gray-200">
+                        {getStatusLabel(data.status)}
+                      </span>
+                      <select
+                        value={data.status}
+                        onChange={async (e) => {
+                          const novoStatus = Number(e.target.value);
+                          try {
+                            await api.put(`/Reclamacoes/${data.reclamacaoid}`, {
+                              ...data,
+                              status: novoStatus,
+                            });
+                            setReclamacoes((prev) =>
+                              prev.map((rec) =>
+                                rec.reclamacaoid === data.reclamacaoid
+                                  ? { ...rec, status: novoStatus }
+                                  : rec
+                              )
+                            );
+                            setSuccessMessage("Status atualizado com sucesso!");
+                            setTimeout(() => setSuccessMessage(""), 3000);
+                          } catch (error) {
+                            alert("Erro ao atualizar status!");
+                          }
+                        }}
+                        className="ml-2 px-2 py-1 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-sm"
+                      >
+                        <option value={0}>Pendente</option>
+                        <option value={1}>Resolvido</option>
+                        <option value={2}>Cancelado</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="mb-2">
+                    <span className="text-sm text-gray-500 dark:text-gray-400">
                       Data:
                     </span>
                     <div className="text-gray-600 dark:text-gray-400">
                       {data.reclamacaoDescricao
-                        ? new Date(data.reclamacaoData).toLocaleDateString("pt-BR")
+                        ? new Date(data.reclamacaoData).toLocaleDateString(
+                            "pt-BR"
+                          )
                         : "Data não disponível"}
                     </div>
                   </div>
