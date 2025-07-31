@@ -10,11 +10,11 @@ namespace CadastroClientes.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class FormularioController : ControllerBase
+    public class FormularioPdfController : ControllerBase
     {
         private IFormularioService _formularioService;
 
-        public FormularioController(IFormularioService formularioService)
+        public FormularioPdfController(IFormularioService formularioService)
         {
             _formularioService = formularioService;
         }

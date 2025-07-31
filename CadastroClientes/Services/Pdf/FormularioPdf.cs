@@ -21,6 +21,7 @@ namespace CadastroClientes.Services.Pdf
             container.Page(page =>
             {
                 page.Size(PageSizes.A4);
+                page.PageColor(Colors.White);
                 page.Margin(2, QuestPDF.Infrastructure.Unit.Centimetre);
 
                 page.Header()
@@ -32,11 +33,16 @@ namespace CadastroClientes.Services.Pdf
                                 column.Item()
                                 .Text("Planserv").FontSize(16).Bold().FontColor(Colors.Green.Darken2);
                                 column.Item()
-                                .Text("Relatório de Formulário Gerencial Operacional").FontSize(14).Italic().FontColor(Colors.Grey.Lighten1);
-                            });                            
+                                .Text("Relatório de Formulário Gerencial Operacional").FontSize(14).Italic().FontColor(Colors.Grey.Darken4);
+                            });       
+                        //row.RelativeItem()
+                        //    .AlignRight()
+                        //    .Image("https://raw.githubusercontent.com/Planserv/planserv/main/src/CadastroClientes/wwwroot/img/logo-planserv.png")
+                        //    .Height(50).Width(50);
                     });
-
-                page.Content().Column(col =>
+          
+                page.Content()
+                .Column(col =>
                 {
                     col.Item().Text($"Data de Envio: {_data.DataEnvio:dd/MM/yyyy}");
                     col.Item().Text($"Hora de Envio: {_data.HoraEnvio:HH:mm:ss}");
@@ -50,6 +56,10 @@ namespace CadastroClientes.Services.Pdf
                     col.Item().Text($"Avaliação Robson: {_data.AvaliacaoRobson}");
                     col.Item().Text($"Observações Gerais: {_data.ObservacoesGerais}");
                 });
+
+                page.Footer()
+                    .AlignCenter()
+                    .Text($"Gerado em: {DateTime.Now:dd/MM/yyyy HH:mm:ss}").FontSize(10).FontColor(Colors.Grey.Lighten1);
             });
         }       
     }
