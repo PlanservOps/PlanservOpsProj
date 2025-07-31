@@ -96,6 +96,12 @@ export default function CleaningChecklist() {
     );
   };
 
+  const handleTimeChange = (idx, value) => {
+    setItems((items) =>
+      items.map((item, i) => (i === idx ? { ...item, timeEdit: value } : item))
+    );
+  };
+
   const handlePhotoChange = (idx, file) => {
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -112,8 +118,8 @@ export default function CleaningChecklist() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = items.map(({ time, descEdit, checked, photo }) => ({
-      time,
+    const data = items.map(({ time, timeEdit, descEdit, checked, photo }) => ({
+      time: timeEdit ?? time,
       desc: descEdit,
       checked,
       photo,
@@ -132,7 +138,7 @@ export default function CleaningChecklist() {
       <div className="mb-4">
         <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">
           Buscar Cliente
-        </label>        
+        </label>
         <select
           value={clienteSelecionado}
           onChange={(e) => setClienteSelecionado(e.target.value)}
@@ -165,7 +171,13 @@ export default function CleaningChecklist() {
                 id={`check-${idx}`}
                 className="accent-blue-600 w-5 h-5"
               />
-              <span className="font-mono text-sm">{item.time}</span>
+              <input
+                type="text"
+                value={item.timeEdit ?? item.time}
+                onChange={(e) => handleTimeChange(idx, e.target.value)}
+                maxLength={10}
+                className="font-mono text-sm border border-gray-300 dark:border-gray-600 rounded px-2 py-1 w-32 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors"
+              />
               <input
                 type="text"
                 value={item.descEdit}
