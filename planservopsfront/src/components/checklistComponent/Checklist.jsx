@@ -34,25 +34,8 @@ const initialItems = [
   },
   {
     time: "13:40 - 14:40",
-    desc: "Lavar WC fem. e masc. do térreo (Teto, parede, espelho e piso) - Secar!",
+    desc: "...",
   },
-  {
-    time: "14:40 - 15:40",
-    desc: "Lavar WCs fem. e masc. do 1º andar (Teto, parede, espelho e piso) - Secar!",
-  },
-  {
-    time: "15:40 - 16:40",
-    desc: "Lavar WC fem. e masc. do térreo (Teto, parede, espelho e piso) - Secar!",
-  },
-  {
-    time: "16:40 - 17:30",
-    desc: "Limpeza da recepção (mármore, parede vazada, piso, mobiliário, detalhes, vidro, maçanetas) - PRIORIZAR DETALHES!",
-  },
-  {
-    time: "17:30 - 18:00",
-    desc: "Limpeza da copa (Teto, parede, piso, eletros, utensílios, pia, armários)",
-  },
-  { time: "18:00", desc: "Organização do material" },
 ];
 
 export default function CleaningChecklist() {
@@ -114,6 +97,10 @@ export default function CleaningChecklist() {
       );
     };
     if (file) reader.readAsDataURL(file);
+  };
+
+  const handleRemoveItem = (idx) => {
+    setItems((items) => items.filter((_, i) => i !== idx));
   };
 
   const handleSubmit = (e) => {
@@ -184,6 +171,14 @@ export default function CleaningChecklist() {
                 onChange={(e) => handleDescChange(idx, e.target.value)}
                 className="flex-1 border border-gray-300 dark:border-gray-600 rounded px-2 py-1 ml-2 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors"
               />
+              <button
+                type="button"
+                onClick={() => handleRemoveItem(idx)}
+                className="ml-2 text-red-600 hover:text-red-800 text-xl"
+                title="Remover tarefa"
+              >
+                🗑️
+              </button>
             </div>
             {item.checked && (
               <div className="flex items-center gap-2 ml-6">
@@ -209,6 +204,26 @@ export default function CleaningChecklist() {
           </li>
         ))}
       </ul>
+      <button
+        type="button"
+        className="mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+        onClick={() =>
+          setItems((prev) => [
+            ...prev,
+            {
+              time: "",
+              desc: "",
+              checked: false,
+              photo: null,
+              descEdit: "",
+              timeEdit: "",
+              photoPreview: null,
+            },
+          ])
+        }
+      >
+        Adicionar tarefa
+      </button>
       <button
         type="submit"
         className="mt-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
