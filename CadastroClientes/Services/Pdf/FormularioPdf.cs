@@ -1,4 +1,5 @@
-﻿using CadastroClientes.Models;
+﻿using CadastroClientes.Dtos;
+using CadastroClientes.Models;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
@@ -7,11 +8,14 @@ namespace CadastroClientes.Services.Pdf
 {
     public class FormularioPdf : IDocument
     {
-        private readonly FormularioOperacional _data;      // ⬅️  modelo
+        private readonly ChecklistItemDto _item;      // ⬅️  modelo
+        private readonly ChecklistFormDto _form;      // ⬅️  modelo
+        private readonly Dictionary<int, string> _imagens;
 
-        public FormularioPdf(FormularioOperacional data)   // ⬅️  construtor certo
+        public FormularioPdf(ChecklistFormDto form, Dictionary<int, string> imagens)   // ⬅️  construtor certo
         {
-            _data = data;
+            _form = form;
+            _imagens = imagens;
         }
 
         public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
@@ -35,27 +39,30 @@ namespace CadastroClientes.Services.Pdf
                                 column.Item()
                                 .Text("Relatório de Formulário Gerencial Operacional").FontSize(14).Italic().FontColor(Colors.Grey.Darken4);
                             });       
-                        //row.RelativeItem()
-                        //    .AlignRight()
-                        //    .Image("https://raw.githubusercontent.com/Planserv/planserv/main/src/CadastroClientes/wwwroot/img/logo-planserv.png")
-                        //    .Height(50).Width(50);
+                        
                     });
           
                 page.Content()
-                .Column(col =>
-                {
-                    col.Item().Text($"Data de Envio: {_data.DataEnvio:dd/MM/yyyy}");
-                    col.Item().Text($"Hora de Envio: {_data.HoraEnvio:HH:mm:ss}");
-                    col.Item().Text($"Clientes Atendidos: {_data.ClientesAtendidos}");
-                    col.Item().Text($"Problemas Reportados: {_data.ProblemasReportados}");
-                    col.Item().Text($"Gestores Atendidos: {_data.GestoresAtendidos}");
-                    col.Item().Text($"Cliente Posto: {_data.ClientePosto}");
-                    col.Item().Text($"Problemas Identificados: {_data.ProblemasIdentificados}");
-                    col.Item().Text($"Soluções Apresentadas: {_data.SolucoesApresentadas}");
-                    col.Item().Text($"Avaliação Igo: {_data.AvaliacaoIgo}");
-                    col.Item().Text($"Avaliação Robson: {_data.AvaliacaoRobson}");
-                    col.Item().Text($"Observações Gerais: {_data.ObservacoesGerais}");
-                });
+                    .Column(col =>
+                    {
+                        col.Item().Text($"Checklist - {_form.DataHoraSubmissao:dd/MM/yyyy HH:mm}");
+                        col.Item().Text($"Cliente: {_form.ClienteId}").FontSize(12).Italic();
+
+                        foreach (var (item, index) in _form.Itens.Select((x, i) => (x, i)))
+                        {
+                            col.Item().PaddingTop(10).BorderBottom(1).Column(c =>
+                            {
+                                c.Item().Text($"Horário: {item.HorarioInicio} - {item.HorarioFim}");
+                                c.Item().Text($"Atividade: {item.Descricao}");
+                                c.Item().Text($"Concluído: {(item.Concluido ? "Sim" : "Não")}");
+
+                                if (item.Concluido && _imagens.ContainsKey(index))
+                                {
+                                    c.Item().PaddingTop(5).Image(_imagens[index]);
+                                }
+                            });
+                        }
+                    });
 
                 page.Footer()
                     .AlignCenter()

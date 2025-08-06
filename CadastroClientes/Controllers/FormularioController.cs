@@ -1,10 +1,6 @@
 ﻿using CadastroClientes.Models;
 using CadastroClientes.Services;
-using CadastroClientes.Services.Pdf;
 using Microsoft.AspNetCore.Mvc;
-using QuestPDF.Companion;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
 
 namespace CadastroClientes.Controllers
 {
@@ -30,22 +26,10 @@ namespace CadastroClientes.Controllers
             }
             catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao criar cliente");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao criar formulário");
             }
         }
-
-        [HttpPost("gerar-pdf")]
-        public IActionResult GerarPdfFormulario([FromBody] FormularioOperacional formulario)
-        {
-#if DEBUG
-            PdfGenerator.MostrarPreview(formulario);
-            return Ok("PDF aberto no Companion para visualização.");
-#else
-            var pdf = PdfGenerator.GerarFormularioPdf(formulario);
-            return File(pdf, "application/pdf", $"relatorio-{formulario.Id}.pdf");
-#endif
-        }
-
+                
         [HttpGet]
         public async Task<ActionResult<IAsyncEnumerable<FormularioOperacional>>> GetFormulario()
         {
@@ -56,7 +40,7 @@ namespace CadastroClientes.Controllers
             }
             catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao obter Clientes");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao obter formulários");
             }
         }
 

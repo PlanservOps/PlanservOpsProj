@@ -1,20 +1,22 @@
-﻿using CadastroClientes.Models;
+﻿using CadastroClientes.Dtos;
+using CadastroClientes.Models;
 using QuestPDF.Companion;
 using QuestPDF.Fluent;
+using System.Collections.Generic;
 
 namespace CadastroClientes.Services.Pdf
 {
     public static class PdfGenerator
     {
-        public static byte[] GerarFormularioPdf(FormularioOperacional formulario)
+        public static byte[] GerarFormularioPdf( ChecklistFormDto form, Dictionary <int, string> imagens)
         {
-            return new FormularioPdf(formulario).GeneratePdf();
+            return new FormularioPdf(form, imagens).GeneratePdf();
         }
 
 #if DEBUG
-        public static void MostrarPreview(FormularioOperacional formulario)
+        public static void MostrarPreview(ChecklistFormDto form, Dictionary<int, string> imagens)
         {
-            new FormularioPdf(formulario).ShowInCompanion(12500);
+            new FormularioPdf(form, imagens).ShowInCompanion(12500);
         }
 #endif
 
