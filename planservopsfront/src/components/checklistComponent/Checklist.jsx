@@ -103,16 +103,53 @@ export default function CleaningChecklist() {
     setItems((items) => items.filter((_, i) => i !== idx));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = items.map(({ time, timeEdit, descEdit, checked, photo }) => ({
-      time: timeEdit ?? time,
-      desc: descEdit,
-      checked,
-      photo,
-    }));
-    console.log("Checklist enviado:", data);
-    alert("Checklist enviado!");
+
+    const formData = new FormData();
+
+    formData.append("ClienteId", clienteSelecionado); // precisa ser o GUID, não o nome
+    formData.append("DataHoraSubmissao", new Date().toISOString());
+
+    // Monta os itens separando os horários
+    const checklistItens = items.map((item, index) => {
+      const [inicio, fim] = (item.timeEdit ?? item.time).split(" - ");
+
+      // Nome do campo para o arquivo de imagem (usado abaixo)
+      if (item.photo) {
+        formData.append(`Itens[${index}].Imagem`, item.photo);
+      }
+
+      return {
+        HorarioInicio: inicio?.trim(),
+        HorarioFim: fim?.trim(),
+        Descricao: item.descEdit,
+        Concluido: item.checked,
+      };
+    });
+
+    // Cada campo do item como um campo formData com prefixo Itens[i].*
+    checklistItens.forEach((item, index) => {
+      formData.append(`Itens[${index}].HorarioInicio`, item.HorarioInicio);
+      formData.append(`Itens[${index}].HorarioFim`, item.HorarioFim);
+      formData.append(`Itens[${index}].Descricao`, item.Descricao);
+      formData.append(`Itens[${index}].Concluido`, item.Concluido);
+      // a imagem já foi adicionada acima se existir
+    });
+
+    try {
+      const response = await api.post("/Checklist/gerar-pdf", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      alert("Checklist enviado com sucesso!");
+      console.log("Resposta:", response.data);
+    } catch (error) {
+      console.error("Erro ao enviar:", error);
+      alert("Erro ao enviar checklist.");
+    }
   };
 
   return (

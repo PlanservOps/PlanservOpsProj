@@ -16,7 +16,7 @@ namespace CadastroClientes.Controllers
             _env = env;
         }
 
-        [HttpPost("checklist/gerar-pdf")]
+        [HttpPost("gerar-pdf")]
         public async Task<IActionResult> GerarChecklistPdf([FromForm] ChecklistFormDto form)
         {
             var imageHandler = new ImagensChecklist(_env);
