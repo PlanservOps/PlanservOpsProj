@@ -10,7 +10,7 @@ namespace CadastroClientes.Debug
         {
             var form = new ChecklistFormDto
             {
-                ClienteId = Guid.NewGuid(),
+                ClienteId = 1,
                 DataHoraSubmissao = DateTime.Now,
                 Itens = new List<ChecklistItemDto>
                 {
