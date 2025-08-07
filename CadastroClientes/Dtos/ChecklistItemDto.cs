@@ -11,7 +11,7 @@
 
     public class ChecklistFormDto
     {
-        public Guid ClienteId { get; set; }
+        public int ClienteId { get; set; }
         public List<ChecklistItemDto> Itens { get; set; }
         public DateTime DataHoraSubmissao { get; set; }
     }
