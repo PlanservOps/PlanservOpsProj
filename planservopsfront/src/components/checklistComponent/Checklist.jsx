@@ -108,7 +108,7 @@ export default function CleaningChecklist() {
 
     const formData = new FormData();
 
-    formData.append("ClienteId", clienteSelecionado); // precisa ser o GUID, não o nome
+    formData.append("ClienteId", clienteSelecionado);
     formData.append("DataHoraSubmissao", new Date().toISOString());
 
     // Monta os itens separando os horários
@@ -133,7 +133,7 @@ export default function CleaningChecklist() {
       formData.append(`Itens[${index}].HorarioInicio`, item.HorarioInicio);
       formData.append(`Itens[${index}].HorarioFim`, item.HorarioFim);
       formData.append(`Itens[${index}].Descricao`, item.Descricao);
-      formData.append(`Itens[${index}].Concluido`, item.Concluido);
+      formData.append(`Itens[${index}].Concluido`, String(item.Concluido));
       // a imagem já foi adicionada acima se existir
     });
 
@@ -151,6 +151,9 @@ export default function CleaningChecklist() {
       alert("Erro ao enviar checklist.");
     }
   };
+
+  console.log("Cliente selecionado:", clienteSelecionado);
+  console.log("Itens do checklist:", items);
 
   return (
     <form
@@ -174,7 +177,7 @@ export default function CleaningChecklist() {
               c.clientePosto?.toLowerCase().includes(clienteBusca.toLowerCase())
             )
             .map((c) => (
-              <option key={c.clienteId} value={c.clientePosto}>
+              <option key={c.clienteId} value={String(c.clientePosto)}>
                 {c.clientePosto}
               </option>
             ))}
