@@ -56,9 +56,16 @@ namespace CadastroClientes.Services.Pdf
                                 c.Item().Text($"Atividade: {item.Descricao}");
                                 c.Item().Text($"Concluído: {(item.Concluido ? "Sim" : "Não")}");
 
-                                if (item.Concluido && _imagens.ContainsKey(index))
+                                if (item.Concluido && _imagens.TryGetValue(index, out var imagemPath) && System.IO.File.Exists(imagemPath))
                                 {
-                                    c.Item().PaddingTop(5).Image(_imagens[index]);
+                                    try
+                                    {
+                                        c.Item().PaddingTop(5).Image(imagemPath);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        c.Item().Text($"[Erro ao carregar imagem: {ex.Message}]").FontColor(Colors.Red.Darken2);
+                                    }
                                 }
                             });
                         }

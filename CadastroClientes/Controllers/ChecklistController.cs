@@ -38,6 +38,12 @@ namespace CadastroClientes.Controllers
                 return File(pdfBytes, "application/pdf", $"Checklist_{DateTime.Now:yyyyMMdd_HHmmss}.pdf");
 
             }
+            catch (Exception ex)
+            {
+                // 👇 Registre o erro (pode ser log ou retorno direto para debug)
+                Console.WriteLine("Erro ao gerar PDF: " + ex);
+                return StatusCode(500, $"Erro interno: {ex.Message}");
+            }
             finally
             {
                 // Limpeza das imagens temporárias

@@ -1,8 +1,6 @@
 ﻿using CadastroClientes.Dtos;
-using CadastroClientes.Models;
 using QuestPDF.Companion;
 using QuestPDF.Fluent;
-using System.Collections.Generic;
 
 namespace CadastroClientes.Services.Pdf
 {
