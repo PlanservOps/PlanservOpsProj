@@ -6,15 +6,15 @@ namespace CadastroClientes.Services.Pdf
 {
     public static class PdfGenerator
     {
-        public static byte[] GerarFormularioPdf( ChecklistFormDto form, Dictionary <int, string> imagens)
+        public static byte[] GerarFormularioPdf( ChecklistFormDto form, ChecklistSendDto send, Dictionary <int, string> imagens)
         {
-            return new FormularioPdf(form, imagens).GeneratePdf();
+            return new FormularioPdf(form, send, imagens).GeneratePdf();
         }
 
 #if DEBUG
-        public static void MostrarPreview(ChecklistFormDto form, Dictionary<int, string> imagens)
+        public static void MostrarPreview(ChecklistFormDto form, ChecklistSendDto send, Dictionary<int, string> imagens)
         {
-            new FormularioPdf(form, imagens).ShowInCompanion(12500);
+            new FormularioPdf(form, send, imagens).ShowInCompanion(12500);
         }
 #endif
 

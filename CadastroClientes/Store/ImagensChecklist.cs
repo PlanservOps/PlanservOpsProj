@@ -25,8 +25,21 @@
 
         public void RemoverImagem(string caminho)
         {
-            if (File.Exists(caminho))
-                File.Delete(caminho);
+            try
+            {
+                if (File.Exists(caminho))
+                {
+                    File.Delete(caminho);
+                }
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Console.WriteLine($"[ERRO] Sem permissão para excluir o arquivo: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[ERRO] Falha ao excluir a imagem: {ex.Message}");
+            }
         }
     }
 }
