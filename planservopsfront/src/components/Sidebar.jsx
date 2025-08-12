@@ -41,7 +41,7 @@ const SIDEBAR_ITEMS = [
     name: "Formulário Operacional",
     icon: BookCheck,
     color: "#10B981",
-    href: "/AvaliacoesForm",
+    href: "/FormularioOperacionalPage",
   },
   {
     name: "Histórico de formulários",

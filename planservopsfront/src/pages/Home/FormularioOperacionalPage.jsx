@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Header from "../../components/common/Header";
 import api from "../../api";
 
-const AvaliacoesFormPage = () => {
+const FormularioOperacionalPage = () => {
   const [clientes, setClientes] = useState([]);
   const [formData, setFormData] = useState({
     range1: 1,
@@ -76,7 +76,7 @@ const AvaliacoesFormPage = () => {
   const addForm = async () => {
     try {
       console.log("Enviando formulário:", payload);
-      const data = await api.post("/Formulario", payload);
+      const data = await api.post("/FormularioOperacional", payload);
       console.log("Formulário enviado:", data);
       setFormData({
         range1: 1,
@@ -285,4 +285,4 @@ const AvaliacoesFormPage = () => {
   );
 };
 
-export default AvaliacoesFormPage;
+export default FormularioOperacionalPage;

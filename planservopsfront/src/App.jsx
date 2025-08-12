@@ -11,7 +11,7 @@ import SettingsPage from "./pages/Home/SettingsPage";
 import OcorrenciasPage from "./pages/Home/OcorrenciasPage";
 import ReclamacoesPage from "./pages/Home/ReclamacoesPage";
 import ChecklistPage from "./pages/Home/ChecklistPage";
-import AvaliacoesFormPage from "./pages/Home/AvaliacoesFormPage";
+import FormularioOperacionalPage from "./pages/Home/FormularioOperacionalPage";
 import HistoryFormPage from "./pages/Home/HistoryFormPage";
 
 function App() {
@@ -71,10 +71,10 @@ function App() {
           }
         />
         <Route
-          path="/AvaliacoesForm"
+          path="/FormularioOperacionalPage"
           element={
             <PrivateRoute roleRequired={["Diretoria", "GerenteOperacional"]}>
-              <AvaliacoesFormPage />
+              <FormularioOperacionalPage />
             </PrivateRoute>
           }
         />

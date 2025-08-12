@@ -20,7 +20,7 @@ const HistoryFormPage = () => {
         params.page = page;
         params.pageSize = 10;
 
-        const response = await api.get("/Formulario", { params });
+        const response = await api.get("/FormularioOperacional", { params });
         setFormularios(response.data.items || response.data);
         setTotal(response.data.total || response.data.length || 0);
       } catch (error) {
