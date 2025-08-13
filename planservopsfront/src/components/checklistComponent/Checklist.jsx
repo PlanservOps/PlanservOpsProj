@@ -108,34 +108,32 @@ export default function CleaningChecklist() {
 
     const formData = new FormData();
 
-    formData.append("ClienteId", clienteSelecionado);
+    formData.append("Cliente", clienteSelecionado);
     formData.append("DataHoraSubmissao", new Date().toISOString());
 
-    // Monta os itens separando os horários
-    const checklistItens = items.map((item, index) => {
+    // Arrays para cada campo
+    const descricoes = [];
+    const horariosInicio = [];
+    const horariosFim = [];
+    const concluidos = [];
+
+    items.forEach((item, idx) => {
       const [inicio, fim] = (item.timeEdit ?? item.time).split(" - ");
+      descricoes.push(item.descEdit);
+      horariosInicio.push(inicio?.trim());
+      horariosFim.push(fim?.trim());
+      concluidos.push(item.checked);
 
-      // Nome do campo para o arquivo de imagem (usado abaixo)
       if (item.photo) {
-        formData.append(`Itens[${index}].Imagem`, item.photo);
+        formData.append("ItensImagem", item.photo); // múltiplos arquivos com mesmo nome
       }
-
-      return {
-        HorarioInicio: inicio?.trim(),
-        HorarioFim: fim?.trim(),
-        Descricao: item.descEdit,
-        Concluido: item.checked,
-      };
     });
 
-    // Cada campo do item como um campo formData com prefixo Itens[i].*
-    checklistItens.forEach((item, index) => {
-      formData.append(`Itens[${index}].HorarioInicio`, item.HorarioInicio);
-      formData.append(`Itens[${index}].HorarioFim`, item.HorarioFim);
-      formData.append(`Itens[${index}].Descricao`, item.Descricao);
-      formData.append(`Itens[${index}].Concluido`, String(item.Concluido));
-      // a imagem já foi adicionada acima se existir
-    });
+    // Adiciona arrays ao formData
+    descricoes.forEach((desc) => formData.append("ItensDescricao", desc));
+    horariosInicio.forEach((h) => formData.append("ItensHorarioInicio", h));
+    horariosFim.forEach((h) => formData.append("ItensHorarioFim", h));
+    concluidos.forEach((c) => formData.append("ItensConcluido", String(c)));
 
     try {
       const response = await api.post("/Checklist/gerar-pdf", formData, {
