@@ -108,45 +108,36 @@ export default function CleaningChecklist() {
 
     const formData = new FormData();
 
-    formData.append("Cliente", clienteSelecionado);
+    formData.append("cliente", clienteSelecionado);
     formData.append("DataHoraSubmissao", new Date().toISOString());
 
-    // Arrays para cada campo
-    const descricoes = [];
-    const horariosInicio = [];
-    const horariosFim = [];
-    const concluidos = [];
-
-    items.forEach((item, idx) => {
-      const [inicio, fim] = (item.timeEdit ?? item.time).split(" - ");
-      descricoes.push(item.descEdit);
-      horariosInicio.push(inicio?.trim());
-      horariosFim.push(fim?.trim());
-      concluidos.push(item.checked);
+    items.forEach((item, index) => {
+      formData.append(`ItensDescricao[${index}]`, item.descEdit);
+      formData.append(`ItensHorarioInicio[${index}]`, item.timeEdit || item.time);
+      formData.append(`ItensHorarioFim[${index}]`, item.timeEdit || item.time);
+      formData.append(`ItensConcluido[${index}]`, item.checked);
 
       if (item.photo) {
-        formData.append("ItensImagem", item.photo); // múltiplos arquivos com mesmo nome
+        formData.append(`ItensImagem[${index}]`, item.photo);
       }
     });
 
-    // Adiciona arrays ao formData
-    descricoes.forEach((desc) => formData.append("ItensDescricao", desc));
-    horariosInicio.forEach((h) => formData.append("ItensHorarioInicio", h));
-    horariosFim.forEach((h) => formData.append("ItensHorarioFim", h));
-    concluidos.forEach((c) => formData.append("ItensConcluido", String(c)));
+    for (let pair of formData.entries()) {
+      console.log(pair[0], pair[1]);
+    }
 
     try {
       const response = await api.post("/Checklist/gerar-pdf", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        headers: {},
       });
 
-      alert("Checklist enviado com sucesso!");
-      console.log("Resposta:", response.data);
+      if (!response.ok) {
+        throw new Error(`Erro HTTP: ${response.status}`);
+      }
+
+      console.log("Checklist enviado com sucesso!");
     } catch (error) {
-      console.error("Erro ao enviar:", error);
-      alert("Erro ao enviar checklist.");
+      console.error("Erro ao enviar checklist:", error);
     }
   };
 
