@@ -8,7 +8,7 @@
         public ImagensChecklist(IWebHostEnvironment env)
         {
             _env = env;
-            _tempDir = Path.Combine(_env.WebRootPath, "temp-images");
+            _tempDir = Path.Combine(_env.WebRootPath, "temporary-images");
             Directory.CreateDirectory(_tempDir);
         }
 
