@@ -108,6 +108,7 @@ using (var scope = app.Services.CreateScope())
     app.UseSwaggerUI();
     app.UseDeveloperExceptionPage();
 
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
