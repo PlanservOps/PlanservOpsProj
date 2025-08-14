@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <Folder Include="Root\" />
-    <Folder Include="wwwroot\temporary-images\" />
+    <Folder Include="wwwroot\temporary-images\" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>
