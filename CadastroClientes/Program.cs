@@ -2,6 +2,7 @@ using CadastroCliente.Context;
 using CadastroCliente.Seed;
 using CadastroClientes.Services;
 using CadastroClientes.Services.Pdf;
+using CadastroClientes.Store;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -49,6 +50,7 @@ builder.Services.AddScoped<IFormularioOperacionalService, FormularioOperacionalS
 builder.Services.AddScoped<IFuncaoTerceirizadaService, FuncaoTerceirizadaService>();
 builder.Services.AddScoped<IOcorrenciasService, OcorrenciasService>();
 builder.Services.AddScoped<IReclamacaoService, ReclamacaoService>();
+builder.Services.AddScoped<ImagensChecklist>();
 
 builder.Services.AddCors(options =>
 {
