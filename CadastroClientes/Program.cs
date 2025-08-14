@@ -13,9 +13,13 @@ QuestPDF.Settings.License = LicenseType.Community;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Environment.WebRootPath ??= Path.Combine(builder.Environment.ContentRootPath, "wwwroot");
+
 var connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
 
 // Add services to the container.
+
+builder.Services.AddDirectoryBrowser();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));

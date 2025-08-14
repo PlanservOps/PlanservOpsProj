@@ -3,43 +3,32 @@
     public class ImagensChecklist
     {
         private readonly IWebHostEnvironment _env;
-        private readonly string _tempDir;
 
         public ImagensChecklist(IWebHostEnvironment env)
         {
             _env = env;
-            _tempDir = Path.Combine(_env.WebRootPath, "temporary-images");
-            Directory.CreateDirectory(_tempDir);
         }
 
-        public async Task<string> SalvarAsync(IFormFile imagem)
+        public string SalvarImagemTemporaria(byte[] imagemBytes, string nomeArquivo)
         {
-            var nomeArquivo = $"{Guid.NewGuid()}{Path.GetExtension(imagem.FileName)}";
-            var caminho = Path.Combine(_tempDir, nomeArquivo);
+            // Fallback: se WebRootPath for null, usar ContentRootPath/wwwroot
+            var rootPath = _env.WebRootPath ?? Path.Combine(_env.ContentRootPath, "wwwroot");
 
-            using var stream = new FileStream(caminho, FileMode.Create);
-            await imagem.CopyToAsync(stream);
+            // Caminho da pasta de imagens temporárias
+            var imagensPath = Path.Combine(rootPath, "ImagensChecklist");
 
-            return caminho;
-        }
+            // Garantir que a pasta exista
+            if (!Directory.Exists(imagensPath))
+                Directory.CreateDirectory(imagensPath);
 
-        public void RemoverImagem(string caminho)
-        {
-            try
-            {
-                if (File.Exists(caminho))
-                {
-                    File.Delete(caminho);
-                }
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Console.WriteLine($"[ERRO] Sem permissão para excluir o arquivo: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"[ERRO] Falha ao excluir a imagem: {ex.Message}");
-            }
+            // Caminho completo do arquivo
+            var caminhoCompleto = Path.Combine(imagensPath, nomeArquivo);
+
+            // Salvar arquivo no disco
+            File.WriteAllBytes(caminhoCompleto, imagemBytes);
+
+            // Retornar o caminho relativo para uso em URL
+            return Path.Combine("ImagensChecklist", nomeArquivo).Replace("\\", "/");
         }
     }
 }

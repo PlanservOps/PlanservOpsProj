@@ -10,10 +10,12 @@ namespace CadastroClientes.Controllers
     public class ChecklistController : ControllerBase
     {
         private readonly IWebHostEnvironment _env;
+        private readonly ImagensChecklist _imageHandler;
 
-        public ChecklistController(IWebHostEnvironment env)
+        public ChecklistController(IWebHostEnvironment env, ImagensChecklist imageHandler)
         {
             _env = env;
+            _imageHandler = imageHandler;
         }
 
         [HttpPost("gerar-pdf")]
@@ -55,11 +57,11 @@ namespace CadastroClientes.Controllers
                     };
 
                     // Salva imagem se necessário
-                    if (item.Concluido && item.Imagem != null)
-                    {
-                        string caminhoImagem = await imageHandler.SalvarAsync(item.Imagem);
-                        imagensSalvas[i] = caminhoImagem;
-                    }
+                    //if (item.Concluido && item.Imagem != null)
+                    //{
+                    //    string caminhoImagem = await imageHandler.SalvarAsync(item.Imagem);
+                    //    imagensSalvas[i] = caminhoImagem;
+                    //}
 
                     itens.Add(item);
                 }
@@ -78,14 +80,7 @@ namespace CadastroClientes.Controllers
             {
                 Console.WriteLine("Erro ao gerar PDF: " + ex);
                 return StatusCode(500, $"Erro interno: {ex.Message}");
-            }
-            finally
-            {
-                foreach (var caminho in imagensSalvas.Values)
-                {
-                    imageHandler.RemoverImagem(caminho);
-                }
-            }
+            }           
         }
     }
 }
