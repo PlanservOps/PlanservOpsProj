@@ -52,6 +52,8 @@ export default function CleaningChecklist() {
   const [clientes, setClientes] = useState([]);
   const [clienteBusca, setClienteBusca] = useState("");
   const [clienteSelecionado, setClienteSelecionado] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [pdfUrl, setPdfUrl] = useState(null);
 
   useEffect(() => {
     const fetchClientes = async () => {
@@ -112,9 +114,12 @@ export default function CleaningChecklist() {
     formData.append("DataHoraSubmissao", new Date().toISOString());
 
     items.forEach((item, index) => {
+      const timeToUse = item.timeEdit || item.time;
+      const [startTime, endTime] = timeToUse.split(" - ").map((t) => t.trim());
+
       formData.append(`ItensDescricao[${index}]`, item.descEdit);
-      formData.append(`ItensHorarioInicio[${index}]`, item.timeEdit || item.time);
-      formData.append(`ItensHorarioFim[${index}]`, item.timeEdit || item.time);
+      formData.append(`ItensHorarioInicio[${index}]`, startTime || "");
+      formData.append(`ItensHorarioFim[${index}]`, endTime || "");
       formData.append(`ItensConcluido[${index}]`, item.checked);
 
       if (item.photo) {
@@ -129,12 +134,38 @@ export default function CleaningChecklist() {
     try {
       const response = await api.post("/Checklist/gerar-pdf", formData, {
         headers: {},
+        responseType: "blob", // Importante para receber o PDF como blob
       });
 
-      if (!response.ok) {
-        throw new Error(`Erro HTTP: ${response.status}`);
+      // Extrair nome do arquivo
+      const contentDisposition = response.headers["content-disposition"];
+      let filename = "Checklist.pdf";
+      if (contentDisposition) {
+        const match = contentDisposition.match(/filename\*?=(?:UTF-8'')?(.+)/);
+        if (match && match[1]) {
+          filename = decodeURIComponent(match[1].replace(/"/g, ""));
+        }
       }
 
+      // Criar link de download
+      const url = window.URL.createObjectURL(
+        new Blob([response.data], { type: "application/pdf" })
+      );
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", filename);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      if (response.status === 200) {
+        setSuccessMessage("Checklist enviado com sucesso!");
+        // Se a API retorna a URL do PDF no body:
+        if (response.data && response.data.pdfUrl) {
+          setPdfUrl(response.data.pdfUrl);
+        }
+      }
       console.log("Checklist enviado com sucesso!");
     } catch (error) {
       console.error("Erro ao enviar checklist:", error);
@@ -150,7 +181,11 @@ export default function CleaningChecklist() {
       className="max-w-2xl mx-auto p-4 bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100 rounded shadow transition-colors"
     >
       <h2 className="text-xl font-bold mb-4">Checklist de Limpeza</h2>
-
+      {successMessage && (
+        <div className="mb-4 p-3 rounded bg-green-100 text-green-800 border border-green-300">
+          {successMessage}
+        </div>
+      )}
       <div className="mb-4">
         <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">
           Buscar Cliente
@@ -258,6 +293,12 @@ export default function CleaningChecklist() {
         className="mt-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
       >
         Enviar Checklist
+      </button>
+      <button
+        onClick={handleSubmit}
+        className="bg-blue-600 text-white px-4 py-2 rounded"
+      >
+        Gerar PDF
       </button>
     </form>
   );
