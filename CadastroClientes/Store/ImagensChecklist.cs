@@ -14,6 +14,10 @@
             // Fallback: se WebRootPath for null, usar ContentRootPath/wwwroot
             var rootPath = _env.WebRootPath ?? Path.Combine(_env.ContentRootPath, "wwwroot");
 
+            // Se a pasta wwwroot não existir, cria
+            if (!Directory.Exists(rootPath))
+                Directory.CreateDirectory(rootPath);
+
             // Caminho da pasta de imagens temporárias
             var imagensPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "temporary-images");
 
