@@ -15,7 +15,7 @@
             var rootPath = _env.WebRootPath ?? Path.Combine(_env.ContentRootPath, "wwwroot");
 
             // Caminho da pasta de imagens temporárias
-            var imagensPath = Path.Combine(rootPath, "ImagensChecklist");
+            var imagensPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "temporary-images");
 
             // Garantir que a pasta exista
             if (!Directory.Exists(imagensPath))
