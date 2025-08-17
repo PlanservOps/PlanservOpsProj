@@ -20,9 +20,6 @@
 
             var caminhoCompleto = Path.Combine(imagensPath, safeName);
 
-            if (!File.Exists(imagensPath))
-                throw new Exception($"Imagem não encontrada: {imagensPath}");
-
             File.WriteAllBytes(caminhoCompleto, imagemBytes);
 
             return caminhoCompleto; // caminho absoluto!
