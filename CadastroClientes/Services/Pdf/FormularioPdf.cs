@@ -66,11 +66,11 @@ namespace CadastroClientes.Services.Pdf
                                 // Coluna da direita: imagem
                                 row.RelativeItem(1).AlignMiddle().Element(elem =>
                                 {
-                                    if (item.Concluido && _imagens.TryGetValue(index, out var imagemPath) && File.Exists(imagemPath))
+                                    if (item.Concluido && _imagens.TryGetValue(index, out var imagensPath) && File.Exists(imagensPath))
                                     {
                                         try
                                         {
-                                            var bytes = File.ReadAllBytes(imagemPath);
+                                            var bytes = File.ReadAllBytes(imagensPath);
                                             elem.Image(bytes)
                                                 .FitArea();
                                                 /*.MaxHeight(150)*/ // ajusta para não ocupar espaço excessivo
