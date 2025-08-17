@@ -56,12 +56,21 @@ namespace CadastroClientes.Controllers
                         Imagem = (form.ItensImagem.Count > i) ? form.ItensImagem[i] : null
                     };
 
-                    // Salva imagem se necessário
-                    //if (item.Concluido && item.Imagem != null)
-                    //{
-                    //    string caminhoImagem = await imageHandler.SalvarAsync(item.Imagem);
-                    //    imagensSalvas[i] = caminhoImagem;
-                    //}
+                    //Salva imagem se necessário
+                    if (item.Concluido && item.Imagem != null)
+                    {
+                        using var ms = new MemoryStream();
+                        await item.Imagem.CopyToAsync(ms);
+                        var bytes = ms.ToArray();
+
+                        // Salva em disco
+                        var caminhoImagem = _imageHandler.SalvarImagemTemporaria(bytes, item.Imagem.FileName);
+
+                        // Aqui precisamos guardar o caminho ABSOLUTO para poder abrir com File.ReadAllBytes
+                        var absolutePath = Path.Combine(_env.WebRootPath ?? Path.Combine(_env.ContentRootPath, "wwwroot"), "temporary-images", item.Imagem.FileName);
+
+                        imagensSalvas[i] = absolutePath;
+                    }
 
                     itens.Add(item);
                 }
