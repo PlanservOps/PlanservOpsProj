@@ -47,31 +47,25 @@ namespace CadastroClientes.Controllers
 
                 for (int i = 0; i < totalItens; i++)
                 {
+                    var file = (form.ItensImagem.Count > i) ? form.ItensImagem[i] : null;
+
                     var item = new ChecklistItemDto
                     {
                         Descricao = form.ItensDescricao[i],
                         HorarioInicio = form.ItensHorarioInicio[i],
                         HorarioFim = form.ItensHorarioFim[i],
                         Concluido = form.ItensConcluido[i],
-                        Imagem = (form.ItensImagem.Count > i) ? form.ItensImagem[i] : null
+                        Imagem = file
                     };
 
                     //Salva imagem se necessário
-                    if (item.Concluido && item.Imagem != null)
+                    if (item.Concluido && file is { Length: > 0 })
                     {
                         using var ms = new MemoryStream();
-                        await item.Imagem.CopyToAsync(ms);
-                        var bytes = ms.ToArray();
-
-                        // Salva em disco
-                        var caminhoImagem = _imageHandler.SalvarImagemTemporaria(bytes, item.Imagem.FileName);
-
-                        // Aqui precisamos guardar o caminho ABSOLUTO para poder abrir com File.ReadAllBytes
-                        var absolutePath = Path.Combine(_env.WebRootPath ?? Path.Combine(_env.ContentRootPath, "wwwroot"), "temporary-images", item.Imagem.FileName);
-
-                        imagensSalvas[i] = absolutePath;
+                        await file.CopyToAsync(ms);
+                        var pathAbs = _imageHandler.SalvarImagemTemporaria(ms.ToArray(), file.FileName);
+                        imagensSalvas[i] = pathAbs;
                     }
-
                     itens.Add(item);
                 }
 
@@ -82,14 +76,28 @@ namespace CadastroClientes.Controllers
                     Itens = itens
                 };
 
-                byte[] pdfBytes = PdfGenerator.GerarFormularioPdf(form, checklistSend, imagensSalvas);
+                byte[] pdfBytes;
+                try
+                {
+                    pdfBytes = PdfGenerator.GerarFormularioPdf(form, checklistSend, imagensSalvas);
+                }
+                finally
+                {
+                    // 🔥 apaga as imagens temporárias depois de gerar o PDF
+                    foreach (var p in imagensSalvas.Values)
+                    {
+                        try { if (System.IO.File.Exists(p)) System.IO.File.Delete(p); }
+                        catch { /* ignore */ }
+                    }
+                }
+
                 return File(pdfBytes, "application/pdf", $"Checklist_{DateTime.Now:yyyyMMdd_HHmmss}.pdf");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erro ao gerar PDF: " + ex);
-                return StatusCode(500, $"Erro interno: {ex.Message}");
-            }           
+                // Log the exception (not shown here for brevity)
+                return BadRequest(new { message = "Erro ao gerar o PDF", error = ex.Message });
+            }
         }
     }
 }

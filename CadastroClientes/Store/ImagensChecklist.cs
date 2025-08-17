@@ -14,10 +14,11 @@
             var rootPath = _env.WebRootPath ?? Path.Combine(_env.ContentRootPath, "wwwroot");
             var imagensPath = Path.Combine(rootPath, "temporary-images");
 
-            if (!Directory.Exists(imagensPath))
-                Directory.CreateDirectory(imagensPath);
+            Directory.CreateDirectory(imagensPath);
 
-            var caminhoCompleto = Path.Combine(imagensPath, nomeArquivo);
+            var safeName = $"{DateTime.UtcNow:yyyyMMdd_HHmmssfff}_{Guid.NewGuid():N}{Path.GetExtension(nomeArquivo)}";
+
+            var caminhoCompleto = Path.Combine(imagensPath, safeName);
             File.WriteAllBytes(caminhoCompleto, imagemBytes);
 
             return caminhoCompleto; // caminho absoluto!
