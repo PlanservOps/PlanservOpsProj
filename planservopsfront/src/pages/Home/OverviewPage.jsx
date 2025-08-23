@@ -1,22 +1,22 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../components/common/Header";
 import { motion } from "framer-motion";
 import StatsCards from "../../components/common/StatsCards";
-import {
-  UsersIcon,
-  BellPlus,
-  TriangleAlert,
-  ShieldAlert,
-} from "lucide-react";
+import { UsersIcon, BellPlus, TriangleAlert, ShieldAlert } from "lucide-react";
 import PreventiveOverviewChart from "../../components/overview/PreventiveOverviewChart";
 import IndexNpsChart from "../../components/overview/IndexNpsChart";
 import CorrectiveOverviewChart from "../../components/overview/CorrectiveOverviewChart";
 import api from "../../api";
 
 const OverviewPage = () => {
-
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [reclamacoesCount, setReclamacoesCount] = useState({
+    total: 0,
+    pendentes: 0,
+    resolvidas: 0,
+  });
+  const [loadingReclamacoes, setLoadingReclamacoes] = useState(true);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -30,6 +30,28 @@ const OverviewPage = () => {
       }
     };
     fetchUsers();
+  }, []);
+
+  useEffect(() => {
+    const fetchReclamacoes = async () => {
+      try {
+        // Opção 1: buscar tudo e contar no front
+        const response = await api.get("/Reclamacoes");
+        const data = response.data;
+
+        const total = data.length;
+        const pendentes = data.filter((r) => r.status === 0).length;
+        const resolvidas = data.filter((r) => r.status === 1).length;
+
+        setReclamacoesCount({ total, pendentes, resolvidas });
+      } catch (error) {
+        setReclamacoesCount({ total: 0, pendentes: 0, resolvidas: 0 });
+      } finally {
+        setLoadingReclamacoes(false);
+      }
+    };
+
+    fetchReclamacoes();
   }, []);
 
   const totalUsers = users.length;
@@ -68,7 +90,7 @@ const OverviewPage = () => {
           <StatsCards
             name="Reclamações"
             icon={ShieldAlert}
-            value="5"
+            value={loadingReclamacoes ? "..." : reclamacoesCount.total}
             color="#FF0000"
           />
         </motion.div>
