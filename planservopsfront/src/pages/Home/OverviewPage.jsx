@@ -86,12 +86,14 @@ const OverviewPage = () => {
             icon={UsersIcon}
             value={loading ? "..." : totalUsers}
             color="#10B981"
+            to={"/Users"}
           />
           <StatsCards
             name="Reclamações"
             icon={ShieldAlert}
             value={loadingReclamacoes ? "..." : reclamacoesCount.total}
             color="#FF0000"
+            to={"/Reclamacoes"}
           />
         </motion.div>
 
