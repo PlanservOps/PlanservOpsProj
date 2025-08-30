@@ -21,6 +21,9 @@ namespace CadastroClientes.Models
         [Required]
         [Column("reclamacaodata")]
         public DateTime ReclamacaoData { get; set; }
+        [Required]
+        [Column("reclamacaoresolucao")]
+        public string ReclamacaoResolucao { get; set; }
 
         public StatusReclamacao Status { get; set; } = StatusReclamacao.Pendente;
         public DateTime? DataResolucao { get; set; }

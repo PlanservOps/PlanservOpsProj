@@ -30,6 +30,9 @@ namespace CadastroCliente.Models
         [Required]
         [Column("clientebairro")]
         public string ClienteBairro { get; set; }
+        [Required]
+        [Column("clienteobservacao")]
+        public string ClienteObservacao { get; set; }
 
         [Column("clientefuncoesterceirizadas")]
         public int? ClienteFuncoesTerceirizadasId { get; set; }

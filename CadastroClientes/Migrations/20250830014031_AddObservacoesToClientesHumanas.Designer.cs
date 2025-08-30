@@ -3,6 +3,7 @@ using System;
 using CadastroCliente.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CadastroClientes.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250830014031_AddObservacoesToClientesHumanas")]
+    partial class AddObservacoesToClientesHumanas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -258,11 +261,6 @@ namespace CadastroClientes.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("reclamacaodescricao");
-
-                    b.Property<string>("ReclamacaoResolucao")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("reclamacaoresolucao");
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");
