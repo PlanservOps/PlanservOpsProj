@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from '../../assets/images/Logo nobg.png'
+import Logo from '../../assets/images/LogoLabs.png'
 import UserProfileMenu from './UserProfileMenu';
 import ThemeSwitcher from './ThemeSwitcher';
 
