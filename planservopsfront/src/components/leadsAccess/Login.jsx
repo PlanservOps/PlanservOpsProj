@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import api from '../../api'
 import { useNavigate } from 'react-router-dom'
-import Logo from '../../assets/images/Logo nobg.png'
+import Logo from '../../assets/images/LogoLabsNu.png'
 
 const Login = () => {
 	  	const [form, setForm] = useState({ email: "", senha: "" });
