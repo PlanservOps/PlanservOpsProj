@@ -5,7 +5,7 @@ import CleaningChecklist from '../../components/checklistComponent/Checklist'
 const ChecklistPage = () => {
     return (
         <div className="flex-1 overflow-auto relative z-10">
-            <Header title="Checklist de Limpeza" />            
+            <Header title="Supervisão de Posto" />            
             <div className="p-4">
                 <CleaningChecklist />
             </div>

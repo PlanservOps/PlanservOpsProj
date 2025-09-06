@@ -32,13 +32,13 @@ const SIDEBAR_ITEMS = [
     href: "/Reclamacoes",
   },
   {
-    name: "Checklist",
+    name: "Supervisão de Posto",
     icon: ClipboardCheck,
     color: "#10B981",
     href: "/Checklist",
   },
   {
-    name: "Formulário Operacional",
+    name: "Acompanhamento Gerencial",
     icon: BookCheck,
     color: "#10B981",
     href: "/FormularioOperacionalPage",

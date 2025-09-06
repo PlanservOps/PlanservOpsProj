@@ -98,7 +98,7 @@ const FormularioOperacionalPage = () => {
 
   return (
     <div className="flex-1 overflow-auto relative z-10">
-      <Header title="Relatório Gerencial Operacional" />
+      <Header title="Acompanhamento Gerencial" />
       <div className="flex-1 flex justify-center items-start px-4 pt-8 pb-8">
         <motion.div
           className="bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-700 max-w-4xl w-full sm:h-auto sm:max-h-screen overflow-y-auto"
@@ -115,7 +115,7 @@ const FormularioOperacionalPage = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-xl font-semibold text-gray-100">
-                Relatório Gerencial Operacional
+                Acompanhamento Gerencial
               </h1>
             </div>
 
