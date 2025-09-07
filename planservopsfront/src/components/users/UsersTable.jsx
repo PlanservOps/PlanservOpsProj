@@ -38,6 +38,7 @@ function UsersTable() {
         clienteFuncaoResponsavel: "",
         clienteEndereco: "",
         clienteBairro: "",
+        clienteObservacao: "",
         clienteFuncoesTerceirizadasId: "",
       });
     }
@@ -58,6 +59,7 @@ function UsersTable() {
       clienteFuncaoResponsavel: "",
       clienteEndereco: "",
       clienteBairro: "",
+      clienteObservacao: "",
       clienteFuncoesTerceirizadasId: "",
     });
     setShowForm(true);
@@ -179,7 +181,9 @@ function UsersTable() {
       transition={{ delay: 0.2 }}
     >
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
-        <h2 className="text-lg sm:text-xl font-semibold text-gray-100">Clientes</h2>
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-100">
+          Clientes
+        </h2>
         <button
           className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors w-full sm:w-auto"
           onClick={openAddForm}
@@ -223,13 +227,28 @@ function UsersTable() {
               Detalhes do Cliente
             </h3>
             <div className="space-y-2 text-gray-200 text-sm sm:text-base">
-              <div><strong>Posto:</strong> {selectedUser.clientePosto}</div>
-              <div><strong>Responsável:</strong> {selectedUser.clienteResponsavel}</div>
-              <div><strong>Contato:</strong> {selectedUser.clienteContato}</div>
-              <div><strong>Função:</strong> {selectedUser.clienteFuncaoResponsavel}</div>
-              <div><strong>Endereço:</strong> {selectedUser.clienteEndereco}</div>
-              <div><strong>Bairro:</strong> {selectedUser.clienteBairro}</div>
-              <div><strong>Funções Terceirizadas:</strong> {selectedUser.clienteFuncoesTerceirizadasId}</div>
+              <div>
+                <strong>Posto:</strong> {selectedUser.clientePosto}
+              </div>
+              <div>
+                <strong>Responsável:</strong> {selectedUser.clienteResponsavel}
+              </div>
+              <div>
+                <strong>Contato:</strong> {selectedUser.clienteContato}
+              </div>
+              <div>
+                <strong>Função:</strong> {selectedUser.clienteFuncaoResponsavel}
+              </div>
+              <div>
+                <strong>Endereço:</strong> {selectedUser.clienteEndereco}
+              </div>
+              <div>
+                <strong>Bairro:</strong> {selectedUser.clienteBairro}
+              </div>
+              <div>
+                <strong>Funções Terceirizadas:</strong>{" "}
+                {selectedUser.clienteFuncoesTerceirizadasId}
+              </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-6">
               <button
@@ -459,6 +478,18 @@ function UsersTable() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-300">
+                    Observações Gerais
+                  </label>
+                  <input
+                    type="text"
+                    name="clienteObservacao"
+                    value={newUser.clienteObservacao}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-300">
                     Funções Terceirizadas
                   </label>
                   <FuncoesTerceirizadasSelect
@@ -494,6 +525,7 @@ function UsersTable() {
                         clienteFuncaoResponsavel: "",
                         clienteEndereco: "",
                         clienteBairro: "",
+                        clienteObservacao: "",
                         clienteFuncoesTerceirizadasId: "",
                       });
                     }}
