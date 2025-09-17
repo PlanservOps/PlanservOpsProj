@@ -32,7 +32,7 @@ const SIDEBAR_ITEMS = [
     href: "/Reclamacoes",
   },
   {
-    name: "Supervisão de Posto",
+    name: "Supervisão de Limpeza",
     icon: ClipboardCheck,
     color: "#10B981",
     href: "/Checklist",
