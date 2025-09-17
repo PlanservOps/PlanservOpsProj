@@ -35,7 +35,7 @@ const PreventiveOverviewChart = () => {
       transition={{ delay: 0.2 }}
     >
       <h2 className="text-lg font-medium mb-4 text-gray-100">
-        Visitas Prenventivas
+        Supervisão de Limpeza
       </h2>
 
       <div className="h-80">
