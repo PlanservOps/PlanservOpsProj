@@ -387,14 +387,21 @@ function UsersTable() {
         </table>
         {showForm && (
           <motion.div
-            className="absolute top-0 left-0 w-full h-full bg-gray-200 bg-opacity-70 dark:bg-gray-800 dark:bg-opacity-50 backdrop-blur-md flex items-center justify-center p-2"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-70 backdrop-blur-md p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="form-register bg-white dark:bg-gray-700 p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-xs sm:max-w-md">
-              <h2 className="text-lg sm:text-xl font-semibold text-white mb-4">
-                Adicionar Cliente
+            <div className="relative bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-6">
+              <button
+                className="absolute top-3 right-3 text-gray-400 hover:text-gray-200"
+                onClick={openCloseForm}
+              >
+                <X size={22} />
+              </button>
+
+              <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                {editUserId ? "Editar Cliente" : "Adicionar Cliente"}
               </h2>
 
               <div className="space-y-4">
@@ -504,18 +511,18 @@ function UsersTable() {
                 </div>
               </div>
 
-              <div className="mt-6 flex justify-end space-x-4">
+              <div className="mt-6 flex flex-col sm:flex-row justify-end gap-3">
                 {editUserId ? (
                   <button
                     type="button"
-                    className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                    className="w-full sm:w-auto bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
                     onClick={updateUser}
                   >
                     Atualizar
                   </button>
                 ) : (
                   <button
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                    className="w-full sm:w-auto bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                     onClick={() => {
                       addUser();
                       setNewUser({
@@ -534,7 +541,7 @@ function UsersTable() {
                   </button>
                 )}
                 <button
-                  className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+                  className="w-full sm:w-auto bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
                   onClick={openCloseForm}
                 >
                   Cancelar
