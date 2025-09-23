@@ -21,6 +21,9 @@ namespace CadastroCliente.Models
         [Column("clientecontato")]
         public string ClienteContato { get; set; }
         [Required]
+        [Column("clienteteemail")]
+        public string ClienteEmail { get; set; }
+        [Required]
         //[JsonConverter(typeof(JsonStringEnumConverter))]
         [Column("clientefuncaoresponsavel")]
         public string ClienteFuncaoResponsavel { get; set; }
