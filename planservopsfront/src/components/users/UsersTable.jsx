@@ -18,9 +18,11 @@ function UsersTable() {
     clientePosto: "",
     clienteResponsavel: "",
     clienteContato: "",
+    clienteEmail: "",
     clienteFuncaoResponsavel: "",
     clienteEndereco: "",
     clienteBairro: "",
+    clienteObservacao: "",
     clienteFuncoesTerceirizadasId: "",
   });
 
@@ -35,6 +37,7 @@ function UsersTable() {
         clientePosto: "",
         clienteResponsavel: "",
         clienteContato: "",
+        clienteEmail: "",
         clienteFuncaoResponsavel: "",
         clienteEndereco: "",
         clienteBairro: "",
@@ -56,6 +59,7 @@ function UsersTable() {
       clientePosto: "",
       clienteResponsavel: "",
       clienteContato: "",
+      clienteEmail: "",
       clienteFuncaoResponsavel: "",
       clienteEndereco: "",
       clienteBairro: "",
@@ -237,6 +241,9 @@ function UsersTable() {
                 <strong>Contato:</strong> {selectedUser.clienteContato}
               </div>
               <div>
+                <strong>Email:</strong> {selectedUser.clienteEmail}
+              </div>
+              <div>
                 <strong>Função:</strong> {selectedUser.clienteFuncaoResponsavel}
               </div>
               <div>
@@ -244,6 +251,9 @@ function UsersTable() {
               </div>
               <div>
                 <strong>Bairro:</strong> {selectedUser.clienteBairro}
+              </div>
+              <div>
+                <strong>Observações:</strong> {selectedUser.clienteObservacao}
               </div>
               <div>
                 <strong>Funções Terceirizadas:</strong>{" "}
@@ -288,6 +298,9 @@ function UsersTable() {
                 Contato
               </th>
               <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+                Email
+              </th>
+              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                 Função
               </th>
               <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider">
@@ -295,6 +308,9 @@ function UsersTable() {
               </th>
               <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                 Bairro
+              </th>
+              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+                Observações
               </th>
               <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                 Funções Terceirizadas
@@ -340,6 +356,11 @@ function UsersTable() {
                     </div>
                   </td>
                   <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
+                    <div className="text-xs sm:text-sm">
+                      {user.clienteEmail}
+                    </div>
+                  </td>
+                  <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
                     <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-800 text-blue-100">
                       {user.clienteFuncaoResponsavel}
                     </span>
@@ -352,6 +373,11 @@ function UsersTable() {
                   <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
                     <div className="text-xs sm:text-sm">
                       {user.clienteBairro}
+                    </div>
+                  </td>
+                  <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
+                    <div className="text-xs sm:text-sm">
+                      {user.clienteObservacao}
                     </div>
                   </td>
                   <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
@@ -437,6 +463,18 @@ function UsersTable() {
                     type="text"
                     name="clienteContato"
                     value={newUser.clienteContato}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-300">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    name="clienteEmail"
+                    value={newUser.clienteEmail}
                     onChange={handleChange}
                     className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
@@ -529,6 +567,7 @@ function UsersTable() {
                         clientePosto: "",
                         clienteResponsavel: "",
                         clienteContato: "",
+                        clienteEmail: "",
                         clienteFuncaoResponsavel: "",
                         clienteEndereco: "",
                         clienteBairro: "",
