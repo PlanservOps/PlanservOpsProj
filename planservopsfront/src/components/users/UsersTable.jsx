@@ -71,7 +71,7 @@ function UsersTable() {
 
   const updateUser = async () => {
     try {
-      const payload = buildPayload();
+      const payload = buildPayload(newUser);
       console.log("Payload enviado para atualização:", payload);
 
       const { data } = await api.put(`/Clientes/${editUserId}`, payload);
@@ -117,26 +117,30 @@ function UsersTable() {
     fetchUsers();
   }, [baseUrl]);
 
-  const funcaoEnumMap = {
-    Gerente: 2,
-    Síndico: 1,
-    Síndica: 0,
-  };
-
-  const buildPayload = () => {
+  const buildPayload = (newUser) => {
     return {
-      ...newUser,
-      clienteFuncaoResponsavel:
-        funcaoEnumMap[newUser.clienteFuncaoResponsavel] ?? null,
-      clienteFuncoesTerceirizadasId: newUser.clienteFuncoesTerceirizadasId
-        ? parseInt(newUser.clienteFuncoesTerceirizadasId, 10)
-        : null,
+      clientePosto: newUser.clientePosto,
+      clienteResponsavel: newUser.clienteResponsavel,
+      clienteContato: newUser.clienteContato,
+      clienteEmail: newUser.clienteEmail,
+
+      clienteFuncaoResponsavel: newUser.clienteFuncaoResponsavel || "",
+
+      clienteEndereco: newUser.clienteEndereco,
+      clienteBairro: newUser.clienteBairro,
+      clienteObservacao: newUser.clienteObservacao,
+
+      clienteFuncoesTerceirizadasId:
+        newUser.clienteFuncoesTerceirizadasId !== "" &&
+        newUser.clienteFuncoesTerceirizadasId !== undefined
+          ? Number(newUser.clienteFuncoesTerceirizadasId)
+          : null,
     };
   };
 
   const addUser = async () => {
     try {
-      const payload = buildPayload();
+      const payload = buildPayload(newUser);
       console.log("Payload enviado para criação:", payload);
 
       const { data } = await api.post("/Clientes", payload);
