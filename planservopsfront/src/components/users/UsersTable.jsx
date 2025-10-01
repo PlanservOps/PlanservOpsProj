@@ -71,11 +71,15 @@ function UsersTable() {
 
   const updateUser = async () => {
     try {
-      console.log("Atualizando usuário:", newUser);
+      const payload = buildPayload();
+      console.log("Payload enviado para atualização:", payload);
+
       const { data } = await api.put(`/Clientes/${editUserId}`, payload);
+
       const updatedUsers = users.map((user) =>
         user.clienteId === editUserId ? data : user
       );
+
       setUsers(updatedUsers);
       setFilteredUsers(updatedUsers);
       setShowForm(false);
@@ -83,7 +87,10 @@ function UsersTable() {
       setSuccessMessage("Cliente atualizado com sucesso!");
       setTimeout(() => setSuccessMessage(""), 3000);
     } catch (error) {
-      console.error("Erro ao atualizar usuário:", error);
+      console.error(
+        "Erro ao atualizar usuário:",
+        error.response?.data || error
+      );
     }
   };
 
@@ -116,38 +123,34 @@ function UsersTable() {
     Síndica: 0,
   };
 
-  const payload = {
-    ...newUser,
-    clienteFuncaoResponsavel: funcaoEnumMap[newUser.clienteFuncaoResponsavel],
+  const buildPayload = () => {
+    return {
+      ...newUser,
+      clienteFuncaoResponsavel:
+        funcaoEnumMap[newUser.clienteFuncaoResponsavel] ?? null,
+      clienteFuncoesTerceirizadasId: newUser.clienteFuncoesTerceirizadasId
+        ? parseInt(newUser.clienteFuncoesTerceirizadasId, 10)
+        : null,
+    };
   };
 
   const addUser = async () => {
     try {
-      const payload = {
-        ...newUser,
-        clienteFuncaoResponsavel:
-          funcaoEnumMap[newUser.clienteFuncaoResponsavel],
-        clienteFuncoesTerceirizadasId: parseInt(
-          newUser.clienteFuncoesTerceirizadasId
-        ),
-      };
-
-      if (newUser.clienteFuncoesTerceirizadasId) {
-        payload.clienteFuncoesTerceirizadasId = parseInt(
-          newUser.clienteFuncoesTerceirizadasId
-        );
-      }
-
-      console.log("Enviando usuário:", payload);
+      const payload = buildPayload();
+      console.log("Payload enviado para criação:", payload);
 
       const { data } = await api.post("/Clientes", payload);
+
       setUsers([...users, data]);
       setFilteredUsers([...users, data]);
       setShowForm(false);
       setSuccessMessage("Cliente adicionado com sucesso!");
       setTimeout(() => setSuccessMessage(""), 3000);
     } catch (error) {
-      console.error("Erro ao adicionar usuário:", error);
+      console.error(
+        "Erro ao adicionar usuário:",
+        error.response?.data || error
+      );
     }
   };
 
