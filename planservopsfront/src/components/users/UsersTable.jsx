@@ -23,7 +23,7 @@ function UsersTable() {
     clienteEndereco: "",
     clienteBairro: "",
     clienteObservacao: "",
-    clienteFuncoesTerceirizadasId: "",
+    clienteFuncoesTerceirizadas: "",
   });
 
   const [editUserId, setEditUserId] = useState(null);
@@ -42,7 +42,7 @@ function UsersTable() {
         clienteEndereco: "",
         clienteBairro: "",
         clienteObservacao: "",
-        clienteFuncoesTerceirizadasId: "",
+        clienteFuncoesTerceirizadas: "",
       });
     }
   };
@@ -54,7 +54,7 @@ function UsersTable() {
   };
 
   const openAddForm = () => {
-    setEditUserId(null); // Limpa o modo edição
+    setEditUserId(null); 
     setNewUser({
       clientePosto: "",
       clienteResponsavel: "",
@@ -64,7 +64,7 @@ function UsersTable() {
       clienteEndereco: "",
       clienteBairro: "",
       clienteObservacao: "",
-      clienteFuncoesTerceirizadasId: "",
+      clienteFuncoesTerceirizadas: "",
     });
     setShowForm(true);
   };
@@ -130,11 +130,7 @@ function UsersTable() {
       clienteBairro: newUser.clienteBairro,
       clienteObservacao: newUser.clienteObservacao,
 
-      clienteFuncoesTerceirizadasId:
-        newUser.clienteFuncoesTerceirizadasId !== "" &&
-        newUser.clienteFuncoesTerceirizadasId !== undefined
-          ? Number(newUser.clienteFuncoesTerceirizadasId)
-          : null,
+      clienteFuncoesTerceirizadas: newUser.clienteFuncoesTerceirizadas || "",
     };
   };
 
@@ -264,7 +260,7 @@ function UsersTable() {
               </div>
               <div>
                 <strong>Funções Terceirizadas:</strong>{" "}
-                {selectedUser.clienteFuncoesTerceirizadasId}
+                {selectedUser.clienteFuncoesTerceirizadas}
               </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-6">
@@ -389,7 +385,7 @@ function UsersTable() {
                   </td>
                   <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
                     <div className="text-xs sm:text-sm">
-                      {user.clienteFuncoesTerceirizadasId}
+                      {user.clienteFuncoesTerceirizadas}
                     </div>
                   </td>
                   <td className="px-2 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm">
@@ -545,11 +541,11 @@ function UsersTable() {
                     Funções Terceirizadas
                   </label>
                   <FuncoesTerceirizadasSelect
-                    value={newUser.clienteFuncoesTerceirizadasId}
-                    onChange={(id) =>
+                    value={newUser.clienteFuncoesTerceirizadas}
+                    onChange={(funcao) =>
                       setNewUser((prev) => ({
                         ...prev,
-                        clienteFuncoesTerceirizadasId: id,
+                        clienteFuncoesTerceirizadas: funcao,
                       }))
                     }
                   />
@@ -579,7 +575,7 @@ function UsersTable() {
                         clienteEndereco: "",
                         clienteBairro: "",
                         clienteObservacao: "",
-                        clienteFuncoesTerceirizadasId: "",
+                        clienteFuncoesTerceirizadas: "",
                       });
                     }}
                   >
