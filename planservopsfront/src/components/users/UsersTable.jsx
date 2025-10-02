@@ -542,10 +542,10 @@ function UsersTable() {
                   </label>
                   <FuncoesTerceirizadasSelect
                     value={newUser.clienteFuncoesTerceirizadas}
-                    onChange={(funcao) =>
+                    onChange={(nome) =>
                       setNewUser((prev) => ({
                         ...prev,
-                        clienteFuncoesTerceirizadas: funcao,
+                        clienteFuncoesTerceirizadas: nome,
                       }))
                     }
                   />
