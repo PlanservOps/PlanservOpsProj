@@ -21,7 +21,7 @@ namespace CadastroCliente.Models
         [Column("clientecontato")]
         public string ClienteContato { get; set; }
         [Required]
-        [Column("clienteteemail")]
+        [Column("clienteemail")]
         public string ClienteEmail { get; set; }
         [Required]
         [Column("clientefuncaoresponsavel")]
@@ -37,7 +37,7 @@ namespace CadastroCliente.Models
         public string ClienteObservacao { get; set; }
         [Required]
         [Column("clientefuncoesterceirizadas")]
-        public string ClienteFuncoesTerceirizadasId { get; set; }
+        public string ClienteFuncoesTerceirizadas { get; set; }
 
         public enum FuncaoEnum
         {
