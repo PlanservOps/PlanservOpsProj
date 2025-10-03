@@ -54,7 +54,7 @@ function UsersTable() {
   };
 
   const openAddForm = () => {
-    setEditUserId(null); 
+    setEditUserId(null);
     setNewUser({
       clientePosto: "",
       clienteResponsavel: "",
@@ -130,7 +130,7 @@ function UsersTable() {
       clienteBairro: newUser.clienteBairro,
       clienteObservacao: newUser.clienteObservacao,
 
-      clienteFuncoesTerceirizadas: newUser.clienteFuncoesTerceirizadas || "",
+      clienteFuncoesTerceirizadas: String(newUser.clienteFuncoesTerceirizadas || ""),
     };
   };
 
@@ -548,6 +548,7 @@ function UsersTable() {
                         clienteFuncoesTerceirizadas: nome,
                       }))
                     }
+                    opcoes={["Jardineiro", "Porteiro", "Zelador"]}
                   />
                 </div>
               </div>
