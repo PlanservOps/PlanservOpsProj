@@ -47,7 +47,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddScoped<IAuthAccess, AuthAccessService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IFormularioOperacionalService, FormularioOperacionalService>();
-builder.Services.AddScoped<IFuncaoTerceirizadaService, FuncaoTerceirizadaService>();
 builder.Services.AddScoped<IOcorrenciasService, OcorrenciasService>();
 builder.Services.AddScoped<IReclamacaoService, ReclamacaoService>();
 builder.Services.AddScoped<ImagensChecklist>();

@@ -16,7 +16,6 @@ namespace CadastroCliente.Context
         public DbSet<FormularioOperacional> FormularioOperacional { get; set; }
         public DbSet<Ocorrencias> Ocorrencias { get; set; }
         public DbSet<LeadsOperacionais> LeadsOperacionais { get; set; }
-        public DbSet<FuncaoTerceirizada> FuncaoTerceirizada { get; set; }
         public DbSet<Reclamacoes> Reclamacoes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

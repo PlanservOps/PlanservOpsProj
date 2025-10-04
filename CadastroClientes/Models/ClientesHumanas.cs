@@ -34,10 +34,7 @@ namespace CadastroCliente.Models
         public string ClienteBairro { get; set; }
         [Required]
         [Column("clienteobservacao")]
-        public string ClienteObservacao { get; set; }
-        [Required]
-        [Column("clientefuncoesterceirizadas")]
-        public string ClienteFuncoesTerceirizadas { get; set; }
+        public string ClienteObservacao { get; set; }        
 
         public enum FuncaoEnum
         {

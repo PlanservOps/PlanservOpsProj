@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Search, X } from "lucide-react";
 import api from "../../api";
-import FuncoesTerceirizadasSelect from "../common/FuncoesTerceirizadasSelect";
 
 function UsersTable() {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -23,7 +22,6 @@ function UsersTable() {
     clienteEndereco: "",
     clienteBairro: "",
     clienteObservacao: "",
-    clienteFuncoesTerceirizadas: "",
   });
 
   const [editUserId, setEditUserId] = useState(null);
@@ -42,7 +40,6 @@ function UsersTable() {
         clienteEndereco: "",
         clienteBairro: "",
         clienteObservacao: "",
-        clienteFuncoesTerceirizadas: "",
       });
     }
   };
@@ -64,7 +61,6 @@ function UsersTable() {
       clienteEndereco: "",
       clienteBairro: "",
       clienteObservacao: "",
-      clienteFuncoesTerceirizadas: "",
     });
     setShowForm(true);
   };
@@ -129,8 +125,6 @@ function UsersTable() {
       clienteEndereco: newUser.clienteEndereco,
       clienteBairro: newUser.clienteBairro,
       clienteObservacao: newUser.clienteObservacao,
-
-      clienteFuncoesTerceirizadas: String(newUser.clienteFuncoesTerceirizadas || ""),
     };
   };
 
@@ -257,11 +251,7 @@ function UsersTable() {
               </div>
               <div>
                 <strong>Observações:</strong> {selectedUser.clienteObservacao}
-              </div>
-              <div>
-                <strong>Funções Terceirizadas:</strong>{" "}
-                {selectedUser.clienteFuncoesTerceirizadas}
-              </div>
+              </div>              
             </div>
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-6">
               <button
@@ -314,10 +304,7 @@ function UsersTable() {
               </th>
               <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                 Observações
-              </th>
-              <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider">
-                Funções Terceirizadas
-              </th>
+              </th>              
               <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                 Ações
               </th>
@@ -382,12 +369,7 @@ function UsersTable() {
                     <div className="text-xs sm:text-sm">
                       {user.clienteObservacao}
                     </div>
-                  </td>
-                  <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
-                    <div className="text-xs sm:text-sm">
-                      {user.clienteFuncoesTerceirizadas}
-                    </div>
-                  </td>
+                  </td>                  
                   <td className="px-2 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm">
                     <button
                       type="button"
@@ -535,24 +517,8 @@ function UsersTable() {
                     onChange={handleChange}
                     className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-300">
-                    Funções Terceirizadas
-                  </label>
-                  <FuncoesTerceirizadasSelect
-                    value={newUser.clienteFuncoesTerceirizadas}
-                    onChange={(nome) =>
-                      setNewUser((prev) => ({
-                        ...prev,
-                        clienteFuncoesTerceirizadas: nome,
-                      }))
-                    }
-                    opcoes={["Jardineiro", "Porteiro", "Zelador"]}
-                  />
-                </div>
+                </div>                
               </div>
-
               <div className="mt-6 flex flex-col sm:flex-row justify-end gap-3">
                 {editUserId ? (
                   <button
@@ -576,7 +542,6 @@ function UsersTable() {
                         clienteEndereco: "",
                         clienteBairro: "",
                         clienteObservacao: "",
-                        clienteFuncoesTerceirizadas: "",
                       });
                     }}
                   >
