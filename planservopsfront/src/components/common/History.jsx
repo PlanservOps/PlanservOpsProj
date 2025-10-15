@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Header from "../../components/common/Header";
 import { Search } from "lucide-react";
 import api from "../../api";
 
@@ -51,7 +50,6 @@ const HistoryFormPage = () => {
 
   return (
     <div className="flex-1 overflow-auto relative z-10">
-      <Header title="Histórico de Formulários" />
       <div className="bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-2 sm:p-6 border border-gray-200 dark:border-gray-700">
         <h1 className="text-2xl font-bold mb-4">Histórico de Formulários</h1>
         <div className="overflow-x-auto">
