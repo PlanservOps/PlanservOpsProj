@@ -18,7 +18,7 @@ const HistoryFormPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get("/FormularioOperacional");
+        // const response = await api.get("/FormularioOperacional"); por enquanto não puxa nada -- alterar para o endpoint correto
         const lista = response.data.items || response.data;
         // Ordena do mais novo para o mais velho
         const sorted = [...lista].sort((a, b) => {
@@ -73,7 +73,7 @@ const HistoryFormPage = () => {
                 </th>
                 <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider border-b border-gray-200 dark:border-gray-700">
                   Data de Emissão
-                </th>                                
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
