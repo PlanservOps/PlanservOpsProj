@@ -10,7 +10,7 @@ import Sidebar from "./components/Sidebar";
 import SettingsPage from "./pages/Home/SettingsPage";
 import OcorrenciasPage from "./pages/Home/OcorrenciasPage";
 import ReclamacoesPage from "./pages/Home/ReclamacoesPage";
-import ChecklistPage from "./pages/Home/ChecklistPage";
+import CleaningChecklistPage from "./pages/Home/CleaningChecklistPage";
 import AcompanhamentoGerencialPage from "./pages/Home/AcompanhamentoGerencialPage";
 import HistoryFormPage from "./pages/Home/HistoryFormPage";
 
@@ -66,7 +66,7 @@ function App() {
           path="/Checklist"
           element={
             <PrivateRoute roleRequired={["Diretoria", "Fiscal"]}>
-              <ChecklistPage />
+              <CleaningChecklistPage />
             </PrivateRoute>
           }
         />

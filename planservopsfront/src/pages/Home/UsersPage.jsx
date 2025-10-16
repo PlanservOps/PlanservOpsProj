@@ -3,7 +3,7 @@ import Header from "../../components/common/Header";
 import { motion } from "framer-motion";
 import StatsCards from "../../components/common/StatsCards";
 import { UserCheck, UserPlus, UsersIcon, UserX } from "lucide-react";
-import UsersTable from "../../components/users/UsersTable";
+import UsersTable from "../../components/tables/UsersTable";
 import api from "../../api";
 
 const UsersPage = () => {

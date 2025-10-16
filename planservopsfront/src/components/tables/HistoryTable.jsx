@@ -51,7 +51,6 @@ const HistoryFormPage = () => {
   return (
     <div className="flex-1 overflow-auto relative z-10">
       <div className="bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-2 sm:p-6 border border-gray-200 dark:border-gray-700">
-        <h1 className="text-2xl font-bold mb-4">Histórico de Formulários</h1>
         <div className="overflow-x-auto">
           <div className="relative w-full sm:w-64 mb-4">
             <input
@@ -73,14 +72,8 @@ const HistoryFormPage = () => {
                   Cliente
                 </th>
                 <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider border-b border-gray-200 dark:border-gray-700">
-                  Data de Envio
-                </th>
-                <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider border-b border-gray-200 dark:border-gray-700">
-                  Problemas Identificados
-                </th>
-                <th className="px-2 sm:px-6 py-3 text-left font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider border-b border-gray-200 dark:border-gray-700">
-                  Soluções Apresentadas
-                </th>
+                  Data de Emissão
+                </th>                                
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
