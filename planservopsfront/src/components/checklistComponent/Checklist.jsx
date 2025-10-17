@@ -178,7 +178,8 @@ export default function CleaningChecklist() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-2xl mx-auto p-4 bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100 rounded shadow transition-colors"
+      className="w-full max-w-3xl mx-auto p-4 bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100 rounded shadow transition-colors"
+      style={{ maxHeight: "85vh", display: "flex", flexDirection: "column", gap: "1rem" }}
     >
       <h2 className="text-xl font-bold mb-4">Supervisão de Limpeza</h2>
       {successMessage && (
@@ -208,13 +209,13 @@ export default function CleaningChecklist() {
         </select>
       </div>
 
-      <ul className="space-y-4">
+      <ul className="space-y-4 px-1">
         {items.map((item, idx) => (
           <li
             key={idx}
             className="flex flex-col gap-2 border-b border-gray-200 dark:border-gray-700 pb-4"
           >
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
               <input
                 type="checkbox"
                 checked={item.checked}
@@ -226,14 +227,14 @@ export default function CleaningChecklist() {
                 type="text"
                 value={item.timeEdit ?? item.time}
                 onChange={(e) => handleTimeChange(idx, e.target.value)}
-                maxLength={10}
-                className="font-mono text-sm border border-gray-300 dark:border-gray-600 rounded px-2 py-1 w-32 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors"
+                maxLength={16}
+                className="font-mono text-sm border border-gray-300 dark:border-gray-600 rounded px-2 py-1 w-24 sm:w-32 flex-shrink-0 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors"
               />
               <input
                 type="text"
                 value={item.descEdit}
                 onChange={(e) => handleDescChange(idx, e.target.value)}
-                className="flex-1 border border-gray-300 dark:border-gray-600 rounded px-2 py-1 ml-2 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors"
+                className="flex-1 min-w-0 border border-gray-300 dark:border-gray-600 rounded px-2 py-1 ml-2 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors"
               />
               <button
                 type="button"
@@ -290,7 +291,7 @@ export default function CleaningChecklist() {
       </button>
       <button
         type="submit"
-        className="mt-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors w-full sm:w-auto"
       >
         Enviar Formulário
       </button>      
