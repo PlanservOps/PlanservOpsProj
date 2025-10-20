@@ -1,286 +1,57 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
 import Header from "../../components/common/Header";
-import api from "../../api";
+import HistoryTable from "../../components/tables/HistoryTable";
+import AcompanhamentoGerencial from "../../components/acompanhamentoGerencialComponent/AcompanhamentoGerencial";
 
 const FormularioOperacionalPage = () => {
-  const [clientes, setClientes] = useState([]);
-  const [formData, setFormData] = useState({
-    range1: 1,
-    range2: 1,
-    range3: 1,
-    selectedCliente: "",
-    input1: "",
-    input2: "",
-    rating1: 1,
-    rating2: 1,
-    input3: "",
-  });
+  const [showForm, setShowForm] = useState(false);
+  const [formKey, setFormKey] = useState(0);
 
-  const [successMessage, setSuccessMessage] = useState("");
-
-  useEffect(() => {
-    const fetchClientes = async () => {
-      try {
-        const response = await api.get("/Clientes");
-        setClientes(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar clientes:", error);
-      }
-    };
-
-    fetchClientes();
-  }, []);
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-
-    if (type === "checkbox") {
-      setFormData((prev) => ({
-        ...prev,
-        selectedClientes: checked
-          ? [...prev.selectedClientes, value]
-          : prev.selectedClientes.filter((cliente) => cliente !== value),
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    }
+  const openForm = () => {
+    setFormKey(Date.now()); // força remount do formulário
+    setShowForm(true);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Dados do formulário:", formData);
-    setSuccessMessage("Formulário enviado com sucesso!");
-    setTimeout(() => {
-      setSuccessMessage("");
-    }, 3000);
-  };
-
-  const payload = {
-    dataEnvio: new Date().toISOString(),
-    horaEnvio: new Date().toISOString(),
-    clientesAtendidos: Number(formData.range1),
-    problemasReportados: Number(formData.range2),
-    gestoresAtendidos: Number(formData.range3),
-    clientePosto: formData.selectedCliente,
-    problemasIdentificados: formData.input1,
-    solucoesApresentadas: formData.input2,
-    avaliacaoIgo: Number(formData.rating1),
-    avaliacaoRobson: Number(formData.rating2),
-    observacoesGerais: formData.input3,
-  };
-
-  const addForm = async () => {
-    try {
-      console.log("Enviando formulário:", payload);
-      const data = await api.post("/FormularioOperacional", payload);
-      console.log("Formulário enviado:", data);
-      setFormData({
-        range1: 1,
-        range2: 1,
-        range3: 1,
-        selectedCliente: "",
-        input1: "",
-        input2: "",
-        rating1: 1,
-        rating2: 1,
-        input3: "",
-      });
-      setSuccessMessage("Formulário enviado com sucesso!");
-      setTimeout(() => setSuccessMessage(""), 3000);
-    } catch (error) {
-      console.error("Erro ao adicionar formulário:", error);
-    }
+  const closeForm = () => {
+    setShowForm(false);
   };
 
   return (
     <div className="flex-1 overflow-auto relative z-10">
       <Header title="Acompanhamento Gerencial" />
-      <div className="flex-1 flex justify-center items-start px-4 pt-8 pb-8">
-        <motion.div
-          className="bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-700 max-w-4xl w-full sm:h-auto sm:max-h-screen overflow-y-auto"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+      <HistoryTable />
+      <div className="mt-4">
+        <button
+          type="button"
+          className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"
+          onClick={openForm}
         >
-          {successMessage && (
-            <div className="mb-4 p-3 rounded bg-green-600 text-white text-center">
-              {successMessage}
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="flex justify-between items-center mb-6">
-              <h1 className="text-xl font-semibold text-gray-100">
-                Acompanhamento Gerencial
-              </h1>
-            </div>
-
-            {/* Sessão com seleção numérica (1 a 15) */}
-            <div>
-              <label className="block text-sm font-medium text-gray-300">
-                Quantidade de clientes atendidos no dia:
-              </label>
-              <input
-                type="number"
-                name="range1"
-                min="1"
-                max="15"
-                value={formData.range1}
-                onChange={handleChange}
-                className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            {/* Sessão com seleção numérica (1 a 100) */}
-            <div>
-              <label className="block text-sm font-medium text-gray-300">
-                Quantidade de problemas identificados no dia:
-              </label>
-              <input
-                type="number"
-                name="range2"
-                min="0"
-                max="100"
-                value={formData.range2}
-                onChange={handleChange}
-                className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            {/* Sessão com seleção numérica (1 a 15) */}
-            <div>
-              <label className="block text-sm font-medium text-gray-300">
-                Quantidade de gestores atendidos pessoalmente:
-              </label>
-              <input
-                type="number"
-                name="range3"
-                min="1"
-                max="15"
-                value={formData.range3}
-                onChange={handleChange}
-                className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-300">
-                Cliente/ Posto:
-              </label>
-              <select
-                name="selectedCliente"
-                value={formData.selectedCliente} // Atualiza para armazenar apenas um valor
-                onChange={(e) => {
-                  setFormData((prev) => ({
-                    ...prev,
-                    selectedCliente: e.target.value,
-                  }));
-                }}
-                className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="" disabled>
-                  Selecione um Cliente ou Posto
-                </option>
-                {Array.isArray(clientes) &&
-                  clientes.map((cliente, idx) => (
-                    <option key={idx} value={cliente.clientePosto}>
-                      {cliente.clientePosto}
-                    </option>
-                  ))}
-              </select>
-            </div>
-
-            {/* Sessão com input de texto */}
-            <div>
-              <label className="block text-sm font-medium text-gray-300">
-                Problemas identificados (escrever cliente - problema)
-              </label>
-              <input
-                type="text"
-                name="input1"
-                value={formData.input1}
-                onChange={handleChange}
-                className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            {/* Sessão com outro input de texto */}
-            <div>
-              <label className="block text-sm font-medium text-gray-300">
-                Soluções apontadas (escrever cliente - solução)
-              </label>
-              <input
-                type="text"
-                name="input2"
-                value={formData.input2}
-                onChange={handleChange}
-                className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            {/* Sessão com rating (1 a 10) */}
-            <div>
-              <label className="block text-sm font-medium text-gray-300">
-                Qual a nota do Supervisor Igo nas atividades realizadas hoje?
-              </label>
-              <input
-                type="number"
-                name="rating1"
-                min="1"
-                max="10"
-                value={formData.rating1}
-                onChange={handleChange}
-                className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            {/* Sessão com outro rating (1 a 10) */}
-            <div>
-              <label className="block text-sm font-medium text-gray-300">
-                Qual a nota do Supervisor Robson nas atividades realizadas hoje?
-              </label>
-              <input
-                type="number"
-                name="rating2"
-                min="1"
-                max="10"
-                value={formData.rating2}
-                onChange={handleChange}
-                className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            {/* Sessão com outro input de texto */}
-            <div>
-              <label className="block text-sm font-medium text-gray-300">
-                Observações Gerais
-              </label>
-              <input
-                type="text"
-                name="input3"
-                value={formData.input3}
-                onChange={handleChange}
-                className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            {/* Botão de envio */}
-            <div>
-              <button
-                type="submit"
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors w-full sm:w-auto"
-                onClick={addForm}
-              >
-                Enviar
-              </button>
-            </div>
-          </form>
-        </motion.div>
+          Formulário de Supervisão
+        </button>
       </div>
+
+      {showForm && (
+        // Modal overlay
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-50 p-4"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-3xl p-4 relative">
+            <button
+              type="button"
+              onClick={closeForm}
+              className="absolute top-3 right-3 bg-gray-200 dark:bg-gray-700 p-1 rounded hover:bg-gray-300 dark:hover:bg-gray-600"
+              aria-label="Fechar formulário"
+            >
+              Fechar
+            </button>
+
+            {/* Monta o formulário; key força reset quando reaberto */}
+            <AcompanhamentoGerencial key={formKey} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
