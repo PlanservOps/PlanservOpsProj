@@ -1,3 +1,7 @@
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import api from "../../api";
+
 const AcompanhamentoGerencial = () => {
   const [clientes, setClientes] = useState([]);
   const [formData, setFormData] = useState({
@@ -90,7 +94,7 @@ const AcompanhamentoGerencial = () => {
       console.error("Erro ao adicionar formulário:", error);
     }
   };
-  
+
   return (
     <div className="flex-1 overflow-auto relative z-10">
       <div className="flex-1 flex justify-center items-start px-4 pt-8 pb-8">
