@@ -44,12 +44,6 @@ const SIDEBAR_ITEMS = [
     href: "/AcompanhamentoGerencialPage",
   },
   {
-    name: "Histórico de formulários",
-    icon: ChartLineIcon,
-    color: "#10B981",
-    href: "/HistoryForm",
-  },
-  {
     name: "Configurações",
     icon: Settings,
     color: "#10B981",

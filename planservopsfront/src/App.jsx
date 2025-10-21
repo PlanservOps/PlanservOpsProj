@@ -12,7 +12,6 @@ import OcorrenciasPage from "./pages/Home/OcorrenciasPage";
 import ReclamacoesPage from "./pages/Home/ReclamacoesPage";
 import CleaningChecklistPage from "./pages/Home/CleaningChecklistPage";
 import AcompanhamentoGerencialPage from "./pages/Home/AcompanhamentoGerencialPage";
-import HistoryFormPage from "./pages/Home/HistoryFormPage";
 
 function App() {
   const location = useLocation();
@@ -78,14 +77,7 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route
-          path="/HistoryForm"
-          element={
-            <PrivateRoute roleRequired={["Diretoria", "GerenteOperacional"]}>
-              <HistoryFormPage />
-            </PrivateRoute>
-          }
-        />
+        
         {/* <Route path='/Eficiencia' element={<PrivateRoute roleRequired={["Diretoria", "Fiscal"]}><EficienciaPage/></PrivateRoute>}/> */}
         <Route
           path="/Settings"
