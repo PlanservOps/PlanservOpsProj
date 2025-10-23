@@ -33,11 +33,16 @@ const FormularioOperacionalPage = () => {
       {showForm && (
         // Modal overlay
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-50 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 p-4"
           role="dialog"
           aria-modal="true"
+          onClick={closeForm}
         >
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-3xl p-4 relative">
+          <div
+            className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-4xl mx-4 sm:mx-auto p-4 sm:p-6 relative"
+            style={{ maxHeight: "calc(100vh - 4rem)", overflowY: "auto" }}
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               type="button"
               onClick={closeForm}
