@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { BellPlus } from "lucide-react";
 import Header from "../../components/common/Header";
@@ -17,10 +17,14 @@ const ChecklistPage = () => {
     const fetchOcorrenciasCount = async () => {
       try {
         // usa a mesma URL que você utiliza no OcorrenciasPage
-        const response = await api.get(`${import.meta.env.VITE_API_URL}/ocorrencias`);
+        const response = await api.get(
+          `${import.meta.env.VITE_API_URL}/ocorrencias`
+        );
         const lista = response.data || [];
         const count = Array.isArray(lista)
-          ? lista.filter((o) => (o.ocorrenciaStatus || "").toLowerCase() === "pendente").length
+          ? lista.filter(
+              (o) => (o.ocorrenciaStatus || "").toLowerCase() === "pendente"
+            ).length
           : 0;
         setOcorrenciasCount(count);
       } catch (err) {
@@ -37,6 +41,17 @@ const ChecklistPage = () => {
     setShowForm(true);
   };
 
+  useEffect(() => {
+    if (showForm) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prev || "";
+      };
+    }
+    return undefined;
+  }, [showForm]);
+
   const closeForm = () => {
     setShowForm(false);
   };
@@ -45,18 +60,18 @@ const ChecklistPage = () => {
     <div className="flex-1 overflow-auto relative z-10">
       <Header title="Supervisão de Limpeza" />
       <button
-          type="button"
-          onClick={() => navigate("/Ocorrencias")}
-          className="relative ml-4 flex items-center gap-2 bg-transparent hover:bg-gray-700/10 rounded px-3 py-2"
-          title="Ver ocorrências"
-        >
-          <BellPlus className="text-white" size={20} />
-          {ocorrenciasCount > 0 && (
-            <span className="absolute -top-1 -right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
-              {ocorrenciasCount}
-            </span>
-          )}
-        </button>
+        type="button"
+        onClick={() => navigate("/Ocorrencias")}
+        className="relative ml-4 flex items-center gap-2 bg-transparent hover:bg-gray-700/10 rounded px-3 py-2"
+        title="Ver ocorrências"
+      >
+        <BellPlus className="text-white" size={20} />
+        {ocorrenciasCount > 0 && (
+          <span className="absolute -top-1 -right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+            {ocorrenciasCount}
+          </span>
+        )}
+      </button>
       <HistoryTable />
       <div className="mt-4">
         <button
@@ -71,11 +86,16 @@ const ChecklistPage = () => {
       {showForm && (
         // Modal overlay
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-50 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 p-4"
           role="dialog"
           aria-modal="true"
+          onClick={closeForm}
         >
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-3xl p-4 relative">
+          <div
+            className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-4xl mx-4 sm:mx-auto p-4 sm:p-6 relative"
+            style={{ maxHeight: "calc(100vh - 4rem)", overflowY: "auto" }}
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               type="button"
               onClick={closeForm}
@@ -84,13 +104,11 @@ const ChecklistPage = () => {
             >
               Fechar
             </button>
-
             {/* Monta o formulário; key força reset quando reaberto */}
             <CleaningChecklist key={formKey} />
-
           </div>
         </div>
-      )}    
+      )}
     </div>
   );
 };
