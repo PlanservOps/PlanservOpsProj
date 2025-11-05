@@ -30,13 +30,16 @@ namespace CadastroClientes.Services.Pdf
                 page.Margin(2, Unit.Centimetre);
 
                 // Cabeçalho
-                page.Header().Row(row =>
+                page.Header().AlignCenter().Row(row =>
                 {
                     row.RelativeItem().Column(column =>
                     {
-                        column.Item().Text("Planserv").FontSize(16).Bold().FontColor(Colors.Green.Darken2);
+                        column.Item().Text("Planserv")
+                                     .FontSize(20)
+                                     .Bold()
+                                     .FontColor(Colors.Green.Darken2);
                         column.Item().Text("Relatório de Formulário Gerencial Operacional")
-                                     .FontSize(14)
+                                     .FontSize(16)
                                      .Italic()
                                      .FontColor(Colors.Grey.Darken4);
                     });
@@ -45,7 +48,7 @@ namespace CadastroClientes.Services.Pdf
                 // Conteúdo
                 page.Content().Column(col =>
                 {
-                    col.Item().Text($"Checklist - {_form.DataHoraSubmissao:dd/MM/yyyy HH:mm}");
+                    col.Item().Text($"Supervisão de Limpeza - {DateTime.Now:dd/MM/yyyy HH:mm}");
                     col.Item().Text($"Cliente: {_form.Cliente}").FontSize(12).Italic();
                     col.Item().Text($"Total de itens: {_send.Itens?.Count ?? 0}");
 
@@ -73,8 +76,8 @@ namespace CadastroClientes.Services.Pdf
                                             var bytes = File.ReadAllBytes(imagensPath);
                                             elem.Image(bytes)
                                                 .FitArea();
-                                                /*.MaxHeight(150)*/ // ajusta para não ocupar espaço excessivo
-                                                //.MaxWidth(200);
+                                                //.FitWidth()
+                                                //.FitHeight();
                                         }
                                         catch (Exception ex)
                                         {
