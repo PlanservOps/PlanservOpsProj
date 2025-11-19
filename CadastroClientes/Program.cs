@@ -48,6 +48,7 @@ builder.Services.AddScoped<IAuthAccess, AuthAccessService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IFormularioOperacionalService, FormularioOperacionalService>();
 builder.Services.AddScoped<IOcorrenciasService, OcorrenciasService>();
+builder.Services.AddScoped<PdfStorageService>();
 builder.Services.AddScoped<IReclamacaoService, ReclamacaoService>();
 builder.Services.AddScoped<ImagensChecklist>();
 

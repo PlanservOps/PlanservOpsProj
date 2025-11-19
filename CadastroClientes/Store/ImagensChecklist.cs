@@ -25,5 +25,9 @@
             return caminhoCompleto; // caminho absoluto!
         }
 
+        internal void ExcluirImagemTemporaria(string path)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

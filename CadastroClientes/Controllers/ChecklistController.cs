@@ -11,11 +11,14 @@ namespace CadastroClientes.Controllers
     {
         private readonly IWebHostEnvironment _env;
         private readonly ImagensChecklist _imageHandler;
+        private readonly PdfStorageService _pdfStorageService;
+        private PdfStorageService? pdfStorageService;
 
         public ChecklistController(IWebHostEnvironment env, ImagensChecklist imageHandler)
         {
             _env = env;
             _imageHandler = imageHandler;
+            _pdfStorageService = pdfStorageService;
         }
 
         [HttpPost("gerar-pdf")]
@@ -73,30 +76,49 @@ namespace CadastroClientes.Controllers
                 {
                     Cliente = form.Cliente,
                     DataHoraSubmissao = form.DataHoraSubmissao,
-                    Itens = itens
+                    Itens = form.ItensDescricao.Select((desc, i) => new ChecklistItemDto
+                    {
+                        Descricao = form.ItensDescricao[i],
+                        HorarioInicio = form.ItensHorarioInicio[i],
+                        HorarioFim = form.ItensHorarioFim[i],
+                        Concluido = form.ItensConcluido[i],
+                    }).ToList()
                 };
 
-                byte[] pdfBytes;
-                try
+                // Salvar imagens temporárias
+                var imagens = new Dictionary<int, string>();
+                if (form.ItensImagem != null)
                 {
-                    pdfBytes = PdfGenerator.GerarFormularioPdf(form, checklistSend, imagensSalvas);
-                }
-                finally
-                {
-                    // 🔥 apaga as imagens temporárias depois de gerar o PDF
-                    foreach (var p in imagensSalvas.Values)
+                    var store = new ImagensChecklist(_env);
+                    for (int i = 0; i < form.ItensImagem.Count; i++)
                     {
-                        try { if (System.IO.File.Exists(p)) System.IO.File.Delete(p); }
-                        catch { /* ignore */ }
+                        using var ms = new MemoryStream();
+                        await form.ItensImagem[i].CopyToAsync(ms);
+                        var caminho = store.SalvarImagemTemporaria(ms.ToArray(), form.ItensImagem[i].FileName);
+                        imagens[i] = caminho;
                     }
                 }
 
-                return File(pdfBytes, "application/pdf", $"Checklist_{DateTime.Now:yyyyMMdd_HHmmss}.pdf");
+                // Gerar PDF em memória
+                var pdfBytes = PdfGenerator.GerarFormularioPdf(form, checklistSend, imagens);
+
+                // Persistir PDF no banco
+                var pdfId = await _pdfStorageService.SalvarPdfAsync(form.Cliente, form.DataHoraSubmissao, pdfBytes);
+
+                // Retornar id para download posterior
+                return Ok(new
+                {
+                    message = "Checklist enviado e PDF armazenado com sucesso.",
+                    pdfId
+                });
             }
-            catch (Exception ex)
+            finally
             {
-                // Log the exception (not shown here for brevity)
-                return BadRequest(new { message = "Erro ao gerar o PDF", error = ex.Message });
+                // Limpar imagens temporárias
+                foreach (var path in imagensSalvas.Values)
+                {
+                    _imageHandler.ExcluirImagemTemporaria(path);
+                }
             }
         }
     }
