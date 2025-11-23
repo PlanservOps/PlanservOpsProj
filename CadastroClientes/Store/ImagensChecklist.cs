@@ -25,9 +25,17 @@
             return caminhoCompleto; // caminho absoluto!
         }
 
-        internal void ExcluirImagemTemporaria(string path)
+        public void ExcluirImagemTemporaria(string path)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (File.Exists(path))
+                    File.Delete(path);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao tentar excluir imagem temporária: {ex.Message}");
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ namespace CadastroClientes.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20251118022300_formularioSupervisao")]
-    partial class formularioSupervisao
+    partial class FormularioSupervisao
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

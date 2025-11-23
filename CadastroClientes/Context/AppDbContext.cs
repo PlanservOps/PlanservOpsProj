@@ -15,7 +15,7 @@ namespace CadastroCliente.Context
 
         public DbSet<Models.ClientesHumanas> ClientesHumanas { get; set; }
         public DbSet<FormularioOperacional> FormularioOperacional { get; set; }
-        public DbSet<formularioSupervisao> formularioSupervisao { get; set; }
+        public DbSet<FormularioPdfEntity> formularioSupervisao { get; set; }
         public DbSet<Ocorrencias> Ocorrencias { get; set; }
         public DbSet<LeadsOperacionais> LeadsOperacionais { get; set; }
         public DbSet<Reclamacoes> Reclamacoes { get; set; }

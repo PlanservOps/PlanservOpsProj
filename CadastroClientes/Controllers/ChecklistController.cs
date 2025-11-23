@@ -12,9 +12,11 @@ namespace CadastroClientes.Controllers
         private readonly IWebHostEnvironment _env;
         private readonly ImagensChecklist _imageHandler;
         private readonly PdfStorageService _pdfStorageService;
-        private PdfStorageService? pdfStorageService;
 
-        public ChecklistController(IWebHostEnvironment env, ImagensChecklist imageHandler)
+        public ChecklistController(
+            IWebHostEnvironment env,
+            ImagensChecklist imageHandler,
+            PdfStorageService pdfStorageService)
         {
             _env = env;
             _imageHandler = imageHandler;
@@ -25,19 +27,17 @@ namespace CadastroClientes.Controllers
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> GerarChecklistPdf([FromForm] ChecklistFormDto form)
         {
-            var imageHandler = new ImagensChecklist(_env);
             var imagensSalvas = new Dictionary<int, string>();
 
             try
             {
-                // Garante que todas as listas não sejam nulas
-                form.ItensDescricao ??= new List<string>();
-                form.ItensHorarioInicio ??= new List<string>();
-                form.ItensHorarioFim ??= new List<string>();
-                form.ItensConcluido ??= new List<bool>();
-                form.ItensImagem ??= new List<IFormFile>();
+                // Segurança contra null
+                form.ItensDescricao ??= [];
+                form.ItensHorarioInicio ??= [];
+                form.ItensHorarioFim ??= [];
+                form.ItensConcluido ??= [];
+                form.ItensImagem ??= [];
 
-                // Determina o tamanho seguro baseado na menor lista
                 int totalItens = new[]
                 {
                     form.ItensDescricao.Count,
@@ -50,62 +50,38 @@ namespace CadastroClientes.Controllers
 
                 for (int i = 0; i < totalItens; i++)
                 {
-                    var file = (form.ItensImagem.Count > i) ? form.ItensImagem[i] : null;
+                    var file = form.ItensImagem.Count > i ? form.ItensImagem[i] : null;
 
-                    var item = new ChecklistItemDto
+                    if (form.ItensConcluido[i] && file != null && file.Length > 0)
+                    {
+                        using var ms = new MemoryStream();
+                        await file.CopyToAsync(ms);
+                        var path = _imageHandler.SalvarImagemTemporaria(ms.ToArray(), file.FileName);
+                        imagensSalvas[i] = path;
+                    }
+
+                    itens.Add(new ChecklistItemDto
                     {
                         Descricao = form.ItensDescricao[i],
                         HorarioInicio = form.ItensHorarioInicio[i],
                         HorarioFim = form.ItensHorarioFim[i],
                         Concluido = form.ItensConcluido[i],
                         Imagem = file
-                    };
-
-                    //Salva imagem se necessário
-                    if (item.Concluido && file is { Length: > 0 })
-                    {
-                        using var ms = new MemoryStream();
-                        await file.CopyToAsync(ms);
-                        var pathAbs = _imageHandler.SalvarImagemTemporaria(ms.ToArray(), file.FileName);
-                        imagensSalvas[i] = pathAbs;
-                    }
-                    itens.Add(item);
+                    });
                 }
 
                 var checklistSend = new ChecklistSendDto
                 {
                     Cliente = form.Cliente,
                     DataHoraSubmissao = form.DataHoraSubmissao,
-                    Itens = form.ItensDescricao.Select((desc, i) => new ChecklistItemDto
-                    {
-                        Descricao = form.ItensDescricao[i],
-                        HorarioInicio = form.ItensHorarioInicio[i],
-                        HorarioFim = form.ItensHorarioFim[i],
-                        Concluido = form.ItensConcluido[i],
-                    }).ToList()
+                    Itens = itens
                 };
 
-                // Salvar imagens temporárias
-                var imagens = new Dictionary<int, string>();
-                if (form.ItensImagem != null)
-                {
-                    var store = new ImagensChecklist(_env);
-                    for (int i = 0; i < form.ItensImagem.Count; i++)
-                    {
-                        using var ms = new MemoryStream();
-                        await form.ItensImagem[i].CopyToAsync(ms);
-                        var caminho = store.SalvarImagemTemporaria(ms.ToArray(), form.ItensImagem[i].FileName);
-                        imagens[i] = caminho;
-                    }
-                }
+                var pdfBytes = PdfGenerator.GerarFormularioPdf(form, checklistSend, imagensSalvas);
 
-                // Gerar PDF em memória
-                var pdfBytes = PdfGenerator.GerarFormularioPdf(form, checklistSend, imagens);
+                var pdfId = await _pdfStorageService
+                    .SalvarPdfAsync(form.Cliente, form.DataHoraSubmissao, pdfBytes);
 
-                // Persistir PDF no banco
-                var pdfId = await _pdfStorageService.SalvarPdfAsync(form.Cliente, form.DataHoraSubmissao, pdfBytes);
-
-                // Retornar id para download posterior
                 return Ok(new
                 {
                     message = "Checklist enviado e PDF armazenado com sucesso.",
@@ -114,11 +90,9 @@ namespace CadastroClientes.Controllers
             }
             finally
             {
-                // Limpar imagens temporárias
+                // Remove imagens temporárias
                 foreach (var path in imagensSalvas.Values)
-                {
                     _imageHandler.ExcluirImagemTemporaria(path);
-                }
             }
         }
     }

@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CadastroClientes.Migrations
 {
     /// <inheritdoc />
-    public partial class formularioSupervisao : Migration
+    public partial class FormularioSupervisao : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
