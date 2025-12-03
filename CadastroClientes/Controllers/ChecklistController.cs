@@ -95,5 +95,20 @@ namespace CadastroClientes.Controllers
                     _imageHandler.ExcluirImagemTemporaria(path);
             }
         }
+
+        [HttpGet("download/{id}")]
+        public async Task<IActionResult> DownloadPdf(Guid id)
+        {
+            var pdfPath = await _pdfStorageService.ObterPdfAsync(id);
+
+            if (pdfPath == null)
+            {
+                return NotFound("PDF não encontrado.");
+            }
+
+            var fileBytes = System.IO.File.ReadAllBytes(pdfPath.ToString());
+            return File(fileBytes, "application/pdf", id.ToString());
+        }
+
     }
 }

@@ -22,7 +22,7 @@
 
             File.WriteAllBytes(caminhoCompleto, imagemBytes);
 
-            return caminhoCompleto; // caminho absoluto!
+            return caminhoCompleto; 
         }
 
         public void ExcluirImagemTemporaria(string path)
