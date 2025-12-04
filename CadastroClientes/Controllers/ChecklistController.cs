@@ -99,15 +99,14 @@ namespace CadastroClientes.Controllers
         [HttpGet("download/{id}")]
         public async Task<IActionResult> DownloadPdf(Guid id)
         {
-            var pdfPath = await _pdfStorageService.ObterPdfAsync(id);
+            var pdfBytes = await _pdfStorageService.ObterPdfAsync(id);
 
-            if (pdfPath == null)
+            if (pdfBytes == null)
             {
                 return NotFound("PDF não encontrado.");
             }
 
-            var fileBytes = System.IO.File.ReadAllBytes(pdfPath.ToString());
-            return File(fileBytes, "application/pdf", id.ToString());
+            return File(pdfBytes, "application/pdf", id.ToString());
         }
 
     }
