@@ -1,6 +1,7 @@
 using CadastroCliente.Context;
 using CadastroCliente.Seed;
 using CadastroClientes.Services;
+using CadastroClientes.Services.Email;
 using CadastroClientes.Services.Pdf;
 using CadastroClientes.Store;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -51,6 +52,7 @@ builder.Services.AddScoped<IOcorrenciasService, OcorrenciasService>();
 builder.Services.AddScoped<PdfStorageService>();
 builder.Services.AddScoped<IReclamacaoService, ReclamacaoService>();
 builder.Services.AddScoped<ImagensChecklist>();
+builder.Services.AddScoped<IEmailService, ResendEmailService>();
 
 builder.Services.AddCors(options =>
 {
